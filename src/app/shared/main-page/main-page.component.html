@@ -1,0 +1,13 @@
+<nav class="navbar bg-dark">
+  <h2 [style.paddingTop.px]="3">Angular features</h2>
+    <ul class="navbar__menu">
+      <li >
+        <h3>{{ actualDate | async | date: "EEEE d.MM.y H.mm:ss" }}</h3>
+      </li>
+    </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
