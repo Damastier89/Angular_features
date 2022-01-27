@@ -4,19 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './shared/main-page/main-page.component';
-import { TimerComponent } from './timer/timer.component';
-import { WelcomePageComponent } from './shared/welcome-page/welcome-page.component';
+import { TimerComponent } from './shared/timer/timer.component';
+import { ViewChildComponent } from './sections/view-child/view-child.component';
+import { DependencyInjectionComponent } from './sections/dependency-injection/dependency-injection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     TimerComponent,
-    WelcomePageComponent
+    ViewChildComponent,
+    DependencyInjectionComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

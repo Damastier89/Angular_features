@@ -1,15 +1,13 @@
 import { MainPageComponent } from './shared/main-page/main-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WelcomePageComponent } from './shared/welcome-page/welcome-page.component';
+import { ViewChildComponent } from './sections/view-child/view-child.component';
+import { DependencyInjectionComponent } from './sections/dependency-injection/dependency-injection.component';
 
 const routes: Routes = [
-  {
-    path: '', component: MainPageComponent, children: [
-      {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: WelcomePageComponent},
-    ]
-  }
+  { path: '', component: MainPageComponent },
+  { path: 'view-child', component: ViewChildComponent },
+  
 ];
 
 @NgModule({

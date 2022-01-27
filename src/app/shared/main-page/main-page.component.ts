@@ -1,5 +1,6 @@
 import { Observable, interval, startWith, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -18,5 +19,9 @@ export class MainPageComponent implements OnInit {
       startWith(new Date()),
       map(() => new Date().toString())
       );
+
+  goToView() {
+    this.router.navigate(['/view-child'])
+  }    
 
 }
