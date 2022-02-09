@@ -1,13 +1,13 @@
 <nav class="navbar bg-dark">
-  <h2 [style.paddingTop.px]="3">Angular features</h2>
+  <h2 [style.paddingTop.px]="3">Angular features {{emoj}}</h2>
     <ul class="navbar__menu">
       <li >
-        <h3>{{ actualDate | async | date: "EEEE d.MM.y H.mm:ss" }}</h3>
+        <h3>{{ actualDate | async | date: "EEEE d.MM.y H.mm:ss" }}</h3> 
       </li>
     </ul>
 </nav>
 
-<div class="body">
+<div class="wrapper">
   <div class="container">
     <div class="card">
         <div class="face face1">
@@ -19,7 +19,7 @@
         <div class="face face2">
             <div class="content">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a [routerLink]="['/view-child']">Read More</a>
+                    <a [routerLink]="['/all_articles']">Read More</a>
             </div>
         </div>
     </div>
@@ -41,20 +41,20 @@
         <div class="face face1">
             <div class="content">
                 <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/launch_128.png?raw=true">
-                <h3>Launch</h3>
+                <h3>Admin</h3>
             </div>
         </div>
         <div class="face face2">
             <div class="content">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a href="#">Read More</a>
+                    <a [routerLink]="['/admin']">Read More</a>
             </div>
         </div>
     </div>
   </div>
 </div>
 
-<div class="body">
+<div class="wrapper">
   <div class="container">
     <app-timer></app-timer>
   </div>

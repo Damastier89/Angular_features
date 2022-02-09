@@ -2,11 +2,12 @@
   width: 100%;
 
   .title {
+    margin-top: 30px;
     text-align: right;
   }
 
   .timer {
-    margin-top: 60px;
+    
     padding-left: 295px;
     display: flex;
     justify-content: space-between;
@@ -23,7 +24,6 @@
     text-align: center;
 
     span {
-      // display: block;
       margin-top: 20px;
       margin-bottom: 5px;
       font-size: 56px;

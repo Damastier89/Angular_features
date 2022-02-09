@@ -41,14 +41,12 @@
   }
 }
 
-.body {
+.wrapper {
   margin: 0;
   padding: 0;
-  background: #333;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: consolas;
 }
 
 .container {

@@ -1,13 +1,16 @@
-import { MainPageComponent } from './shared/main-page/main-page.component';
+import { AdminLayoutComponent } from './admin/shared/admin-layout/admin-layout.component';
+import { AllArticlesComponent } from './all-articles/all-articles.component';
+import { MainPageComponent } from './shared/components/main-page/main-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewChildComponent } from './sections/view-child/view-child.component';
-import { DependencyInjectionComponent } from './sections/dependency-injection/dependency-injection.component';
+import { ArticlePageComponent } from './article-page/article-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainPageComponent },
-  { path: 'view-child', component: ViewChildComponent },
-  
+  { path: '', component: MainPageComponent},
+  { path: 'all_articles', component: AllArticlesComponent },
+  { path: 'article_page', component: ArticlePageComponent },
+  // { path: 'admin', component: AdminLayoutComponent },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule) }
 ];
 
 @NgModule({

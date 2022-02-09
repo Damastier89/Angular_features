@@ -1,24 +1,33 @@
+import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MaterialModule } from './shared/material.module';
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { MainPageComponent } from './shared/main-page/main-page.component';
-import { TimerComponent } from './shared/timer/timer.component';
-import { ViewChildComponent } from './sections/view-child/view-child.component';
-import { DependencyInjectionComponent } from './sections/dependency-injection/dependency-injection.component';
+import { MainPageComponent } from './shared/components/main-page/main-page.component';
+import { TimerComponent } from './shared/components/timer/timer.component';
+import { AllArticlesComponent } from './all-articles/all-articles.component';
+import { ArticlePageComponent } from './article-page/article-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     TimerComponent,
-    ViewChildComponent,
-    DependencyInjectionComponent,
+    AllArticlesComponent,
+    ArticlePageComponent,  
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SharedModule,
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

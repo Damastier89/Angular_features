@@ -1,0 +1,34 @@
+<nav class="navbar bg-dark">
+  <h2>
+    <a routerLink="/">Angular features</a>
+  </h2>
+
+  <ul class="navbar__menu">
+    <li routerLinkActive="active">
+      <a [routerLink]="['/admin', 'create-article']">Create article</a>
+    </li>
+    <!-- <li routerLinkActive="active">
+      <a [routerLink]="['/admin', 'add-product']">Add product</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/admin', 'order']">Order</a>
+    </li> -->
+    
+    <!-- <li routerLinkActive="active">
+      <a href="#" (click)="logout($event)" >Logout</a>
+    </li> -->
+  </ul>
+
+  <ng-template #login>
+    <ul class="navbar__menu">
+      <li routerLinkActive="active">
+        <a [routerLink]="['/admin', 'login']">Login</a>
+      </li>
+    </ul>
+  </ng-template>
+  
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

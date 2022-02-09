@@ -34,7 +34,6 @@ body {
   color: #333; 
   margin: 0; 
   padding: 0;
-  background: #333;
 }
 
 img {
@@ -143,3 +142,5 @@ button {
     }
   }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
+  public emoj: string = "☣"
 
   constructor(private router: Router) { }
 
