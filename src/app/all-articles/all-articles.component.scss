@@ -1,0 +1,14 @@
+.articles {
+  // display: flex;
+  flex-wrap: wrap;
+
+  &__box {
+    width: 33.333%;
+    margin-top: 2rem;
+  }
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}

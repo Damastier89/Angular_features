@@ -1,1 +1,16 @@
-<h1>All articles about Angular features</h1>
+<div class="container">
+  <h1>All articles about Angular features</h1>
+  <div class="articles" *ngIf="articles$ | async as allArticles; else loading">
+    <app-article-page
+    class="articles__box"
+    *ngFor="let article of allArticles"
+    [article]="article">
+    </app-article-page>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="text-centor">Loading...</p>
+</ng-template>
+
+

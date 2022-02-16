@@ -1,1 +1,15 @@
-<p>article-page works!</p>
+<div class="card">
+  <div class="card-header">
+    <h2>{{ article.title}}</h2>
+
+    <small>{{ article.date | date:"d.MM.y H:mm" }}</small>
+  </div>
+
+  <div>
+    <small>{{ article.author}}</small>
+  </div>
+
+  <button [routerLink]="['/post', article.id]" mat-raised-button color="primary">
+    Open
+  </button>
+</div>

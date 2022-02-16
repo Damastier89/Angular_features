@@ -78,15 +78,6 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
       }
 
     });
-
-
-
-
-
-
-
-
-
   }
 
   private _openSnackBar(actionType: string, message: string): void {

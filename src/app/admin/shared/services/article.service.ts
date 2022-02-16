@@ -5,6 +5,7 @@ import { Article } from '../interfaces/article';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
+const env = environment.fbDbUrl;
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,8 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   public createArticle(article: Article): Observable<Article> {
-    return this.http.post<any>(`${environment.fbDbUrl}/article.json`, article).pipe(
+    return this.http.post<any>(`${env}/article.json`, article)
+    .pipe(
       map((response: FbCreateResponse) => {
         return {
           ...article,
@@ -21,6 +23,20 @@ export class ArticleService {
           date: new Date(article.date)
         }
       })
-    )
+    );
   }
+
+  public getAllArticles(): Observable<Article[]> {
+    return this.http.get<Article>(`${env}/article.json`)
+    .pipe(
+      map((response: {[key: string]: any}) => {
+        return Object.keys(response).map( key => ({
+          ...response[key],
+          id: key,
+          date: new Date(response[key].date)
+        }))
+      })
+    );
+  } 
+  
 }

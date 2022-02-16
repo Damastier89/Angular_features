@@ -8,12 +8,10 @@
     <mat-error *ngIf="form.controls['title'].hasError('required')">Title article is <strong>required</strong></mat-error>
   </mat-form-field>
 
-  <mat-form-field class="form__control" appearance="fill">
-    <mat-label>Section content</mat-label>
-    <input type="content" matInput formControlName="content" [errorStateMatcher]="matcher" placeholder="Article content">
-    <mat-error *ngIf="!form.controls['content'].hasError('required')">Enter article title!</mat-error>
-    <mat-error *ngIf="form.controls['content'].hasError('required')">Title article is <strong>required</strong></mat-error>
-  </mat-form-field>
+  <div class="form__control">
+    <label>Section content</label>
+    <quill-editor formControlName="content"></quill-editor>
+  </div>
 
   <mat-form-field class="form__control" appearance="fill">
     <mat-label>Author article</mat-label>

@@ -9,8 +9,7 @@ const routes: Routes = [
   { path: '', component: MainPageComponent},
   { path: 'all_articles', component: AllArticlesComponent },
   { path: 'article_page', component: ArticlePageComponent },
-  // { path: 'admin', component: AdminLayoutComponent },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule) }
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule) },
 ];
 
 @NgModule({
