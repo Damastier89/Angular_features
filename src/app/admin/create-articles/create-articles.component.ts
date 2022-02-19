@@ -49,10 +49,10 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
   public submitArticle(): void {
     this.confirmRef = this.dialog.open(ConfirmComponent, {
       data: {
-        text: 'Finish adding article?',
+        text: 'Закончить добавление раздела?',
         buttons: {
-          confirm: 'yes',
-          cancel: 'no'
+          confirm: 'Да',
+          cancel: 'Нет'
         }
       }
     });
@@ -74,7 +74,7 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
           this.submitted = false;
         })
       } else {
-        this._openSnackBar(SnackBarTypes.Warning, 'Adding a section is interrupted!')
+        this._openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!')
       }
 
     });

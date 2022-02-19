@@ -1,23 +1,21 @@
 <form class="form" [formGroup]="form" (ngSubmit)="submitArticle()"> 
 
-  <h2 class="form__title">Add new Article</h2>
+  <h2 class="form__title">Форма добавления нового раздела</h2>
   <mat-form-field class="form__control" appearance="fill">
-    <mat-label>Article title</mat-label>
+    <mat-label>Заголовок раздела</mat-label>
     <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="Article title">
-    <mat-error *ngIf="!form.controls['title'].hasError('required')">Enter article title!</mat-error>
-    <mat-error *ngIf="form.controls['title'].hasError('required')">Title article is <strong>required</strong></mat-error>
+    <mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
   </mat-form-field>
 
   <div class="form__control">
-    <label>Section content</label>
+    <label>Содержание раздела</label>
     <quill-editor formControlName="content"></quill-editor>
   </div>
 
   <mat-form-field class="form__control" appearance="fill">
-    <mat-label>Author article</mat-label>
+    <mat-label>Автор добавленного раздела</mat-label>
     <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="Article author">
-    <mat-error *ngIf="!form.controls['author'].hasError('required')">Enter article author!</mat-error>
-    <mat-error *ngIf="form.controls['author'].hasError('required')">Author article is <strong>required</strong></mat-error>
+    <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
   </mat-form-field>
 
   <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">Create article</button>

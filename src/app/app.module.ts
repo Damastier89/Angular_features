@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import { MainPageComponent } from './shared/components/main-page/main-page.compo
 import { TimerComponent } from './shared/components/timer/timer.component';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,13 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: AuthInterceptor
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
