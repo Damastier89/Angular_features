@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>All articles about Angular features</h1>
+  <h1>Все статьи о возможностях Angular и не только...</h1>
   <div class="articles" *ngIf="articles$ | async as allArticles; else loading">
     <app-article-page
     class="articles__box"
@@ -10,7 +10,7 @@
 </div>
 
 <ng-template #loading>
-  <p class="text-centor">Loading...</p>
+  <p class="text-centor">Загрузка...</p>
 </ng-template>
 
 
