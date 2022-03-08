@@ -20,39 +20,23 @@
   </div>
 </div>
 
-<script src="../../../../assets/jquery/jquery.js"></script>
-<script src="../../../../assets/jquery/main.js"></script>
-<script>
-  const currentyear = new Date().getFullYear();
-  const thischristmasyear = (new Date().getMonth() == 0 && new Date().getDate()==1) ? currentyear : currentyear + 1 ; 
-  const christmas=`january 1, ${thischristmasyear} 0:0:00`;
-  const currentTime = new Date();
-  const targetdate = new Date(christmas);  		
-  const timediff = (targetdate-currentTime) / 1000;
-  const oneMinute = 60;
-  const oneHour = 60 * 60;
-  const oneDay = 60 * 60 * 24;
-  const dayfield = Math.floor(timediff / oneDay);
-  const hourfield = Math.floor((timediff - dayfield * oneDay) / oneHour);
-  const minutefield = Math.floor((timediff - dayfield * oneDay - hourfield * oneHour) / oneMinute);
-  const secondfield = Math.floor((timediff - dayfield * oneDay - hourfield * oneHour - minutefield * oneMinute));
-  $(function(){
-    $('.c-block:eq(0) .bl-inner span').text(dayfield);
-    $('.c-block:eq(1) .bl-inner span').text(hourfield);
-    $('.c-block:eq(2) .bl-inner span').text(minutefield);
-    $('.c-block:eq(3) .bl-inner span').text(secondfield);
-  });
-</script>
-<div class="body">
-  <div class="timer-container">
-    <div class="header">			
-      <div class="time">
-        <em class="clock"></em>
-        <div class="c-block c-block-3"><div class="bl-inner"><span>10</span></div> <span class="etitle etitle-1">дней</span></div> 
-        <div class="c-block c-block-2"><div class="bl-inner"><span>10</span></div> <span class="etitle etitle-2">часов</span></div> 
-        <div class="c-block c-block-2"><div class="bl-inner"><span>10</span></div> <span class="etitle etitle-3">минут</span></div> 
-        <div class="c-block c-block-2"><div class="bl-inner"><span>5</span></div> <span class="etitle etitle-4">секунд</span></div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- <div class="wrap">
+	<h1>Таймер обратного отсчёта</h1>
+
+	<div class="timer-box">
+		<div class="timer">
+			<ul class="flex">
+        <li id="days"></li>
+				<li id="hours"></li>
+				<li id="minutes"></li>
+				<li id="seconds"></li>
+			</ul>
+		</div>
+		<ul class="flex time-name">
+      <li>дни</li>
+			<li>часы</li>
+			<li>минуты</li>
+			<li>секунды</li>
+		</ul>
+	</div>	
+</div> -->

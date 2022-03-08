@@ -7,8 +7,7 @@
   }
 
   .timer {
-    
-    padding-left: 295px;
+    padding-left: 403px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,127 +32,98 @@
 }
 
 ///////////////////////////////////
-// .body{
-// 	position: relative;
-// 	background: #fff url(../../../../assets/image/bg.png);
-// 	width: 100%;
-// 	height: auto !important;
-// 	height: 100%;
-// 	min-height: 100%;
-// 	font: normal 1em/1.2em Tahoma, Arial, Helvetica, sans-serif;
-// 	min-width: 970px;
-// 	color: #333;
+// .wrap {
+//   width: 1024px;
+//   position: relative;
+//   margin: 0 auto;
+//   padding-top: 50px;
 // }
 
+// .flex {
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: flex;
+// }
 
-.timer-containe{
-	padding-top: 100px;
-	width: 94%;
-	max-width: 1300px;
-	margin: 0 auto;
-}
+// /* typography */
+// h1 {
+//   font-weight: 500;
+//   font-size: 20px;
+//   margin-bottom: 30px;
+// }
 
-.time{
-	display: block;
-    margin: 0 auto;
-    padding: 20px 0 50px;
-    position: relative;
-    text-align: center;
-    width: 49%;
-}
+// /* countdown */
 
-.time *{vertical-align: top;}
+// .timer-box {
+//   height: 180px;
 
-.time ins,
-.time .clock{
-	position: relative;
-	top: 10px;
-	width: 40px;
-	height: 55px;
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
-	background: transparent url(../../../../assets/image/sprites.png) no-repeat -260px -154px;
-}
+//   ul {
+//     width: 189px;
+// 		list-style: none; 
+//   }
+// }
 
-.time .clock{margin-right: 7px;}
+// .timer {
+// 	width: 285px;
+//   height: 70px;
+//   margin: 0 auto 5px;
 
-.time ins{width: 10px;}
+//   li {
+//     width: 200px;
+//     height: 70px;
+//     font-size: 60px;
+//     line-height: 68px;
+//     color: #719ac0;
+//     letter-spacing: 16px;
+//     position: relative;
 
-.time ins{background-position: -300px -154px;}
+//     + li:before {
+//       width: 15px;
+//       height: 70px;
+//       display: block;
+//       font-size: 60px;
+//       line-height: 58px;
+//       content: ':';
+//       position: absolute;
+//       left: -23px;
+//       top: 0;
+//     }
+//   }
+// }
 
-.time .etitle{
-	position: absolute;
-	width: 110px;
-	text-align: center;
-	left: 50%;
-	margin-left: -47px;
-	top: 55px;
-	line-height: 30px;
-}
+// .time-name {
+//   margin: 0 auto;
 
-.etitle-1{font-size: 1.6em;}
+//   li {
+//     width: 85px;
+//     font-size: 18px;
+//     color: rgb(112, 105, 105);
+//     text-align: center;
+//   }
+// }
 
-.etitle-2{
-	font-size: 1.37em;
-	padding-top: .1em;
-}
+// .timer li + li {
+//   margin-left: 15px;
+// }
 
-.etitle-3{
-	font-size: 1.12em;
-	padding-top: .2em;
-}
+// .time-name li + li {
+// 	margin-left: 30px;
+// 	padding-left: 60px;
+// }
 
-.etitle-4{
-	font-size: .87em;
-	padding-top: .3em;
-}
+// .timer__block {
+// 		width: 102px;
+// 		height: 120px;
+// 		background: rgb(236, 231, 231);
+// 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+// 		font-size: 16px;
+// 		font-weight: 300;
+// 		text-align: center;
 
-.c-block{
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
-	margin: 0 18px 0 3px;
-	padding: 4px 0 40px 3px;
-	position: relative;
-	background: transparent url(../../../../assets/image/sprites.png) no-repeat -260px 0;
-}
-
-.c-block:before{
-	content: '';
-	position: absolute;
-	left: 100%;
-	top: 0;
-	width: 31px;
-	background: transparent url(../../../../assets/image/sprites.png) no-repeat 100% -77px;
-	height: 77px;
-}
-
-.bl-inner{
-	position: relative;
-	margin-right: -10px;
-	height: 48px;
-	background: transparent url(../../../../assets/image/sprites.png) no-repeat -5px -48px;
-}
-
-.bl-inner span{
-	display: none;
-	font-size: 46px;
-	color: #fff;
-	line-height: 46px;
-	margin-left: 2px;
-}
-
-.bl-inner:before{
-	content: '';
-	position: absolute;
-	left: 100%;
-	top: 0;
-	width: 3px;
-	background: transparent url(../../../../assets/image/sprites.png) no-repeat -122px -48px;
-	height: 48px;
-}
-
-.c-block-1{width: 20px;}
-.c-block-2{width: 45px;}
-.c-block-3{width: 70px;}
+// 		span {
+// 			margin-top: 20px;
+// 			margin-bottom: 5px;
+// 			font-size: 56px;
+// 			font-weight: 700;
+// 		}
+// 	}

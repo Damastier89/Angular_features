@@ -1,33 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from '../node_modules/jquery/dist/jquery.min.js';
-// import $ from '../../../../../node_modules/jquery/dist'
-let $ = require('./../../../../../node_modules/jquery/dist/jquery.js');
+
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent implements OnInit {
-
-  const currentyear = new Date().getFullYear();
-  const thischristmasyear = (new Date().getMonth() == 0 && new Date().getDate()==1) ? this.currentyear : this.currentyear + 1 ; 
-  const christmas=`january 1, ${this.thischristmasyear} 0:0:00`;
-  const currentTime: any = new Date();
-  const targetdate: any = new Date(this.christmas);  		
-  const timediff = (this.targetdate - this.currentTime) / 1000;
-  const oneMinute = 60;
-  const oneHour = 60 * 60;
-  const oneDay = 60 * 60 * 24;
-  const dayfield = Math.floor(this.timediff / this.oneDay);
-  const hourfield = Math.floor((this.timediff - this.dayfield * this.oneDay) / this.oneHour);
-  const minutefield = Math.floor((this.timediff - this.dayfield * this.oneDay - this.hourfield * this.oneHour) / this.oneMinute);
-  const secondfield = Math.floor((this.timediff - this.dayfield * this.oneDay - this.hourfield * this.oneHour - this.minutefield * this.oneMinute));
-  $(function(){
-    $('.c-block:eq(0) .bl-inner span').text(this.dayfield);
-    $('.c-block:eq(1) .bl-inner span').text(this.hourfield);
-    $('.c-block:eq(2) .bl-inner span').text(this.minutefield);
-    $('.c-block:eq(3) .bl-inner span').text(this.secondfield);
-  });
 
   constructor() { }
 
@@ -88,5 +66,6 @@ export class TimerComponent implements OnInit {
     setClock(id, deadLine);
   
   };
+  
 
 }
