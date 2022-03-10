@@ -4,11 +4,13 @@ import { MainPageComponent } from './shared/components/main-page/main-page.compo
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { ArticleContentPageComponent } from './article-content-page/article-content-page.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
   { path: 'all_articles', component: AllArticlesComponent },
   { path: 'article_page', component: ArticlePageComponent },
+  { path: 'article/:id', component: ArticleContentPageComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule) },
 ];
 

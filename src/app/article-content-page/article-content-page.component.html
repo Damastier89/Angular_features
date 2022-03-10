@@ -1,0 +1,26 @@
+<div *ngIf="articles$ | async as article; else loading">
+  <div class="post">
+    <div class="header">
+      <h1>{{ article.title }}</h1>
+      <button routerLink="/all_articles" mat-raised-button color="primary">
+        Вернуть к разделам
+      </button>
+    </div>
+
+    <div class="info">
+      <strong>{{ article.author}}</strong>
+      <small>{{ article.date | date:"d.MM.y H:mm" }}</small>
+    </div>
+
+    <div>
+      <quill-view-html [content]="article.content"></quill-view-html>
+    </div>
+
+
+  </div>
+</div>
+
+<ng-template #loading>
+  <!-- <p class="text-centor">Loading...</p> -->
+  <mat-spinner></mat-spinner>
+</ng-template>

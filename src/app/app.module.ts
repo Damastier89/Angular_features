@@ -14,6 +14,7 @@ import { TimerComponent } from './shared/components/timer/timer.component';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ArticleContentPageComponent } from './article-content-page/article-content-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     TimerComponent,
     AllArticlesComponent,
     ArticlePageComponent,  
-    ConfirmComponent,
+    ConfirmComponent, ArticleContentPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,8 +35,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
-      useClass: AuthInterceptor
     }
   ],
   bootstrap: [AppComponent]

@@ -38,5 +38,18 @@ export class ArticleService {
       })
     );
   } 
+
+  public getArticleById(id: string): Observable<Article> {
+    return this.http.get<Article>(`${env}/article/${id}.json`)
+    .pipe(
+      map((article: Article) => {
+        return {
+          ...article,
+          id,
+          date: new Date(article.date)
+        }
+      })
+    );
+  }
   
 }
