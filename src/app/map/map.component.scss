@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.map-container {
+  flex-grow: 1;
+}
+
+.map {
+  display: flex;
+  background-color: var(--header-color);
+  padding: 1em;
+
+  &__title {
+    font-size: 22px;
+    font-weight: 800;
+    padding-left: 10px;
+  }
+
+  &__main {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &__left-bar {
+    width: 20em;
+    background-color: var(--sidebar-color);
+  }
+}

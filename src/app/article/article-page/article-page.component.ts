@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Article } from '../admin/shared/interfaces/article';
+import { Article } from '../../admin/shared/interfaces/article';
 
 @Component({
   selector: 'app-article-page',

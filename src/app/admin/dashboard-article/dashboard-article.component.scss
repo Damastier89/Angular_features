@@ -1,0 +1,43 @@
+// .open {
+//   margin-right: 10px;
+// }
+
+// .bottom {
+//   margin-bottom: 10px;
+// }
+
+.dashboard {
+
+  &__container {
+    width: 1400px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__control {
+  display: block;
+  color: #888;
+  margin-bottom: .8rem;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+table th {
+  background: var(--primary-color);
+  color: white;
+  height: 1rem;
+  padding: 0.5rem;
+}

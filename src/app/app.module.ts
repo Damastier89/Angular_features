@@ -11,10 +11,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './shared/components/main-page/main-page.component';
 import { TimerComponent } from './shared/components/timer/timer.component';
-import { AllArticlesComponent } from './all-articles/all-articles.component';
-import { ArticlePageComponent } from './article-page/article-page.component';
+import { AllArticlesComponent } from './article/all-articles/all-articles.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ArticleContentPageComponent } from './article-content-page/article-content-page.component';
+import { ArticlePageComponent } from './article/article-page/article-page.component';
+import { ArticleContentPageComponent } from './article/article-content-page/article-content-page.component';
+import { TitleComponent } from './shared/components/title/title.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ArticleContentPageComponent } from './article-content-page/article-cont
     TimerComponent,
     AllArticlesComponent,
     ArticlePageComponent,  
-    ConfirmComponent, ArticleContentPageComponent,
+    ConfirmComponent, 
+    ArticleContentPageComponent, TitleComponent, MapComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,59 @@
+<div class="dashboard">
+  <div *ngIf="articles.length;else loading">
+    <h2 class="dashboard__title">Панель управления разделами</h2>
+    
+    <div class="dashboard__container">
+      <mat-form-field class="dashboard__control" appearance="outline">
+        <mat-label>Найти раздел</mat-label>
+          <input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName">
+          <button matSuffix mat-icon-button aria-label="search">
+            <mat-icon>search</mat-icon>
+          </button>
+      </mat-form-field>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Автор раздела</th>
+            <th>Название раздела</th>
+            <th>Дата создания раздела</th>
+            <th>Открыть раздел</th>
+            <th>Удалить раздел</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let article of articles let idx = index">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ article.author }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.date | date:"d.MM.y H:mm" }}</td>
+            <td>
+              <button 
+                mat-raised-button 
+                color="primary"
+                [routerLink]="['/admin', 'product', article.id, 'edit']"
+              >
+                Открыть
+              </button>
+            </td>
+            <td>
+              <button 
+                mat-raised-button 
+                color="warn"
+                (click)="removeArticle(article.id)"
+              >
+                Удалить
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <p class="text-centor">Loading...</p>
+  </ng-template>
+</div>

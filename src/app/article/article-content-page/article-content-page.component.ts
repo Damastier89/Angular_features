@@ -1,7 +1,7 @@
-import { ArticleService } from '../admin/shared/services/article.service';
+import { ArticleService } from '../../admin/shared/services/article.service';
 import { Observable, switchMap } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../admin/shared/interfaces/article';
+import { Article } from '../../admin/shared/interfaces/article';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({

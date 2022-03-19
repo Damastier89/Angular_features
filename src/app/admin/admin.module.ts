@@ -9,12 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.component';
 import { AuthenticatedPageComponent } from './authenticated-page/authenticated-page.component';
 import { AuthGuard } from './shared/services/auth.guarrd';
+import { DashboardArticleComponent } from './dashboard-article/dashboard-article.component';
 
 @NgModule({
   declarations: [
     CreateArticlesComponent,
     AdminLayoutComponent,
     AuthenticatedPageComponent,
+    DashboardArticleComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { AuthGuard } from './shared/services/auth.guarrd';
           { path: '', redirectTo: '/admin/authenticated-page', pathMatch: 'full' },
           { path: 'authenticated-page', component: AuthenticatedPageComponent },
           { path: 'create-article', component: CreateArticlesComponent, canActivate: [AuthGuard] },
+          { path: 'dashboard', component: DashboardArticleComponent, canActivate: [AuthGuard] },
         ]
       }
     ]),

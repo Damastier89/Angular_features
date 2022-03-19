@@ -51,5 +51,9 @@ export class ArticleService {
       })
     );
   }
+
+  public removeArticle(id: string): Observable<void> {
+    return this.http.delete<void>(`${env}/article/${id}.json`);
+  }
   
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Все статьи о возможностях Angular и не только...</h1>
+  <h1>Все статьи о возможностях Angular и не только...<a class="" [routerLink]="['/']">Вернуться на главную</a></h1>
   <div class="articles" *ngIf="articles$ | async as allArticles; else loading">
     <app-article-page
     class="articles__box"

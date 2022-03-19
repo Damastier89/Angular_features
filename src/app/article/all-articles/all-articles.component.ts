@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../admin/shared/interfaces/article';
-import { ArticleService } from '../admin/shared/services/article.service';
+import { Article } from '../../admin/shared/interfaces/article';
+import { ArticleService } from '../../admin/shared/services/article.service';
 
 @Component({
   selector: 'app-all-articles',
