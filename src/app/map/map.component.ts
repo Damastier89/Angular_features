@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import 'ol/ol.css';
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
@@ -11,8 +11,8 @@ import { Overlay } from 'ol';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
-  @ViewChild('coordinates') coordinates?: any; 
+export class MapComponent implements OnInit, AfterViewChecked {
+  @ViewChild('coordinates',  { static: false }) coordinates?: any; 
   public map!: Map;
   public name: string = 'Map Viewer - Openlayers & Angular'
   public popup = new Overlay({
@@ -27,6 +27,10 @@ export class MapComponent implements OnInit {
     this.initMap();
     this.getInfoAboutMap();
     this.getCoordinateOnMap();
+  }
+
+  ngAfterViewChecked(): void {
+    // this.getCoordinateOnMap();
   }
 
   public initMap() {
@@ -58,20 +62,25 @@ export class MapComponent implements OnInit {
       const clickedCoordinate = event.coordinate;
       const coordinateToString = clickedCoordinate.join(', ')
 
+      console.log(` clickedCoordinate : `, clickedCoordinate); 
+      console.log(` coordinateToString : `, coordinateToString); 
+
       this.popup.setPosition(undefined);
       this.popup.setPosition(clickedCoordinate);
 
-      const div = this.renderer.createElement('div');
+      const divСoordinate = this.renderer.createElement('p');
       const textСoordinate = this.renderer.createText(coordinateToString);
-      this.renderer.appendChild(div, textСoordinate)
-      // this.renderer.setStyle(this.coordinates.nativeElement, 'border', '1px solid red')
-      this.renderer.appendChild(this.coordinates.nativeElement, textСoordinate)
-      setTimeout(() => {
-        this.renderer.removeChild(this.coordinates.nativeElement, textСoordinate)
-      },3000)
+      
+      console.log(`divСoordinate : `, divСoordinate);
+      
+      this.renderer.appendChild(divСoordinate, textСoordinate)
+      // this.renderer.appendChild(this.coordinates.nativeElement, textСoordinate)
+      this.renderer.setStyle(this.coordinates.nativeElement, 'color', 'blue');
+      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', textСoordinate)
+      
       
     })
   }
 
-
+  // https://www.tektutorialshub.com/angular/renderer2-angular/
 }
