@@ -1,8 +1,18 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 .post {
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &__button button {
+      display: grid;
+      margin: 5px 5px
+    }
   }
 
   h1 {

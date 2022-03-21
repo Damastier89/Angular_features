@@ -1,0 +1,24 @@
+:host {
+  .mat-toolbar-single-row {
+    padding: 0;
+  }
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--header-color);
+
+  &__button {
+    &:hover {
+      color: var(--light-color);
+      opacity: 1;
+    }
+  }
+}
+
+.mode h2 {
+  font-weight: 800;
+}

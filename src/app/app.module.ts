@@ -26,7 +26,9 @@ import { MapComponent } from './map/map.component';
     AllArticlesComponent,
     ArticlePageComponent,  
     ConfirmComponent, 
-    ArticleContentPageComponent, TitleComponent, MapComponent,
+    ArticleContentPageComponent, 
+    TitleComponent, 
+    MapComponent,
   ],
   imports: [
     BrowserModule,

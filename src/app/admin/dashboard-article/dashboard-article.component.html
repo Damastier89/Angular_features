@@ -24,7 +24,7 @@
         </thead>
   
         <tbody>
-          <tr *ngFor="let article of articles let idx = index">
+          <tr *ngFor="let article of articles | search: searchArticleName; let idx = index">
             <td>{{ idx + 1 }}</td>
             <td>{{ article.author }}</td>
             <td>{{ article.title }}</td>
@@ -33,7 +33,7 @@
               <button 
                 mat-raised-button 
                 color="primary"
-                [routerLink]="['/admin', 'product', article.id, 'edit']"
+                [routerLink]="['/article', article.id]"
               >
                 Открыть
               </button>

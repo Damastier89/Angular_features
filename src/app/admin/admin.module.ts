@@ -10,6 +10,7 @@ import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.compone
 import { AuthenticatedPageComponent } from './authenticated-page/authenticated-page.component';
 import { AuthGuard } from './shared/services/auth.guarrd';
 import { DashboardArticleComponent } from './dashboard-article/dashboard-article.component';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DashboardArticleComponent } from './dashboard-article/dashboard-article
     AdminLayoutComponent,
     AuthenticatedPageComponent,
     DashboardArticleComponent,
+    SearchPipe,
   ],
   imports: [
     CommonModule,
