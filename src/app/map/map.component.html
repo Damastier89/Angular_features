@@ -1,7 +1,9 @@
 <app-title class="map__title" [title]="name"></app-title>
 <div class="map__main">
   <div class="map__left-bar">
-    
+    <div id="popup-container">
+      <div #coordinates></div>
+    </div>
   </div>
   <div id="map" class="map-container" tabindex="0"></div>
 </div>
