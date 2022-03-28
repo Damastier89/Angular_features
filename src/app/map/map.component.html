@@ -1,9 +1,56 @@
 <app-title class="map__title" [title]="name"></app-title>
 <div class="map__main">
   <div class="map__left-bar">
-    <div class="popup-container">
-      <div #coordinates></div>
+    <div class="map__container">
+      <div class="map__coordinates">
+        <h3>Координаты на карте :</h3>
+        <div  #coordinates></div>
+      </div>
     </div>
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Геометрия</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawPolygon();">Добавить полигон</button>
+        </p>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawCircle()">Добавить круг</button>
+        </p>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawInteraction()">Добавить ...</button>
+        </p>
+
+        <p class="map__draw">
+        <button mat-raised-button color="primary" (click)="saveGeoJson()">geoJSON</button>  
+        </p>
+        
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Другое</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawInteraction()">Добавить полигон</button>
+        </p>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawInteraction();">Добавить полигон</button>
+        </p>
+        <p class="map__draw">
+          <button mat-raised-button color="primary" (click)="drawInteraction();">Добавить полигон</button>
+        </p>
+        
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
   </div>
   <div id="map" class="map-container" tabindex="0"></div>
 </div>

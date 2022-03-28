@@ -1,10 +1,14 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import 'ol/ol.css';
-import Map from 'ol/Map';
+import { altKeyOnly, altShiftKeysOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
+import { Overlay } from 'ol';
+import { Map, View } from 'ol';
+import { DragRotate , Draw } from 'ol/interaction';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
-import View from 'ol/View';
-import { Overlay } from 'ol';
+import GeoJSON from 'ol/format/GeoJSON';
+import VectorLayer from 'ol/layer/Vector';
+import  map  from 'ol/Map';
 
 @Component({
   selector: 'app-map',
@@ -12,28 +16,34 @@ import { Overlay } from 'ol';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewChecked {
-  @ViewChild('coordinates',  { static: false }) coordinates?: any; 
+  @ViewChild('coordinates') coordinates?: any; 
+  public panelOpenState = false;
   public map!: Map;
   public name: string = 'Map Viewer - Openlayers & Angular'
   public popup = new Overlay({
     element: this.coordinates,
-  })
+  });
 
   constructor( 
     private readonly renderer: Renderer2, 
   ) {}
 
   ngOnInit(): void {
-    this.initMap();
-    this.getInfoAboutMap();
-    this.getCoordinateOnMap();
+    this.initAllMethodsForMap();
   }
 
   ngAfterViewChecked(): void {
     // this.getCoordinateOnMap();
   }
 
-  public initMap() {
+  public initAllMethodsForMap(): void {
+    this.initMap();
+    this.getInfoAboutMap();
+    this.getCoordinateOnMap();
+    this.dragRotateInteraction();
+  }
+
+  private initMap() {
     this.map = new Map({
       layers: [
         new TileLayer({
@@ -47,40 +57,90 @@ export class MapComponent implements OnInit, AfterViewChecked {
         minZoom: 1,
       }),
       target: 'map',
+      keyboardEventTarget: document 
     });
   }
 
-  public getInfoAboutMap(): void {
-    this.map.addOverlay(this.popup);
+  private getInfoAboutMap(): void {
+    // this.map.addOverlay(this.popup);
     this.map.on('click', (event) => {
       console.log(` event : `, event); 
     })
   }
 
-  public getCoordinateOnMap(): void {
+  private getCoordinateOnMap(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate;
       const coordinateToString = clickedCoordinate.join(', ')
 
-      console.log(` clickedCoordinate : `, clickedCoordinate); 
-      console.log(` coordinateToString : `, coordinateToString); 
+      // this.popup.setPosition(undefined);
+      // this.popup.setPosition(clickedCoordinate);
 
-      this.popup.setPosition(undefined);
-      this.popup.setPosition(clickedCoordinate);
-
-      const divСoordinate = this.renderer.createElement('p');
-      const textСoordinate = this.renderer.createText(coordinateToString);
-      
-      console.log(`divСoordinate : `, divСoordinate);
-      
-      this.renderer.appendChild(divСoordinate, textСoordinate)
-      // this.renderer.appendChild(this.coordinates.nativeElement, textСoordinate)
       this.renderer.setStyle(this.coordinates.nativeElement, 'color', 'blue');
-      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', textСoordinate)
-      
-      
+      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', coordinateToString)
+
     })
   }
+/////////// DragRotate Interaction ////////////
 
-  // https://www.tektutorialshub.com/angular/renderer2-angular/
+  private dragRotateInteraction(): void {
+    const dragRotate = new DragRotate({
+      condition: altShiftKeysOnly,
+      // condition: altKeyOnly, 
+    })
+    this.map.addInteraction(dragRotate);
+  }
+
+  public drawInteraction(): void {
+    const drawInteraction = new Draw({ // Для рисования геометрии элементов
+// The geometry type.'Point', 'LineString', 'LinearRing', 'Polygon', 'MultiPoint', 'MultiLineString', 'MultiPolygon', 'GeometryCollection', 'Circle'      
+      type: 'Polygon',
+      freehand: true // Позволяет рисовать полигон не прямыми линиями
+    })
+    this.map.addInteraction(drawInteraction);
+    drawInteraction.on('drawend', (event) => {
+      console.log(event);
+      let parser = new GeoJSON();
+      let drawFeatures = parser.writeFeaturesObject([event.feature]);
+      console.log(drawFeatures);
+    });
+  }
+
+  public drawPolygon(): void {
+    const drawPolygon = new Draw({
+      type: 'Polygon'
+    });
+    this.map.addInteraction(drawPolygon);
+  }
+
+  public drawCircle(): void {
+    const drawCircle = new Draw({
+      type: 'Circle'
+    });
+    this.map.addInteraction(drawCircle);
+  }
+
+  public saveGeoJson(): void {
+  //   var json = new GeoJSON();
+  //   json.writeFeatures(vectorLayer.getSource().getFeatures(), { 
+  //     dataProjection: 'EPSG:4326', 
+  //     featureProjection: 'EPSG:3857'
+  //   });
+  //   this.download(json, 'json.txt' , 'text/plain');
+  // }
+
+  // public download(content: BlobPart, fileName: string, contentType: any): any {
+
+  //   var a = document.createElement("a");
+
+  //   var file = new Blob([content], {type: contentType});
+
+  //   a.href = URL.createObjectURL(file);
+
+  //   a.download = fileName;
+
+  //   a.click();
+
+  }
+
 }
