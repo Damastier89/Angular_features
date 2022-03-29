@@ -8,7 +8,8 @@ import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
-import  map  from 'ol/Map';
+
+import { initMap } from '../openLayer/mapcontrol.js';
 
 @Component({
   selector: 'app-map',
@@ -17,9 +18,9 @@ import  map  from 'ol/Map';
 })
 export class MapComponent implements OnInit, AfterViewChecked {
   @ViewChild('coordinates') coordinates?: any; 
+  public name: string = 'Map Viewer - Openlayers & Angular'
   public panelOpenState = false;
   public map!: Map;
-  public name: string = 'Map Viewer - Openlayers & Angular'
   public popup = new Overlay({
     element: this.coordinates,
   });
@@ -44,21 +45,21 @@ export class MapComponent implements OnInit, AfterViewChecked {
   }
 
   private initMap() {
-    this.map = new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      view: new View({
-        center: [4038149.328674209, 7271086.0671555335],
-        zoom: 10,
-        maxZoom: 30,
-        minZoom: 1,
-      }),
-      target: 'map',
-      keyboardEventTarget: document 
-    });
+    // this.map = new Map({
+    //   layers: [
+    //     new TileLayer({
+    //       source: new OSM(),
+    //     }),
+    //   ],
+    //   view: new View({
+    //     center: [4038149.328674209, 7271086.0671555335],
+    //     zoom: 10,
+    //     maxZoom: 30,
+    //     minZoom: 1,
+    //   }),
+    //   target: 'map',
+    //   keyboardEventTarget: document 
+    // });
   }
 
   private getInfoAboutMap(): void {
