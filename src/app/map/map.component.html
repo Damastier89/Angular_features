@@ -14,20 +14,17 @@
         <mat-expansion-panel-header>
           <mat-panel-title>Геометрия</mat-panel-title>
         </mat-expansion-panel-header>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawPolygon();">Добавить полигон</button>
-        </p>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawCircle()">Добавить круг</button>
-        </p>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawInteraction()">Добавить ...</button>
-        </p>
 
-        <p class="map__draw">
-        <button mat-raised-button color="primary" (click)="saveGeoJson()">geoJSON</button>  
-        </p>
-        
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawPolygon();">Добавить полигон</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiPolygon()">Добавить М-полигон</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawCircle()">Добавить круг</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawPoint()">Добавить точку</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiPoint()">Добавить М-точку</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawLineString()">Добавить линию</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawLinearRing()">Добавить Р-линию</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiLineString()">Добавить М-линию</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="drawGeometryCollection()">Добавить Коллекцию</button>
+
       </mat-expansion-panel>
     </mat-accordion>
 
@@ -35,22 +32,21 @@
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
-          <mat-panel-title>Другое</mat-panel-title>
+          <mat-panel-title>Города</mat-panel-title>
         </mat-expansion-panel-header>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawInteraction()">Добавить полигон</button>
-        </p>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawInteraction();">Добавить полигон</button>
-        </p>
-        <p class="map__draw">
-          <button mat-raised-button color="primary" (click)="drawInteraction();">Добавить полигон</button>
-        </p>
-        
+
+          <button class="map__draw" mat-raised-button color="primary" (click)="initMoscow()">Показать/убрать Мск</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="initTula()">Показать/убрать Тула</button>
+
       </mat-expansion-panel>
     </mat-accordion>
 
-    
+
   </div>
   <div id="map" class="map-container" tabindex="0"></div>
+  <div *ngIf="isMap" id="msc" class="map-container__msc" tabindex="0">
+    <span>
+      <mat-icon class="map-container__close" (click)="closeMap()">close</mat-icon>
+    </span>
+  </div>
 </div>

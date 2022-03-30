@@ -8,8 +8,10 @@ import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
+import * as olControl from 'ol/control';
+import { defaults , FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent } from 'ol/control';
 
-import { initMap } from '../openLayer/mapcontrol.js';
+// import initMap from '../openLayer/mapcontrol.js';
 
 @Component({
   selector: 'app-map',
@@ -20,6 +22,7 @@ export class MapComponent implements OnInit, AfterViewChecked {
   @ViewChild('coordinates') coordinates?: any; 
   public name: string = 'Map Viewer - Openlayers & Angular'
   public panelOpenState = false;
+  isMap: boolean = false;
   public map!: Map;
   public popup = new Overlay({
     element: this.coordinates,
@@ -45,21 +48,45 @@ export class MapComponent implements OnInit, AfterViewChecked {
   }
 
   private initMap() {
-    // this.map = new Map({
-    //   layers: [
-    //     new TileLayer({
-    //       source: new OSM(),
-    //     }),
-    //   ],
-    //   view: new View({
-    //     center: [4038149.328674209, 7271086.0671555335],
-    //     zoom: 10,
-    //     maxZoom: 30,
-    //     minZoom: 1,
-    //   }),
-    //   target: 'map',
-    //   keyboardEventTarget: document 
-    // });
+    const zoomToExtentControls = new ZoomToExtent();
+    const zoomSliderControls = new ZoomSlider();
+    const scaleLineControls = new ScaleLine();
+    const fullScreenControl = new FullScreen();
+    const mousePositionControl = new MousePosition();
+    const overviewMapControl = new OverviewMap({
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+    });
+
+    this.map = new Map({
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+      view: new View({
+        center: [4038149.328674209, 7271086.0671555335],
+        zoom: 10,
+        maxZoom: 30,
+        minZoom: 1,
+      }),
+      target: 'map',
+      keyboardEventTarget: document,
+      controls: defaults().extend([
+        fullScreenControl,
+        mousePositionControl,
+        overviewMapControl,
+        scaleLineControls,
+        zoomSliderControls,
+        zoomToExtentControls,
+      ])
+    });
+
+    console.log(`defaults() : `, defaults());
+    
   }
 
   private getInfoAboutMap(): void {
@@ -121,27 +148,14 @@ export class MapComponent implements OnInit, AfterViewChecked {
     this.map.addInteraction(drawCircle);
   }
 
-  public saveGeoJson(): void {
-  //   var json = new GeoJSON();
-  //   json.writeFeatures(vectorLayer.getSource().getFeatures(), { 
-  //     dataProjection: 'EPSG:4326', 
-  //     featureProjection: 'EPSG:3857'
-  //   });
-  //   this.download(json, 'json.txt' , 'text/plain');
-  // }
-
-  // public download(content: BlobPart, fileName: string, contentType: any): any {
-
-  //   var a = document.createElement("a");
-
-  //   var file = new Blob([content], {type: contentType});
-
-  //   a.href = URL.createObjectURL(file);
-
-  //   a.download = fileName;
-
-  //   a.click();
-
-  }
-
+  public closeMap() {}
+  public initMoscow(){}
+  initTula(){}
+  drawMultiPolygon(){}
+  drawPoint(){}
+  drawMultiPoint(){}
+  drawLineString(){}
+  drawLinearRing(){}
+  drawMultiLineString(){}
+  drawGeometryCollection(){}
 }

@@ -21,7 +21,8 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "allowJs": true, // Для импорта JS файлов
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
