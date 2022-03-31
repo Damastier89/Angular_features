@@ -44,9 +44,13 @@
 
   </div>
   <div id="map" class="map-container" tabindex="0"></div>
+  <div class="map-container__coordinate">
+    <p>X = {{ coordinatesX }}</p>
+    <p>Y = {{ coordinatesY }}</p>
+  </div>
   <div *ngIf="isMap" id="msc" class="map-container__msc" tabindex="0">
     <span>
-      <mat-icon class="map-container__close" (click)="closeMap()">close</mat-icon>
+      <p class="map-container__close" (click)="closeMap()">X</p>
     </span>
   </div>
 </div>

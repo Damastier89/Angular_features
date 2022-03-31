@@ -4,40 +4,144 @@
   height: 100vh;
 }
 
-::ng-deep .ol-mouse-position {
-  color: rgb(12, 12, 12);
-  font-size: 16px;
-  font-weight: 600;
-  position: absolute;
-  bottom: 2%;
-  right: 2%;
-  background-color: rgb(255, 255, 255);
-  width: 350px;
-  padding: 3px 15px;
-  border: 2px solid rgb(0, 110, 255);
+::ng-deep .ol-scale-line {
+    color: rgb(12, 12, 12);
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 2%;
+    right: 94%;
+    background-color: rgb(255, 255, 255);
+    width: 87px;
+    padding: 3px 12px;
 }
 
-::ng-deep .ol-full-screen {
+// Может понадобиться для отрисовки контролов на новых картах(фреймах)
+
+// ::ng-deep .ol-mouse-position {
+//   color: rgb(12, 12, 12);
+//   font-size: 16px;
+//   font-weight: 600;
+//   position: absolute;
+//   bottom: 2%;
+//   right: 2%;
+//   background-color: rgb(255, 255, 255);
+//   width: 350px;
+//   padding: 3px 15px;
+//   border: 2px solid rgb(0, 110, 255);
+// }
+
+::ng-deep .ol-zoom {
   width: 100px;
-  
+
   button {
     text-decoration: none;
     display: inline;
-    padding: 4px 12px;
+    padding: 5px 16px;
     margin: 3px 3px;
     background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 100% 0;
+    background-position: 85% 0;
     background-size: 200% 200%;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
     box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
     transition: .5s;
-  
+
     &:hover {
       box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
       background-position: 0 0;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .ol-rotate {
+  width: 100px;
+
+  button {
+    text-decoration: none;
+    display: inline;
+    padding: 5px 15px;
+    margin: 3px 3px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 85% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+      background-position: 0 0;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .ol-attribution {
+  position: absolute;
+  bottom: 0%;
+  right: 3%;
+}
+
+::ng-deep .ol-attribution-collapse {
+  display: none;
+}
+
+
+::ng-deep .ol-full-screen {
+  width: 100px;
+
+  button {
+    text-decoration: none;
+    display: inline;
+    padding: 5px 14px;
+    margin: 3px 3px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 85% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+      background-position: 0 0;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .ol-overviewmap {
+  width: 100px;
+
+  button {
+    text-decoration: none;
+    display: inline;
+    padding: 5px 18px;
+    margin: 3px 3px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 85% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+      background-position: 0 0;
+      cursor: pointer;
     }
   }
 }
@@ -48,10 +152,10 @@
   button {
     text-decoration: none;
     display: inline;
-    padding: 4px 12px;
+    padding: 5px 15.5px;
     margin: 3px 3px;
     background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 100% 0;
+    background-position: 85% 0;
     background-size: 200% 200%;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
@@ -59,18 +163,79 @@
     color: white;
     box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
     transition: .5s;
-  
+
     &:hover {
       box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
       background-position: 0 0;
+      cursor: pointer;
     }
   }
-} 
+}
 
 .map-container {
-  flex-grow: 1;
-  // height: 93vh;
-  // width: 100%;
+  // flex-grow: 1;
+  height: 100%;
+  width: 100%;
+
+  &__msc {
+    border:3px solid black;
+    height: 500px;
+    width: 500px;
+    z-index: 1;
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    background-color: rgb(243, 243, 243);
+  }
+
+  &__close {
+    z-index: 2;
+    position: absolute;
+    right: 0%;
+    width: 43px;
+    padding: 7px 15.5px;
+    margin: 3px 3px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 85% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+      background-position: 0 0;
+      cursor: pointer;
+    }
+  }
+
+  &__coordinate {
+    z-index: 3;
+    color: rgb(12, 12, 12);
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    background-color: rgb(255, 255, 255);
+    width: 225px;
+    padding: 3px 15px;
+  }
+
+  // &__scale {
+  //   color: rgb(12, 12, 12);
+  //   font-size: 16px;
+  //   font-weight: 600;
+  //   position: absolute;
+  //   bottom: 7%;
+  //   right: 1%;
+  //   background-color: rgb(255, 255, 255);
+  //   width: 185px;
+  //   padding: 3px 12px;
+  // }
 }
 
 .map {
@@ -96,6 +261,7 @@
   }
 
   &__draw{
-    padding-bottom: 5px;
+    margin: 5px;
+    width: 177px;
   }
 }

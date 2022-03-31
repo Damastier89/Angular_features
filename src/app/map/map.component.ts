@@ -1,66 +1,69 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
-import 'ol/ol.css';
-import { altKeyOnly, altShiftKeysOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
-import { Overlay } from 'ol';
-import { Map, View } from 'ol';
-import { DragRotate , Draw } from 'ol/interaction';
-import OSM from 'ol/source/OSM';
-import TileLayer from 'ol/layer/Tile';
-import GeoJSON from 'ol/format/GeoJSON';
-import VectorLayer from 'ol/layer/Vector';
-import * as olControl from 'ol/control';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { defaults , FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent } from 'ol/control';
-
-// import initMap from '../openLayer/mapcontrol.js';
+import 'ol/ol.css';
+import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
+import { Overlay, View } from 'ol';
+import { Map } from 'ol';
+import { DragRotate , Draw } from 'ol/interaction';
+import { MapControlService } from '../openLayer/map-control.service';
+import { DrawGeometryService } from '../openLayer/draw-geometry.service';
+import { CoordinatesСity } from '../openLayer/_types/coordinates';
+import GeoJSON from 'ol/format/GeoJSON';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewChecked {
-  @ViewChild('coordinates') coordinates?: any; 
+export class MapComponent implements OnInit {
+  @ViewChild('coordinates') coordinates?: any;
   public name: string = 'Map Viewer - Openlayers & Angular'
   public panelOpenState = false;
-  isMap: boolean = false;
+  public isMap: boolean = false;
   public map!: Map;
   public popup = new Overlay({
     element: this.coordinates,
   });
 
-  constructor( 
-    private readonly renderer: Renderer2, 
+  public coordinatesX: string = '00° 00′ 00″ С.Ш.';
+  public coordinatesY: string = '00° 00′ 00″ В.Д.';
+
+  public scaleMap: any;
+
+  public zoomToExtentControls = new ZoomToExtent();
+  public zoomSliderControls = new ZoomSlider();
+  public scaleLineControls = new ScaleLine();
+  public fullScreenControl = new FullScreen();
+  public mousePositionControl = new MousePosition();
+  public overviewMapControl = new OverviewMap({
+    layers: [
+      new TileLayer({
+        source: new OSM(),
+      }),
+    ],
+  });
+
+  constructor(
+    private readonly renderer: Renderer2,
+    private mapControl: MapControlService,
+    private drawGeometry: DrawGeometryService,
   ) {}
 
   ngOnInit(): void {
     this.initAllMethodsForMap();
   }
 
-  ngAfterViewChecked(): void {
-    // this.getCoordinateOnMap();
-  }
-
   public initAllMethodsForMap(): void {
     this.initMap();
-    this.getInfoAboutMap();
+    this.getCoordinateMouseOnMap();
     this.getCoordinateOnMap();
     this.dragRotateInteraction();
   }
 
   private initMap() {
-    const zoomToExtentControls = new ZoomToExtent();
-    const zoomSliderControls = new ZoomSlider();
-    const scaleLineControls = new ScaleLine();
-    const fullScreenControl = new FullScreen();
-    const mousePositionControl = new MousePosition();
-    const overviewMapControl = new OverviewMap({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-    });
-
+    // this.mapControl.createMap('map', CoordinatesСity.KALUGA);
     this.map = new Map({
       layers: [
         new TileLayer({
@@ -76,52 +79,61 @@ export class MapComponent implements OnInit, AfterViewChecked {
       target: 'map',
       keyboardEventTarget: document,
       controls: defaults().extend([
-        fullScreenControl,
-        mousePositionControl,
-        overviewMapControl,
-        scaleLineControls,
-        zoomSliderControls,
-        zoomToExtentControls,
+        this.fullScreenControl,
+        this.overviewMapControl,
+        this.scaleLineControls,
+        // this.zoomSliderControls,
+        this.zoomToExtentControls,
       ])
     });
-
-    console.log(`defaults() : `, defaults());
-    
   }
 
-  private getInfoAboutMap(): void {
-    // this.map.addOverlay(this.popup);
-    this.map.on('click', (event) => {
-      console.log(` event : `, event); 
+  public initMoscow() {
+    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.MOSCOW, true)
+    this.closeMap();
+    this.isMap = this.mapControl.isCliked
+  }
+
+  public initTula() {
+    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.TULA, true)
+    this.closeMap();
+    this.isMap = this.mapControl.isCliked
+  }
+
+  public closeMap() {
+      if (this.isMap) {
+        setTimeout(() => {
+          this.isMap = false;
+        }, 0)
+      }
+  }
+
+  private getCoordinateMouseOnMap(): void {
+    this.map.on('pointermove', (event) => {
+      this.coordinatesX = `${event.coordinate[0]}`;
+      this.coordinatesY= `${event.coordinate[1]}`
     })
   }
 
   private getCoordinateOnMap(): void {
     this.map.on('click', (event) => {
-      const clickedCoordinate = event.coordinate;
-      const coordinateToString = clickedCoordinate.join(', ')
-
-      // this.popup.setPosition(undefined);
-      // this.popup.setPosition(clickedCoordinate);
-
-      this.renderer.setStyle(this.coordinates.nativeElement, 'color', 'blue');
-      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', coordinateToString)
-
+      const clickedCoordinate = event.coordinate.join(', ');
+      // this.renderer.setStyle(this.coordinates.nativeElement, 'color', 'blue');
+      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate)
     })
   }
 /////////// DragRotate Interaction ////////////
 
   private dragRotateInteraction(): void {
     const dragRotate = new DragRotate({
-      condition: altShiftKeysOnly,
-      // condition: altKeyOnly, 
+      // condition: altShiftKeysOnly,
+      condition: altKeyOnly,
     })
     this.map.addInteraction(dragRotate);
   }
 
   public drawInteraction(): void {
     const drawInteraction = new Draw({ // Для рисования геометрии элементов
-// The geometry type.'Point', 'LineString', 'LinearRing', 'Polygon', 'MultiPoint', 'MultiLineString', 'MultiPolygon', 'GeometryCollection', 'Circle'      
       type: 'Polygon',
       freehand: true // Позволяет рисовать полигон не прямыми линиями
     })
@@ -134,28 +146,43 @@ export class MapComponent implements OnInit, AfterViewChecked {
     });
   }
 
+/**
+ * Методы для отрисовки геометрических фигур
+ */
   public drawPolygon(): void {
-    const drawPolygon = new Draw({
-      type: 'Polygon'
-    });
-    this.map.addInteraction(drawPolygon);
+    this.drawGeometry.createPolygon(this.map)
+  }
+
+  public drawMultiPolygon(): void {
+    this.drawGeometry.createMultiPolygon(this.map)
   }
 
   public drawCircle(): void {
-    const drawCircle = new Draw({
-      type: 'Circle'
-    });
-    this.map.addInteraction(drawCircle);
+    this.drawGeometry.createCircle(this.map)
   }
 
-  public closeMap() {}
-  public initMoscow(){}
-  initTula(){}
-  drawMultiPolygon(){}
-  drawPoint(){}
-  drawMultiPoint(){}
-  drawLineString(){}
-  drawLinearRing(){}
-  drawMultiLineString(){}
-  drawGeometryCollection(){}
+  public drawPoint(): void {
+    this.drawGeometry.createPoint(this.map)
+  }
+
+  public drawLineString(): void {
+    this.drawGeometry.createLineString(this.map)
+  }
+
+  public drawLinearRing(): void {
+    this.drawGeometry.createLinearRing(this.map)
+  }
+
+  public drawMultiPoint(): void {
+    this.drawGeometry.createMultiPoint(this.map)
+  }
+
+  public drawMultiLineString(): void {
+    this.drawGeometry.createMultiLineString(this.map)
+  }
+
+  public drawGeometryCollection(): void {
+    this.drawGeometry.createGeometryCollection(this.map)
+  }
+
 }
