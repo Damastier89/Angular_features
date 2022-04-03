@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 ::ng-deep .ol-scale-line {
@@ -11,7 +11,7 @@
     position: absolute;
     bottom: 2%;
     right: 94%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255, 0.6);
     width: 87px;
     padding: 3px 12px;
 }
@@ -84,9 +84,10 @@
 }
 
 ::ng-deep .ol-attribution {
-  position: absolute;
-  bottom: 0%;
-  right: 3%;
+  display: none;
+  // position: absolute;
+  // bottom: 0%;
+  // right: 3%;
 }
 
 ::ng-deep .ol-attribution-collapse {
@@ -220,7 +221,7 @@
     position: absolute;
     bottom: 2%;
     right: 1%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255, 0.6);
     width: 225px;
     padding: 3px 15px;
   }
@@ -246,7 +247,7 @@
 
   &__main {
     display: flex;
-    flex-grow: 1;
+    height: 100%;
   }
 
   &__left-bar {
@@ -260,8 +261,23 @@
     min-height: 75px;
   }
 
+  &__context-menu {
+    height:100px; 
+    background-color:rgb(189, 205, 218);
+    text-align: center;
+  }
+
   &__draw{
     margin: 5px;
     width: 177px;
+  }
+
+  &__layers {
+    display: grid;
+    margin: 15px;
+  }
+
+  &__radio {
+    margin: 5px;
   }
 }

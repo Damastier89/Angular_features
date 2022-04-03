@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { defaults , FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent } from 'ol/control';
 import 'ol/ol.css';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
@@ -11,6 +11,9 @@ import { CoordinatesСity } from '../openLayer/_types/coordinates';
 import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import XYZ from 'ol/source/XYZ';
+import LayerGroup from 'ol/layer/Group';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +21,7 @@ import OSM from 'ol/source/OSM';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+  @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
   @ViewChild('coordinates') coordinates?: any;
   public name: string = 'Map Viewer - Openlayers & Angular'
   public panelOpenState = false;
@@ -27,17 +31,16 @@ export class MapComponent implements OnInit {
     element: this.coordinates,
   });
 
+  public contextMenuPosition = { x: 0, y: 0 };
+
   public coordinatesX: string = '00° 00′ 00″ С.Ш.';
   public coordinatesY: string = '00° 00′ 00″ В.Д.';
 
-  public scaleMap: any;
-
-  public zoomToExtentControls = new ZoomToExtent();
-  public zoomSliderControls = new ZoomSlider();
-  public scaleLineControls = new ScaleLine();
-  public fullScreenControl = new FullScreen();
-  public mousePositionControl = new MousePosition();
-  public overviewMapControl = new OverviewMap({
+  private baseLayers!: LayerGroup;
+  private zoomToExtentControls = new ZoomToExtent();
+  private scaleLineControls = new ScaleLine();
+  private fullScreenControl = new FullScreen();
+  private overviewMapControl = new OverviewMap({
     layers: [
       new TileLayer({
         source: new OSM(),
@@ -49,21 +52,38 @@ export class MapComponent implements OnInit {
     private readonly renderer: Renderer2,
     private mapControl: MapControlService,
     private drawGeometry: DrawGeometryService,
+    private readonly elementRef: ElementRef, // Мы получаем доступ к DOM элементам в это компоненте через DI.
   ) {}
 
   ngOnInit(): void {
     this.initAllMethodsForMap();
+    this.initBaseLayerToMap();
   }
 
   public initAllMethodsForMap(): void {
     this.initMap();
     this.getCoordinateMouseOnMap();
-    this.getCoordinateOnMap();
+    this.getCoordinateOnMapToClick();
     this.dragRotateInteraction();
   }
 
+  public onContextMenu(event: MouseEvent){
+    event.preventDefault();
+
+    // Опционально получаем координаты элемента(Диалоговое меню и т.д) для корректной отрисовки Mat-menu
+    const clientRect = this.elementRef.nativeElement.getBoundingClientRect();
+    // this.contextMenuPosition.x = event.clientX - clientRect.x + 10;
+    // this.contextMenuPosition.y = event.clientY - clientRect.y + 34;
+
+    // Получаем координаты мыши
+    this.contextMenuPosition.x = event.clientX;
+    this.contextMenuPosition.y = event.clientY;
+
+    // Обращаемся к меню для его открытия
+    this.contextMenu.openMenu();
+  }
+
   private initMap() {
-    // this.mapControl.createMap('map', CoordinatesСity.KALUGA);
     this.map = new Map({
       layers: [
         new TileLayer({
@@ -82,7 +102,6 @@ export class MapComponent implements OnInit {
         this.fullScreenControl,
         this.overviewMapControl,
         this.scaleLineControls,
-        // this.zoomSliderControls,
         this.zoomToExtentControls,
       ])
     });
@@ -115,10 +134,9 @@ export class MapComponent implements OnInit {
     })
   }
 
-  private getCoordinateOnMap(): void {
+  private getCoordinateOnMapToClick(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
-      // this.renderer.setStyle(this.coordinates.nativeElement, 'color', 'blue');
       this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate)
     })
   }
@@ -126,7 +144,6 @@ export class MapComponent implements OnInit {
 
   private dragRotateInteraction(): void {
     const dragRotate = new DragRotate({
-      // condition: altShiftKeysOnly,
       condition: altKeyOnly,
     })
     this.map.addInteraction(dragRotate);
@@ -142,7 +159,7 @@ export class MapComponent implements OnInit {
       console.log(event);
       let parser = new GeoJSON();
       let drawFeatures = parser.writeFeaturesObject([event.feature]);
-      console.log(drawFeatures);
+      // console.log(drawFeatures);
     });
   }
 
@@ -185,4 +202,69 @@ export class MapComponent implements OnInit {
     this.drawGeometry.createGeometryCollection(this.map)
   }
 
+/**
+ * Метод для переключения базовых слоёв
+ */
+
+/**
+ * Установка конкретного слоя
+ * @param event - выбранный чек-бокс
+ */
+  public switchBaseLayer(event: any): void {
+    this.baseLayers.getLayersArray().forEach( layer => {
+      layer.setVisible(layer.get('title') === event.value)
+    })
+  }
+
+/**
+ * Записываем созданные слои в глобальную переменную(для сохранения ссылки)
+ * Добавляем полученные слои на карту
+ */
+  private initBaseLayerToMap() {
+    this.baseLayers = this.createTileLayersGroup()
+    this.map.addLayer(this.baseLayers)
+  }
+
+  private createTileLayersGroup() {
+    const openStreetMapStandart = new TileLayer({
+      source: new OSM(),
+      visible: true,
+      // Записываем новое свойство в обьект TileLayer для дальнейшего обращения к нему
+      properties: {'title': 'StreetMapStandart'}
+    })
+
+    const openStreetMapHumanitarian = new TileLayer({
+      source: new OSM({
+        url: "https://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+      }),
+      visible: false,
+      // properties: {'title': 'OSMHumanitarian'}
+    });
+    // Для динамической записи можно воспользоваться свойством set
+    openStreetMapHumanitarian.set('title', 'OSMHumanitarian')
+
+    const stamentTerrain =  new TileLayer({
+      source: new XYZ({
+        url: "https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
+        attributions: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`
+      }),
+      visible: false,
+      properties: {'title': 'StamenTerrain'}
+    });
+
+    const baseLayerGroup = new LayerGroup({
+      layers: [
+        openStreetMapStandart,
+        openStreetMapHumanitarian,
+        stamentTerrain,
+      ]
+    });
+
+    return baseLayerGroup;
+  }
+
 }
+
+
+
+

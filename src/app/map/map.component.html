@@ -15,15 +15,27 @@
           <mat-panel-title>Геометрия</mat-panel-title>
         </mat-expansion-panel-header>
 
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawPolygon();">Добавить полигон</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiPolygon()">Добавить М-полигон</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawCircle()">Добавить круг</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawPoint()">Добавить точку</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiPoint()">Добавить М-точку</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawLineString()">Добавить линию</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawLinearRing()">Добавить Р-линию</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawMultiLineString()">Добавить М-линию</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="drawGeometryCollection()">Добавить Коллекцию</button>
+        <div class="map__context-menu" (contextmenu)="onContextMenu($event)">Кликните правой кнопкой мыши</div>
+
+        <div
+          style="visibility: hidden; position: fixed"
+          [style.left.px]="contextMenuPosition.x"
+          [style.top.px]="contextMenuPosition.y"
+          [matMenuTriggerFor]="contextMenu"
+          >
+        </div>
+    
+        <mat-menu #contextMenu="matMenu">
+          <button mat-menu-item (click)="drawPolygon()">Добавить полигон</button>
+          <button mat-menu-item (click)="drawMultiPolygon()">Добавить М-полигон</button>
+          <button mat-menu-item (click)="drawCircle()">Добавить круг</button>
+          <button mat-menu-item (click)="drawPoint()">Добавить точку</button>
+          <button mat-menu-item (click)="drawMultiPoint()">Добавить М-точку</button>
+          <button mat-menu-item (click)="drawLineString()">Добавить линию</button>
+          <button mat-menu-item (click)="drawLinearRing()">Добавить Р-линию</button>
+          <button mat-menu-item (click)="drawMultiLineString()">Добавить М-линию</button>
+          <button mat-menu-item (click)="drawGeometryCollection()">Добавить Коллекцию</button>
+        </mat-menu>
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -41,9 +53,25 @@
       </mat-expansion-panel>
     </mat-accordion>
 
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Выбор слоев карты</mat-panel-title>
+        </mat-expansion-panel-header>
+
+            <mat-radio-group class="map__layers" (change)="switchBaseLayer($event)">
+              <mat-radio-button class="map__radio" value="OSMStandard" [checked]="true">OSM Standard</mat-radio-button>
+              <mat-radio-button class="map__radio" value="OSMHumanitarian">OSM Humanitarian</mat-radio-button>
+              <mat-radio-button class="map__radio" value="StamenTerrain">StamenTerrain</mat-radio-button>
+            </mat-radio-group>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
 
   </div>
-  <div id="map" class="map-container" tabindex="0"></div>
+  <div id="map" class="map-container" style="width: 100%; height: 100%;"></div>
   <div class="map-container__coordinate">
     <p>X = {{ coordinatesX }}</p>
     <p>Y = {{ coordinatesY }}</p>

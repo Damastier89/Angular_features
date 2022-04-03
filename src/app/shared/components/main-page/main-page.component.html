@@ -2,7 +2,7 @@
   <h2 [style.paddingTop.px]="3">Angular features {{emoj}}</h2>
     <ul class="navbar__menu">
       <li >
-        <h3>{{ actualDate | async | date: "EEEE d.MM.y H.mm:ss" }}</h3> 
+        <h3>{{ actualDate | async | date: "d MMMM y , EE H.mm:ss" }}</h3>
       </li>
     </ul>
 </nav>
@@ -18,8 +18,8 @@
         </div>
         <div class="face face2">
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a [routerLink]="['/all_articles']">Read More</a>
+                <p>Теоретически материалы для подготовки к тестированию</p>
+                    <a [routerLink]="['/all_articles']">Читать больше</a>
             </div>
         </div>
     </div>
@@ -27,13 +27,13 @@
         <div class="face face1">
             <div class="content">
                 <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/code_128.png?raw=true">
-                <h3>Map</h3>
+                <h3>OpenLayer Map</h3>
             </div>
         </div>
         <div class="face face2">
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a [routerLink]="['/map']">Map</a>
+                <p>Базовый функционал при работе с картой</p>
+                    <a [routerLink]="['/map']">Перейти к карте</a>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@
         </div>
         <div class="face face2">
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a [routerLink]="['/admin']">Read More</a>
+                <p>Админестративная панель</p>
+                    <a [routerLink]="['/admin']">Перейти</a>
             </div>
         </div>
     </div>
@@ -64,4 +64,3 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-

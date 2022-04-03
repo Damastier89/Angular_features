@@ -1,6 +1,6 @@
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,6 +17,10 @@ import { ArticlePageComponent } from './article/article-page/article-page.compon
 import { ArticleContentPageComponent } from './article/article-content-page/article-content-page.component';
 import { TitleComponent } from './shared/components/title/title.component';
 import { MapComponent } from './map/map.component';
+
+import ru from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(ru);
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { MapComponent } from './map/map.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: "ru-RU",
     }
   ],
   bootstrap: [AppComponent]
