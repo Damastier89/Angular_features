@@ -14,6 +14,7 @@ import OSM from 'ol/source/OSM';
 import XYZ from 'ol/source/XYZ';
 import LayerGroup from 'ol/layer/Group';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { LAYERS } from '../openLayer/_types/layers';
 
 @Component({
   selector: 'app-map',
@@ -79,7 +80,7 @@ export class MapComponent implements OnInit {
     this.contextMenuPosition.x = event.clientX;
     this.contextMenuPosition.y = event.clientY;
 
-    // Обращаемся к меню для его открытия
+    // Обращаемся к меню для его открытия 
     this.contextMenu.openMenu();
   }
 
@@ -226,37 +227,16 @@ export class MapComponent implements OnInit {
   }
 
   private createTileLayersGroup() {
-    const openStreetMapStandart = new TileLayer({
-      source: new OSM(),
-      visible: true,
-      // Записываем новое свойство в обьект TileLayer для дальнейшего обращения к нему
-      properties: {'title': 'StreetMapStandart'}
-    })
-
-    const openStreetMapHumanitarian = new TileLayer({
-      source: new OSM({
-        url: "https://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
-      }),
-      visible: false,
-      // properties: {'title': 'OSMHumanitarian'}
-    });
-    // Для динамической записи можно воспользоваться свойством set
-    openStreetMapHumanitarian.set('title', 'OSMHumanitarian')
-
-    const stamentTerrain =  new TileLayer({
-      source: new XYZ({
-        url: "https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
-        attributions: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`
-      }),
-      visible: false,
-      properties: {'title': 'StamenTerrain'}
-    });
-
     const baseLayerGroup = new LayerGroup({
       layers: [
-        openStreetMapStandart,
-        openStreetMapHumanitarian,
-        stamentTerrain,
+        LAYERS.OSM_Humanitarian,
+        LAYERS.OSM_Standart,
+        LAYERS.OSM_Transport,
+        LAYERS.OSM_Cycle,
+        LAYERS.Stament_Terrain,
+        LAYERS.Hill_Shading_Map,
+        LAYERS.Shades_Grey_Map,
+        LAYERS.Green_Map,
       ]
     });
 
