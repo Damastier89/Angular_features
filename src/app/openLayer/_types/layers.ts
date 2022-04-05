@@ -19,7 +19,7 @@ export const LAYERS = {
     properties: {'title': 'OSMHumanitarian'}
   }),
   'OSM_Transport': new TileLayer({
-    source: new OSM({
+    source: new XYZ({
       url: 'http://tile.memomaps.de/tilegen/{z}/{x}/{y}.png' 
     }),
     visible: false,

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { defaults , FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent } from 'ol/control';
+import { defaults , FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
 import 'ol/ol.css';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
 import { Overlay, View } from 'ol';
@@ -8,13 +8,12 @@ import { DragRotate , Draw } from 'ol/interaction';
 import { MapControlService } from '../openLayer/map-control.service';
 import { DrawGeometryService } from '../openLayer/draw-geometry.service';
 import { CoordinatesСity } from '../openLayer/_types/coordinates';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { LAYERS } from '../openLayer/_types/layers';
 import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import XYZ from 'ol/source/XYZ';
 import LayerGroup from 'ol/layer/Group';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { LAYERS } from '../openLayer/_types/layers';
 
 @Component({
   selector: 'app-map',
@@ -127,7 +126,9 @@ export class MapComponent implements OnInit {
         }, 0)
       }
   }
-
+/**
+ * Метод для отображения координат положения мыши на карте
+ */
   private getCoordinateMouseOnMap(): void {
     this.map.on('pointermove', (event) => {
       this.coordinatesX = `${event.coordinate[0]}`;
@@ -135,14 +136,19 @@ export class MapComponent implements OnInit {
     })
   }
 
+/**
+ * Метод для получения координат по клику мыши на карту
+ */
   private getCoordinateOnMapToClick(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
       this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate)
     })
   }
-/////////// DragRotate Interaction ////////////
 
+/**
+ * DragRotate Interaction 
+ */
   private dragRotateInteraction(): void {
     const dragRotate = new DragRotate({
       condition: altKeyOnly,
