@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
     this.contextMenuPosition.x = event.clientX;
     this.contextMenuPosition.y = event.clientY;
 
-    // Обращаемся к меню для его открытия 
+    // Обращаемся к меню для его открытия
     this.contextMenu.openMenu();
   }
 
@@ -147,7 +147,7 @@ export class MapComponent implements OnInit {
   }
 
 /**
- * DragRotate Interaction 
+ * DragRotate Interaction
  */
   private dragRotateInteraction(): void {
     const dragRotate = new DragRotate({
@@ -240,14 +240,18 @@ export class MapComponent implements OnInit {
         LAYERS.OSM_Transport,
         LAYERS.OSM_Cycle,
         LAYERS.Stament_Terrain,
-        LAYERS.Hill_Shading_Map,
-        LAYERS.Shades_Grey_Map,
         LAYERS.Green_Map,
+        LAYERS.Bing_Map,
+        LAYERS.CartoDB_Map,
+        LAYERS.Tile_Debug_Layer,
+        LAYERS.Tile_ArcGIS_REST_API_Layer,
+        LAYERS.NOAA_WMS_Layer,
       ]
     });
 
     return baseLayerGroup;
   }
+
 
 }
 

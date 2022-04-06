@@ -24,7 +24,7 @@
           [matMenuTriggerFor]="contextMenu"
           >
         </div>
-    
+
         <mat-menu #contextMenu="matMenu">
           <button mat-menu-item (click)="drawPolygon()">Добавить полигон</button>
           <button mat-menu-item (click)="drawMultiPolygon()">Добавить М-полигон</button>
@@ -61,14 +61,17 @@
         </mat-expansion-panel-header>
 
             <mat-radio-group class="map__layers" (change)="switchBaseLayer($event)">
-              <mat-radio-button class="map__radio" value="OSMStandard" [checked]="true">OSM Standard</mat-radio-button>
+              <mat-radio-button class="map__radio" value="OSMStandard" checked="true">OSM Standard</mat-radio-button>
               <mat-radio-button class="map__radio" value="OSMHumanitarian">OSM Humanitarian</mat-radio-button>
               <mat-radio-button class="map__radio" value="OSMTransport">OSM Transport(Beta)</mat-radio-button>
               <mat-radio-button class="map__radio" value="OSMCycle">OSM Cycle(Beta)</mat-radio-button>
               <mat-radio-button class="map__radio" value="StamenTerrain">Stamen Terrain Map</mat-radio-button>
               <mat-radio-button class="map__radio" value="GreenMap">Green Map(France)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="HillShading">Hill Shading Map(Beta)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="ShadesGreyMap">Shades Grey Map(Beta)</mat-radio-button>
+              <mat-radio-button class="map__radio" value="BingMap">Bing Map(Beta)</mat-radio-button>
+              <mat-radio-button class="map__radio" value="CartoMap">Carto Map(Beta)</mat-radio-button>
+              <mat-radio-button class="map__radio" value="TileDebugLayer">Tile Debug Layer</mat-radio-button>
+              <mat-radio-button class="map__radio" value="TileArcGISRESTAPILayer">ArcGIS Population World</mat-radio-button>
+              <mat-radio-button class="map__radio" value="NOAAWMSLayer">NOAA WMS Layer</mat-radio-button>
             </mat-radio-group>
 
       </mat-expansion-panel>
