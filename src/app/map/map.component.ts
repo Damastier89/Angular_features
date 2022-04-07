@@ -1,8 +1,8 @@
+import 'ol/ol.css';
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { defaults , FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
-import 'ol/ol.css';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
-import { Overlay, View } from 'ol';
+import { Image, Overlay, View } from 'ol';
 import { Map } from 'ol';
 import { DragRotate , Draw } from 'ol/interaction';
 import { MapControlService } from '../openLayer/map-control.service';
@@ -14,7 +14,9 @@ import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
-
+import Static from 'ol/source/ImageStatic';
+import ImageLayer from 'ol/layer/Image';
+import { Projection } from 'ol/proj';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -37,6 +39,7 @@ export class MapComponent implements OnInit {
   public coordinatesY: string = '00° 00′ 00″ В.Д.';
 
   private baseLayers!: LayerGroup;
+  private rasterLayers!: LayerGroup;
   private zoomToExtentControls = new ZoomToExtent();
   private scaleLineControls = new ScaleLine();
   private fullScreenControl = new FullScreen();
@@ -57,7 +60,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.initAllMethodsForMap();
-    this.initBaseLayerToMap();
+    this.initLayersToMap();
   }
 
   public initAllMethodsForMap(): void {
@@ -91,10 +94,10 @@ export class MapComponent implements OnInit {
         }),
       ],
       view: new View({
-        center: [4038149.328674209, 7271086.0671555335],
-        zoom: 10,
-        maxZoom: 30,
-        minZoom: 1,
+        center: [0, 0],
+        zoom: 1,
+        // maxZoom: 10,
+        // minZoom: 3,
       }),
       target: 'map',
       keyboardEventTarget: document,
@@ -114,7 +117,7 @@ export class MapComponent implements OnInit {
   }
 
   public initTula() {
-    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.TULA, true)
+    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.KALUGA, true)
     this.closeMap();
     this.isMap = this.mapControl.isCliked
   }
@@ -210,7 +213,7 @@ export class MapComponent implements OnInit {
   }
 
 /**
- * Метод для переключения базовых слоёв
+ * Метод для переключения слоёв
  */
 
 /**
@@ -218,7 +221,15 @@ export class MapComponent implements OnInit {
  * @param event - выбранный чек-бокс
  */
   public switchBaseLayer(event: any): void {
-    this.baseLayers.getLayersArray().forEach( layer => {
+    this.checkTileLayers(this.baseLayers, event);
+  }
+
+  public switchRasterLayer(event: any): void {
+    this.checkTileLayers(this.rasterLayers, event);
+  }
+
+  private checkTileLayers(groupLayers: LayerGroup, event: any) {
+    groupLayers.getLayersArray().forEach( layer => {
       layer.setVisible(layer.get('title') === event.value)
     })
   }
@@ -227,12 +238,15 @@ export class MapComponent implements OnInit {
  * Записываем созданные слои в глобальную переменную(для сохранения ссылки)
  * Добавляем полученные слои на карту
  */
-  private initBaseLayerToMap() {
-    this.baseLayers = this.createTileLayersGroup()
-    this.map.addLayer(this.baseLayers)
+  private initLayersToMap(): void {
+    this.baseLayers = this.createBaseTileLayersGroup();
+    this.rasterLayers = this.createRasterTileLayersGroup();
+    this.map.addLayer(this.baseLayers);
+    this.map.addLayer(this.rasterLayers);
+    this.map.addLayer(this.fragmentStatic);
   }
 
-  private createTileLayersGroup() {
+  private createBaseTileLayersGroup(): LayerGroup {
     const baseLayerGroup = new LayerGroup({
       layers: [
         LAYERS.OSM_Humanitarian,
@@ -243,15 +257,38 @@ export class MapComponent implements OnInit {
         LAYERS.Green_Map,
         LAYERS.Bing_Map,
         LAYERS.CartoDB_Map,
-        LAYERS.Tile_Debug_Layer,
-        LAYERS.Tile_ArcGIS_REST_API_Layer,
-        LAYERS.NOAA_WMS_Layer,
       ]
     });
 
     return baseLayerGroup;
   }
 
+  private createRasterTileLayersGroup(): LayerGroup {
+    const rasterLayerGroup = new LayerGroup({
+      layers: [
+        LAYERS.Tile_Debug_Layer,
+        LAYERS.Tile_ArcGIS_REST_API_Layer,
+        LAYERS.NOAA_WMS_Layer,
+      ]
+    })
+
+    return rasterLayerGroup;
+  }
+
+  public fragmentStatic = new ImageLayer({
+    source: new Static({
+      url : '../../assets/static_img/biological-hazard-color.png',
+      imageExtent: [1252686.5291833773, 1404510.9580906876, 1563083.1393938784, 1406197.8961896575],
+      attributions: 'RADIONION',
+      projection: new Projection({
+        code: 'png-image',
+        units: 'pixels',
+        extent: [1252686.5291833773, 1404510.9580906876, 1563083.1393938784, 1406197.8961896575]
+      })
+    }),
+    visible: false,
+    properties: {'title': 'fragmentStatic'}
+  })
 
 }
 

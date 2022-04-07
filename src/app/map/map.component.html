@@ -48,7 +48,7 @@
         </mat-expansion-panel-header>
 
           <button class="map__draw" mat-raised-button color="primary" (click)="initMoscow()">Показать/убрать Мск</button>
-          <button class="map__draw" mat-raised-button color="primary" (click)="initTula()">Показать/убрать Тула</button>
+          <button class="map__draw" mat-raised-button color="primary" (click)="initTula()">Показать/убрать Клг</button>
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -59,7 +59,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title>Выбор слоев карты</mat-panel-title>
         </mat-expansion-panel-header>
-
+            <h3>Base Layer</h3>
             <mat-radio-group class="map__layers" (change)="switchBaseLayer($event)">
               <mat-radio-button class="map__radio" value="OSMStandard" checked="true">OSM Standard</mat-radio-button>
               <mat-radio-button class="map__radio" value="OSMHumanitarian">OSM Humanitarian</mat-radio-button>
@@ -69,9 +69,15 @@
               <mat-radio-button class="map__radio" value="GreenMap">Green Map(France)</mat-radio-button>
               <mat-radio-button class="map__radio" value="BingMap">Bing Map(Beta)</mat-radio-button>
               <mat-radio-button class="map__radio" value="CartoMap">Carto Map(Beta)</mat-radio-button>
+            </mat-radio-group>
+
+            <h3>Raster Layer</h3>
+            <mat-radio-group class="map__layers" (change)="switchRasterLayer($event)">
+              <mat-radio-button class="map__radio" value="none" checked="true">None</mat-radio-button>
               <mat-radio-button class="map__radio" value="TileDebugLayer">Tile Debug Layer</mat-radio-button>
               <mat-radio-button class="map__radio" value="TileArcGISRESTAPILayer">ArcGIS Population World</mat-radio-button>
               <mat-radio-button class="map__radio" value="NOAAWMSLayer">NOAA WMS Layer</mat-radio-button>
+              <mat-radio-button class="map__radio" value="fragmentStatic">fragmentStatic</mat-radio-button>
             </mat-radio-group>
 
       </mat-expansion-panel>

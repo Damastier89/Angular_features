@@ -90,23 +90,25 @@ export const LAYERS = {
       url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer',
       attributions: '© ESRI and its data partners'
     }),
+    opacity: 0.5,
     visible: false,
     properties: {'title': 'TileArcGISRESTAPILayer'}
   }),
   'NOAA_WMS_Layer': new TileLayer({
     source: new TileWMS({
-      url: '',
+      url: 'https://nowcoast.noaa.gov/arcgis/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_dailymaxairtemp_offsets/MapServer/WMSServer?',
       params: {
         LAYERS: 1,
         FORMAT: 'image/png',
         TRANSPARENT: true,
       },
-      attributions: `<a href="">© NOAA</a>`,
+      attributions: `<a href=https://nowcoast.noaa.gov/>© NOAA<a/>`,
     }),
     visible: false,
     properties: {'title': 'NOAAWMSLayer'}
-  })
+  }),
 }
+
 
 /**
  * Может понадобиться
