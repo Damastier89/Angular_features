@@ -72,7 +72,4 @@ export class DrawGeometryService {
     map.addInteraction(drawGeometryCollection);
   }
 
-
-
-
 }

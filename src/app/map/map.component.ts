@@ -17,6 +17,11 @@ import LayerGroup from 'ol/layer/Group';
 import Static from 'ol/source/ImageStatic';
 import ImageLayer from 'ol/layer/Image';
 import { Projection } from 'ol/proj';
+import {Icon, Style} from 'ol/style';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+import { StyleLike } from 'ol/style/Style';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -29,6 +34,7 @@ export class MapComponent implements OnInit {
   public panelOpenState = false;
   public isMap: boolean = false;
   public map!: Map;
+  public drawInteractions!: Draw;
   public popup = new Overlay({
     element: this.coordinates,
   });
@@ -61,6 +67,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.initAllMethodsForMap();
     this.initLayersToMap();
+    this.clickMouse();
   }
 
   public initAllMethodsForMap(): void {
@@ -159,18 +166,56 @@ export class MapComponent implements OnInit {
     this.map.addInteraction(dragRotate);
   }
 
+
+// 1создаем векторный источник (источник векторных обьектов(фичи))
+  public source = new VectorSource({wrapX: true});
+
+// 2создаем векторный слой и указываем ему путь на источник слоя
+  public vector = new VectorLayer({
+    source: this.source,
+    // указывает то, что мы хотим нанести на карту
+    style: new Style({
+      image: new Icon({
+        anchor: [0.5, 0.5],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: '../../assets/image/biological-hazard-color.png',
+      }),
+    }),
+  });
+
   public drawInteraction(): void {
-    const drawInteraction = new Draw({ // Для рисования геометрии элементов
-      type: 'Polygon',
+    const drawInteractionPoint = new Draw({ // Для рисования геометрии элементов
+      type: 'Point',
+      // показывает привью картинки
+      style: new Style({
+        image: new Icon({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          src: '../../assets/image/biological-hazard-color.png',
+        }),
+      }),
+      // 3добавляем путь к источнику стоя
+      source: this.source,
       freehand: true // Позволяет рисовать полигон не прямыми линиями
     })
-    this.map.addInteraction(drawInteraction);
-    drawInteraction.on('drawend', (event) => {
-      console.log(event);
-      let parser = new GeoJSON();
-      let drawFeatures = parser.writeFeaturesObject([event.feature]);
-      // console.log(drawFeatures);
-    });
+    this.map.addInteraction(drawInteractionPoint);
+    this.map.addLayer(this.vector);
+    this.drawInteractions = drawInteractionPoint;
+    // drawInteraction.on('drawstart', (event) => {
+    //   console.log(event);
+    //   let parser = new GeoJSON();
+    //   let drawFeatures = parser.writeFeaturesObject([event.feature]);
+    //   console.log(drawFeatures);
+    // });
+    this.clickMouse();
+  }
+
+  clickMouse() {
+    this.map.getViewport().addEventListener('contextmenu', (event) => {
+      this.map.removeInteraction(this.drawInteractions)
+    })
   }
 
 /**
@@ -243,7 +288,7 @@ export class MapComponent implements OnInit {
     this.rasterLayers = this.createRasterTileLayersGroup();
     this.map.addLayer(this.baseLayers);
     this.map.addLayer(this.rasterLayers);
-    this.map.addLayer(this.fragmentStatic);
+    // this.map.addLayer(this.fragmentStatic);
   }
 
   private createBaseTileLayersGroup(): LayerGroup {
@@ -269,6 +314,7 @@ export class MapComponent implements OnInit {
         LAYERS.Tile_Debug_Layer,
         LAYERS.Tile_ArcGIS_REST_API_Layer,
         LAYERS.NOAA_WMS_Layer,
+        this.fragmentStatic,
       ]
     })
 
@@ -277,14 +323,15 @@ export class MapComponent implements OnInit {
 
   public fragmentStatic = new ImageLayer({
     source: new Static({
-      url : '../../assets/static_img/biological-hazard-color.png',
-      imageExtent: [1252686.5291833773, 1404510.9580906876, 1563083.1393938784, 1406197.8961896575],
+      url : '../../assets/image/biological-hazard-color.png',
+      imageExtent: [413377.872870381, 4916171.197053192, -243650.44974746858, 5163047.448868338],
       attributions: 'RADIONION',
-      projection: new Projection({
-        code: 'png-image',
-        units: 'pixels',
-        extent: [1252686.5291833773, 1404510.9580906876, 1563083.1393938784, 1406197.8961896575]
-      })
+      // projection:
+      // projection: new Projection({
+      //   code: 'png-image',
+      //   units: 'pixels',
+      //   extent: [1252686.5291833773, 1404510.9580906876, 1563083.1393938784, 1406197.8961896575]
+      // })
     }),
     visible: false,
     properties: {'title': 'fragmentStatic'}
