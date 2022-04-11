@@ -26,7 +26,7 @@
         </div>
 
         <mat-menu #contextMenu="matMenu">
-          <button mat-menu-item (click)="drawInteraction()">Добавить полигон</button>
+          <button mat-menu-item (click)="drawPolygon()">Добавить полигон</button>
           <button mat-menu-item (click)="drawMultiPolygon()">Добавить М-полигон</button>
           <button mat-menu-item (click)="drawCircle()">Добавить круг</button>
           <button mat-menu-item (click)="drawPoint()">Добавить точку</button>
@@ -36,6 +36,18 @@
           <button mat-menu-item (click)="drawMultiLineString()">Добавить М-линию</button>
           <button mat-menu-item (click)="drawGeometryCollection()">Добавить Коллекцию</button>
         </mat-menu>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Изображения</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <button class="map__draw" mat-raised-button color="primary" (click)="drawImage()">Добавить img</button>
 
       </mat-expansion-panel>
     </mat-accordion>

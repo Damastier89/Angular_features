@@ -20,6 +20,7 @@ import { MapComponent } from './map/map.component';
 
 import ru from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { MapModule } from './map/map.module';
 registerLocaleData(ru);
 
 @NgModule({
@@ -40,6 +41,7 @@ registerLocaleData(ru);
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MapModule,
   ],
   providers: [
     {
