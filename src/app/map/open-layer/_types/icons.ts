@@ -1,9 +1,13 @@
 import { IconData } from "../interfaces/iconData";
 
 export const icons: IconData[] = [
+  // {
+  //   type: 'biological-hazard-color',
+  //   source: '../../../assets/image/biological-hazard-color.png'
+  // },
   {
     type: 'biological-hazard-color',
-    source: '../../../assets/image/biological-hazard-color.png'
+    source: '../../../assets/image/biological-hazard-color-smal.png'
   },
   {
     type: 'biological-hazard-triangles',

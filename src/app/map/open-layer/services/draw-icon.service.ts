@@ -114,6 +114,11 @@ export class DrawIconService {
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
         src: link,
+        size: [100, 100],
+        // offset: [1, 0],
+        // opacity: 0.5,
+        // scale: 1.0,
+        
       }),
     })
   }
