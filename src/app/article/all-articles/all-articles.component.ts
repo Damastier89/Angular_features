@@ -10,6 +10,8 @@ import { ArticleService } from '../../admin/shared/services/article.service';
 })
 export class AllArticlesComponent implements OnInit {
   public articles$!: Observable<Article[]>;
+  public article: string = 'Cтатьи о возможностях Angular и не только';
+  public searchArticleName: any = '';
 
   constructor(
     private articleService: ArticleService,

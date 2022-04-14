@@ -34,6 +34,7 @@ registerLocaleData(ru);
     ArticleContentPageComponent, 
     TitleComponent, 
     MapComponent,
+
   ],
   imports: [
     BrowserModule,

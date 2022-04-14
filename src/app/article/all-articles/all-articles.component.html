@@ -1,11 +1,20 @@
+<app-title class="categories-title" [title]="article"></app-title>
 <div class="container">
-  <h1>Все статьи о возможностях Angular и не только...<a class="" [routerLink]="['/']">Вернуться на главную</a></h1>
-  <div class="articles" *ngIf="articles$ | async as allArticles; else loading">
-    <app-article-page
-    class="articles__box"
-    *ngFor="let article of allArticles"
-    [article]="article">
-    </app-article-page>
+
+  <mat-form-field [style.width.%]="100" appearance="outline">
+    <mat-label>Найти раздел по его названию</mat-label>
+      <input type="text" matInput placeholder="введите название раздела">
+      <button matSuffix mat-icon-button aria-label="search">
+        <mat-icon>search</mat-icon>
+      </button>
+  </mat-form-field>
+
+  <div class="categories" *ngIf="articles$ | async as allArticles; else loading">
+      <div class="categories-items">
+        <div *ngFor="let article of allArticles">
+          <app-article-page  class="categories-item"  [article]="article"></app-article-page>
+        </div>
+      </div>
   </div>
 </div>
 
@@ -13,5 +22,3 @@
   <!-- <p class="text-centor">Загрузка...</p> -->
   <mat-spinner></mat-spinner>
 </ng-template>
-
-
