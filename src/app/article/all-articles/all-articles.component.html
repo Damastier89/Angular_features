@@ -1,9 +1,8 @@
 <app-title class="categories-title" [title]="article"></app-title>
 <div class="container">
-
   <mat-form-field [style.width.%]="100" appearance="outline">
     <mat-label>Найти раздел по его названию</mat-label>
-      <input type="text" matInput placeholder="введите название раздела">
+      <input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName">
       <button matSuffix mat-icon-button aria-label="search">
         <mat-icon>search</mat-icon>
       </button>
@@ -11,7 +10,7 @@
 
   <div class="categories" *ngIf="articles$ | async as allArticles; else loading">
       <div class="categories-items">
-        <div *ngFor="let article of allArticles">
+        <div *ngFor="let article of allArticles | searchArticles : searchArticleName">
           <app-article-page  class="categories-item"  [article]="article"></app-article-page>
         </div>
       </div>

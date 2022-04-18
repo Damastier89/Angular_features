@@ -4,9 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 /**
  * Сервис для хранения ссылки на карту и любой другой переданный объект
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ReferenceService<T> {
   private reference = new BehaviorSubject<T | null>(null);
   reference$ = this.reference.asObservable();

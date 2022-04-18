@@ -10,8 +10,6 @@ export class MapControlService {
   public map!: Map;
   public isCliked: boolean = false;
 
-  constructor() { }
-
   public createMap(target: string, coordinate: number[]): Map {
     return new Map({
         layers: [

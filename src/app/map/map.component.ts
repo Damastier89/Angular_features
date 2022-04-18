@@ -1,8 +1,8 @@
 import 'ol/ol.css';
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { defaults , FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
-import { Image, Overlay, View } from 'ol';
+import { Overlay, View } from 'ol';
 import { Map } from 'ol';
 import { DragRotate , Draw } from 'ol/interaction';
 import { MapControlService } from './open-layer/services/map-control.service';
@@ -10,20 +10,12 @@ import { DrawGeometryService } from './open-layer/services/draw-geometry.service
 import { CoordinatesСity } from './open-layer/_types/coordinates';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { LAYERS } from './open-layer/_types/layers';
-import GeoJSON from 'ol/format/GeoJSON';
+import { DrawIconService } from './open-layer/services/draw-icon.service';
+import { MAIN_MAP } from './open-layer/tokens/reference.token';
+import { ReferenceService } from './open-layer/services/_index';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
-import Static from 'ol/source/ImageStatic';
-import ImageLayer from 'ol/layer/Image';
-import { Projection } from 'ol/proj';
-import {Icon, Style} from 'ol/style';
-import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import { StyleLike } from 'ol/style/Style';
-import { ReferenceService } from './open-layer/services/_index';
-import { MAIN_MAP } from './open-layer/tokens/reference.token';
-import { DrawIconService } from './open-layer/services/draw-icon.service';
 
 @Component({
   selector: 'app-map',
@@ -61,6 +53,7 @@ export class MapComponent implements OnInit, OnDestroy {
   });
 
   constructor(
+    private zone: NgZone, // Для оптимизации работы приложения
     private readonly renderer: Renderer2,
     private mapControl: MapControlService,
     private drawGeometry: DrawGeometryService,
@@ -125,6 +118,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.zoomToExtentControls,
       ])
     });
+
     this.mapRefService.set(this.map);
   }
 
@@ -153,7 +147,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private getCoordinateMouseOnMap(): void {
     this.map.on('pointermove', (event) => {
       this.coordinatesX = `${event.coordinate[0]}`;
-      this.coordinatesY= `${event.coordinate[1]}`
+      this.coordinatesY= `${event.coordinate[1]}`;
     })
   }
 
@@ -178,7 +172,8 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public drawImage() {
-    this.drawIcon.activate('biological-hazard-color')
+    console.log( ` done : `);
+    this.drawIcon.activate('biological-hazard-color');
   }
 
   public clickMouse() {

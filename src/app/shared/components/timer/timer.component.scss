@@ -3,11 +3,11 @@
 
   .title {
     margin-top: 30px;
-    text-align: right;
+    // text-align: right;
   }
 
   .timer {
-    padding-left: 403px;
+    // padding-left: 403px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,6 +21,7 @@
     font-size: 16px;
     font-weight: 300;
     text-align: center;
+    margin-left: 15px;
 
     span {
       margin-top: 20px;
@@ -30,100 +31,3 @@
     }
   }
 }
-
-///////////////////////////////////
-// .wrap {
-//   width: 1024px;
-//   position: relative;
-//   margin: 0 auto;
-//   padding-top: 50px;
-// }
-
-// .flex {
-//   display: -webkit-box;
-//   display: -ms-flexbox;
-//   display: flex;
-// }
-
-// /* typography */
-// h1 {
-//   font-weight: 500;
-//   font-size: 20px;
-//   margin-bottom: 30px;
-// }
-
-// /* countdown */
-
-// .timer-box {
-//   height: 180px;
-
-//   ul {
-//     width: 189px;
-// 		list-style: none; 
-//   }
-// }
-
-// .timer {
-// 	width: 285px;
-//   height: 70px;
-//   margin: 0 auto 5px;
-
-//   li {
-//     width: 200px;
-//     height: 70px;
-//     font-size: 60px;
-//     line-height: 68px;
-//     color: #719ac0;
-//     letter-spacing: 16px;
-//     position: relative;
-
-//     + li:before {
-//       width: 15px;
-//       height: 70px;
-//       display: block;
-//       font-size: 60px;
-//       line-height: 58px;
-//       content: ':';
-//       position: absolute;
-//       left: -23px;
-//       top: 0;
-//     }
-//   }
-// }
-
-// .time-name {
-//   margin: 0 auto;
-
-//   li {
-//     width: 85px;
-//     font-size: 18px;
-//     color: rgb(112, 105, 105);
-//     text-align: center;
-//   }
-// }
-
-// .timer li + li {
-//   margin-left: 15px;
-// }
-
-// .time-name li + li {
-// 	margin-left: 30px;
-// 	padding-left: 60px;
-// }
-
-// .timer__block {
-// 		width: 102px;
-// 		height: 120px;
-// 		background: rgb(236, 231, 231);
-// 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-// 		font-size: 16px;
-// 		font-weight: 300;
-// 		text-align: center;
-
-// 		span {
-// 			margin-top: 20px;
-// 			margin-bottom: 5px;
-// 			font-size: 56px;
-// 			font-weight: 700;
-// 		}
-// 	}

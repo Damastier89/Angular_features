@@ -8,9 +8,7 @@ import { icons } from '../_types/icons';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DrawIconService {
   public map!: Map | null;
   public layers: VectorLayer<VectorSource>[] = [];
@@ -55,6 +53,8 @@ export class DrawIconService {
   }
 
   private init() {
+
+
     icons.forEach(icon => {
       const map = this.map;
       const style = this.createStyle(icon.source)
@@ -118,7 +118,7 @@ export class DrawIconService {
         // offset: [1, 0],
         // opacity: 0.5,
         // scale: 1.0,
-        
+
       }),
     })
   }

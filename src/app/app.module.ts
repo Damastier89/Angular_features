@@ -16,11 +16,15 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ArticlePageComponent } from './article/article-page/article-page.component';
 import { ArticleContentPageComponent } from './article/article-content-page/article-content-page.component';
 import { TitleComponent } from './shared/components/title/title.component';
-import { MapComponent } from './map/map.component';
+import { SearchArticlesPipe } from './shared/pipe/searchArticles.pipe';
 
 import ru from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import { MapModule } from './map/map.module';
+import { FormsModule } from '@angular/forms';
+import { TitleModule } from './shared/components/title/title.module';
+import { ArticlesModule } from './article/articles.module';
+import { DrawIconService } from './map/open-layer/services/draw-icon.service';
 registerLocaleData(ru);
 
 @NgModule({
@@ -28,21 +32,18 @@ registerLocaleData(ru);
     AppComponent,
     MainPageComponent,
     TimerComponent,
-    AllArticlesComponent,
-    ArticlePageComponent,  
-    ConfirmComponent, 
-    ArticleContentPageComponent, 
-    TitleComponent, 
-    MapComponent,
-
+    ConfirmComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
     MapModule,
+    TitleModule,
+    ArticlesModule,
   ],
   providers: [
     {

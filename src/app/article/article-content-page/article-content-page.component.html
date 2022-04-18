@@ -12,18 +12,18 @@
           </button>
         </div>
       </div>
-  
+
       <div class="info">
         <strong>{{ article.author}}</strong>
         <small>{{ article.date | date:"d.MM.y H:mm" }}</small>
       </div>
-  
-      <div>
+
+      <div class="post__content">
         <quill-view-html [content]="article.content"></quill-view-html>
       </div>
     </div>
   </div>
-  
+
   <ng-template #loading>
     <!-- <p class="text-centor">Loading...</p> -->
     <mat-spinner></mat-spinner>
