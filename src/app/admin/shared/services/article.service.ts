@@ -10,6 +10,11 @@ const env = environment.fbDbUrl;
   providedIn: 'root'
 })
 export class ArticleService {
+  public load(): Promise<any> {
+    return this.getAllArticles()
+      .toPromise()
+      .catch((err: any) => Promise.resolve());
+  }
 
   constructor(private http: HttpClient) {}
 
