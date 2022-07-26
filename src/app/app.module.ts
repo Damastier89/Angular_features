@@ -19,8 +19,8 @@ import { MapModule } from './map/map.module';
 import { FormsModule } from '@angular/forms';
 import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
-import { MapControlService } from './map/open-layer/services/map-control.service';
 import { ArticleService } from './admin/shared/services/article.service';
+import { GraphicsModule } from './graphics/graphics.module';
 registerLocaleData(ru);
 
 @NgModule({
@@ -40,6 +40,7 @@ registerLocaleData(ru);
     MapModule,
     TitleModule,
     ArticlesModule,
+    GraphicsModule,
   ],
   providers: [
     {
