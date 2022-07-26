@@ -2,7 +2,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from './../shared/services/auth.service';
 import { Admin } from './../shared/interfaces/admin';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
@@ -10,7 +10,7 @@ import { SnackBarTypes } from '../../../app/shared/_models/snack-bar-types.enum'
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -21,9 +21,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./authenticated-page.component.scss'],
 })
 export class AuthenticatedPageComponent implements OnInit {
-  public form = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [Validators.required, Validators.minLength(7)]),
+  public form = new UntypedFormGroup({
+    email: new UntypedFormControl("", [Validators.required, Validators.email]),
+    password: new UntypedFormControl("", [Validators.required, Validators.minLength(7)]),
   });
   public submitted: boolean = false;
   public matcher = new MyErrorStateMatcher();

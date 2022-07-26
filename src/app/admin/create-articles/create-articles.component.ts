@@ -3,14 +3,14 @@ import { SnackBarService } from './../../shared/services/snack-bar.service';
 import { ConfirmComponent } from './../../shared/_models/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ArticleService } from 'src/app/admin/shared/services/article.service';
 import { SnackBarTypes } from 'src/app/shared/_models/snack-bar-types.enum';
 import { Subject, takeUntil } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -22,10 +22,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./create-articles.component.scss']
 })
 export class CreateArticlesComponent implements OnInit, OnDestroy {
-  public form = new FormGroup({
-    title: new FormControl(null, Validators.required),
-    content: new FormControl(null, Validators.required),
-    author: new FormControl(null, Validators.required),
+  public form = new UntypedFormGroup({
+    title: new UntypedFormControl(null, Validators.required),
+    content: new UntypedFormControl(null, Validators.required),
+    author: new UntypedFormControl(null, Validators.required),
   });
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
