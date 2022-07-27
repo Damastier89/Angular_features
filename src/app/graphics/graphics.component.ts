@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./graphics.component.scss']
 })
 export class GraphicsComponent implements OnInit {
+  public graphic: string = 'Графики'
   public data: any;
 
   constructor() { 

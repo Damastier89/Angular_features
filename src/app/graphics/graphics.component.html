@@ -1,2 +1,7 @@
-<p-chart type="pie" [data]="data" width="40vw" height="80vh" [responsive]="true"></p-chart>
-<button type="button" pButton (click)="update($event)"></button>
+<app-title class="categories-title" [title]="graphic"></app-title>
+
+<div class="graphic">
+    <p-chart type="pie" [data]="data" [responsive]="true"></p-chart>
+    <button type="button" pButton (click)="update($event)"></button>
+</div>
+

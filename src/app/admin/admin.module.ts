@@ -11,10 +11,12 @@ import { AuthenticatedPageComponent } from './authenticated-page/authenticated-p
 import { AuthGuard } from './shared/services/auth.guarrd';
 import { DashboardArticleComponent } from './dashboard-article/dashboard-article.component';
 import { SearchPipe } from './shared/pipes/search.pipe';
+import { EditArticlesComponent } from './edit-articles/edit-articles.component';
 
 @NgModule({
   declarations: [
     CreateArticlesComponent,
+    EditArticlesComponent,
     AdminLayoutComponent,
     AuthenticatedPageComponent,
     DashboardArticleComponent,
@@ -34,6 +36,7 @@ import { SearchPipe } from './shared/pipes/search.pipe';
           { path: 'authenticated-page', component: AuthenticatedPageComponent },
           { path: 'create-article', component: CreateArticlesComponent, canActivate: [AuthGuard] },
           { path: 'dashboard', component: DashboardArticleComponent, canActivate: [AuthGuard] },
+          { path: 'article/:id/edit', component: EditArticlesComponent, canActivate: [AuthGuard]}
         ]
       }
     ]),

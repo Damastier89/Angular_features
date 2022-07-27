@@ -1,0 +1,21 @@
+.form {
+  max-width: 700px;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+  }
+  
+  &__control {
+  display: block;
+  color: #888;
+  margin-bottom: .8rem;
+
+    &.invalid {
+      color: var(--danger-color);
+      input {
+        border-color: var(--danger-color);
+      }
+    }
+  }
+}

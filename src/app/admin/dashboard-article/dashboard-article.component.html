@@ -19,6 +19,7 @@
             <th>Название раздела</th>
             <th>Дата создания раздела</th>
             <th>Открыть раздел</th>
+            <th>Рудактировать раздел</th>
             <th>Удалить раздел</th>
           </tr>
         </thead>
@@ -36,6 +37,15 @@
                 [routerLink]="['/article', article.id]"
               >
                 Открыть
+              </button>
+            </td>
+            <td>
+              <button 
+                mat-raised-button 
+                color="primary"
+                [routerLink]="['/admin', 'article', article.id, 'edit']"
+              >
+                Редактировать
               </button>
             </td>
             <td>
