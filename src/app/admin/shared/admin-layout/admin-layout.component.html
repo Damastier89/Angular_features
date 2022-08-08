@@ -1,4 +1,7 @@
-<nav class="navbar bg-dark">
+<nav 
+  class="navbar"
+  [ngClass]="'navbar--' + currentThemes"
+>
   <h2>
     <a routerLink="/">Angular features</a>
   </h2>
@@ -22,7 +25,7 @@
       </li>
     </ul>
   </ng-template>
-  
+
 </nav>
 
 <div class="container">

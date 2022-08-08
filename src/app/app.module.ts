@@ -21,6 +21,7 @@ import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { ArticleService } from './admin/shared/services/article.service';
 import { GraphicsModule } from './graphics/graphics.module';
+
 registerLocaleData(ru);
 
 @NgModule({

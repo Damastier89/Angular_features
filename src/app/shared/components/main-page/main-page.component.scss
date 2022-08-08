@@ -1,3 +1,7 @@
+$default: 1;
+$militant: 2;
+$traning: 3;
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -7,6 +11,19 @@
   width: 100%;
   opacity: 0.9;
   margin-bottom: 1rem;
+  color: #fff;
+
+  &--#{$default} {
+    background: var(--dark-color);
+  }
+
+  &--#{$militant} {
+    background: var(--militant);
+  }
+
+  &--#{$traning} {
+    background: var(--traning);
+  }
 
   &.main {
     justify-content: center;
@@ -60,7 +77,7 @@
     cursor: pointer;
 
     .face {
-      width: 300px;
+      width: 230px;
       height: 200px;
       transition: 0.5s;
       border-radius: 10px;
@@ -94,11 +111,11 @@
     .face {
       &.face1 .content {
         img {
-          max-width: 100px;
+          max-width: 134px;
         }
 
         h3 {
-          margin: 10px 0 0;
+          // margin: 10px 0 0;
           padding: 0;
           color: #fff;
           text-align: center;

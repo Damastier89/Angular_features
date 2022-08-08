@@ -1,5 +1,30 @@
-<nav class="navbar bg-dark">
+<nav 
+  class="navbar"
+  [ngClass]="'navbar--' + currentThemes"
+>
   <h2 [style.paddingTop.px]="3">Angular features {{ emoj }}</h2>
+  <button
+    [matMenuTriggerFor]="setThemes"
+    class="mode__button"
+    mat-icon-button
+    [matTooltip]="'Сменить тему'"
+  >
+    <mat-icon>published_with_changes</mat-icon>
+  </button>
+  <mat-menu #setThemes="matMenu">
+    <button mat-menu-item (click)="changeThemesDefault()">
+      <mat-icon>brightness_1</mat-icon>
+      <span>default themes</span>
+    </button>
+    <button mat-menu-item (click)="changeThemesMilitant()">
+      <mat-icon>brightness_2</mat-icon>
+      <span>two themes</span>
+    </button>
+    <button mat-menu-item (click)="changeThemesTraning()">
+      <mat-icon>brightness_3</mat-icon>
+      <span>three themes</span>
+    </button>
+  </mat-menu>
     <ul class="navbar__menu">
       <li >
         <h3>{{ actualDate | async | date: "d MMMM y , EE H.mm:ss" }}</h3>
@@ -41,13 +66,27 @@
       <div class="face face1">
         <div class="content">
           <img src="../../../../assets/image/map.png">
-          <h3>OpenLayer Map</h3>
+          <h3>Map</h3>
         </div>
       </div>
       <div class="face face2">
         <div class="content">
           <p>Базовый функционал при работе с картой</p>
           <a [routerLink]="['/map']">Перейти к карте</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="face face1">
+        <div class="content">
+          <img src="../../../../assets/image/angular.png">
+          <h3>Angular</h3>
+        </div>
+      </div>
+      <div class="face face2">
+        <div class="content">
+          <p>Angular на практике</p>
+          <a [routerLink]="['/angular-features']">Перейти</a>
         </div>
       </div>
     </div>
@@ -73,16 +112,6 @@
     <app-timer></app-timer>
   </div>
 </div>
-
-<!-- <img src="../../../../assets/image/biological-hazard-color.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/biological-hazard-triangles.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/radiation-hazard-color.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/radiation-hazard-marcer.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/radiation-hazard-orange.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/radiation-hazard-trianges.png" alt="" style="width: 100px;">
-<img src="../../../../assets/image/radiation_hazard-black.png" alt="" style="width: 100px;"> -->
-
-
 
 <div class="container">
   <router-outlet></router-outlet>

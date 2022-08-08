@@ -4,8 +4,6 @@ import { TitleComponent } from './title.component';
 import { MaterialModule } from '../../material.module';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     TitleComponent,

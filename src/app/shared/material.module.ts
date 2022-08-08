@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatExpansionModule,
     MatRadioModule,
     MatMenuModule,
+    MatTooltipModule,
   ],
   exports: [
     MatInputModule,
@@ -43,6 +45,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatExpansionModule,
     MatRadioModule,
     MatMenuModule,
+    MatTooltipModule,
   ]
 })
 export class MaterialModule { }
