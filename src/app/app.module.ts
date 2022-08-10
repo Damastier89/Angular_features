@@ -1,22 +1,21 @@
-import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
-import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import ru from '@angular/common/locales/ru';
+// import { NgxsModule } from '@ngxs/store';
 
+import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './shared/components/main-page/main-page.component';
 import { TimerComponent } from './shared/components/timer/timer.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import ru from '@angular/common/locales/ru';
-import { registerLocaleData } from '@angular/common';
 import { MapModule } from './map/map.module';
-import { FormsModule } from '@angular/forms';
 import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { ArticleService } from './admin/shared/services/article.service';
@@ -42,6 +41,7 @@ registerLocaleData(ru);
     TitleModule,
     ArticlesModule,
     GraphicsModule,
+    // NgxsModule.forRoot([]),
   ],
   providers: [
     {

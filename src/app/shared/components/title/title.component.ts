@@ -8,7 +8,8 @@ import { ChangeThemesService } from '../../services/change-themes.service';
 })
 export class TitleComponent implements OnInit {
   @Input() public title!: string;
-  public currentThemes!: number;
+  public currentThemes: string | null = '';
+  public theme = localStorage.getItem('nameThemes');
 
   constructor(
     private changeThemesService: ChangeThemesService,
@@ -16,6 +17,7 @@ export class TitleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentThemes();
+    this.currentThemes = this.theme;
   }
 
   public getCurrentThemes(): void {

@@ -10,7 +10,8 @@ import { ChangeThemesService } from '../../../shared/services/change-themes.serv
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
-  public currentThemes!: number;
+  public currentThemes: string | null = '';
+  public theme = localStorage.getItem('nameThemes');
 
   constructor(
     public auth: AuthService,
@@ -19,15 +20,20 @@ export class AdminLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.changeThemesService.changeThemes.subscribe(res => {
-      this.currentThemes = res;
-    });
+    this.getCurrentThemes();
+    this.currentThemes = this.theme;
   }
 
   public logout(event: Event): void {
     event.preventDefault();
     this.auth.logout();
     this.router.navigate(['/admin', 'authenticated-page']);
+  }
+
+  public getCurrentThemes(): void {
+    this.changeThemesService.changeThemes.subscribe(res => {
+      this.currentThemes = res;
+    })
   }
 
 }

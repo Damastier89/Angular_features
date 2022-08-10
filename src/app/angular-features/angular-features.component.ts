@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Tile } from '../shared/interfaces/tile';
 
 @Component({
   selector: 'app-angular-features',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./angular-features.component.scss']
 })
 export class AngularFeaturesComponent implements OnInit {
-
-  public angularFeatures: string = 'Ангуляр фичи';
+  public angularFeatures: string = 'Ангуляр';
 
   constructor() { }
 

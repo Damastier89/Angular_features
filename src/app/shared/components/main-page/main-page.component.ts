@@ -10,34 +10,50 @@ import { ChangeThemesService } from '../../services/change-themes.service';
 })
 export class MainPageComponent implements OnInit {
   public emoj: string = "☣"
-  public currentThemes!: number;
+  public currentThemes: string | null = '';
+  public theme = localStorage.getItem('nameThemes');
 
   constructor(
-    private router: Router,
     private changeThemesService: ChangeThemesService,
   ) { }
 
   ngOnInit(): void {
-    this.changeThemesService.changeThemes.subscribe(res => {
-      this.currentThemes = res;
-    });
+    this.setDefaultThemes();
+    this.getCurrentThemes();
+    this.getThemesFromStorage();
+    console.log(`this.currentThemes : `, this.currentThemes)
+    console.log(`localStorage.length : `, localStorage.length);
   }
 
   public actualDate: Observable<string> = interval(1000)
     .pipe(
       startWith(new Date()),
       map(() => new Date().toString())
-      );
+  );
 
-  public changeThemesDefault(): void {
-    this.changeThemesService.changeThemes.next(1);
+  public getCurrentThemes(): void {
+    this.changeThemesService.changeThemes.subscribe(res => {
+      this.currentThemes = res;
+    })
   }
 
-  public changeThemesMilitant(): void {
-    this.changeThemesService.changeThemes.next(2);
+  public changeThemes(nameThemes: string): void {
+    this.changeThemesService.changeThemes.next(nameThemes);
+    localStorage.setItem('nameThemes', nameThemes)
   }
 
-  public changeThemesTraning(): void {
-    this.changeThemesService.changeThemes.next(3);
+  private setDefaultThemes(): void {
+    if (this.currentThemes === null && localStorage.length === 0) {
+      this.currentThemes = 'default';
+    }
   }
+
+  private getThemesFromStorage(): void {
+    if (this.theme === null) {
+      this.currentThemes = 'default';
+    } else {
+      this.currentThemes = this.theme;
+    }
+  }
+
 }
