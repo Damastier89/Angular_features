@@ -1,7 +1,7 @@
 <div class="dashboard">
   <div *ngIf="articles.length;else loading">
     <h2 class="dashboard__title">Панель управления разделами</h2>
-    
+
     <div class="dashboard__container">
       <mat-form-field class="dashboard__control" appearance="outline">
         <mat-label>Найти раздел</mat-label>
@@ -19,11 +19,11 @@
             <th>Название раздела</th>
             <th>Дата создания раздела</th>
             <th>Открыть раздел</th>
-            <th>Рудактировать раздел</th>
+            <th>Редактировать раздел</th>
             <th>Удалить раздел</th>
           </tr>
         </thead>
-  
+
         <tbody>
           <tr *ngFor="let article of articles | search: searchArticleName; let idx = index">
             <td>{{ idx + 1 }}</td>
@@ -31,27 +31,24 @@
             <td>{{ article.title }}</td>
             <td>{{ article.date | date:"d.MM.y H:mm" }}</td>
             <td>
-              <button 
-                mat-raised-button 
-                color="primary"
+              <button
+                class="btn click"
                 [routerLink]="['/article', article.id]"
               >
               <mat-icon>file_open</mat-icon>
               </button>
             </td>
             <td>
-              <button 
-                mat-raised-button 
-                color="primary"
+              <button
+                class="btn click"
                 [routerLink]="['/admin', 'article', article.id, 'edit']"
               >
                 <mat-icon>edit_note</mat-icon>
               </button>
             </td>
             <td>
-              <button 
-                mat-raised-button 
-                color="warn"
+              <button
+                class="btn delete"
                 (click)="removeArticle(article.id)"
               >
               <mat-icon>delete</mat-icon>
@@ -62,7 +59,7 @@
       </table>
     </div>
   </div>
-  
+
   <ng-template #loading>
     <!-- <p class="text-centor">Loading...</p> -->
     <mat-spinner></mat-spinner>

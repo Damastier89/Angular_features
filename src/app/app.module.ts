@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
+import { MatIconModule } from '@angular/material/icon';
 // import { NgxsModule } from '@ngxs/store';
 
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
@@ -20,7 +21,6 @@ import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { ArticleService } from './admin/shared/services/article.service';
 import { GraphicsModule } from './graphics/graphics.module';
-
 registerLocaleData(ru);
 
 @NgModule({
@@ -41,6 +41,7 @@ registerLocaleData(ru);
     TitleModule,
     ArticlesModule,
     GraphicsModule,
+    MatIconModule,
     // NgxsModule.forRoot([]),
   ],
   providers: [

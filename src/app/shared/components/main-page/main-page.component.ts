@@ -1,6 +1,5 @@
 import { Observable, interval, startWith, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ChangeThemesService } from '../../services/change-themes.service';
 
 @Component({
@@ -21,8 +20,6 @@ export class MainPageComponent implements OnInit {
     this.setDefaultThemes();
     this.getCurrentThemes();
     this.getThemesFromStorage();
-    console.log(`this.currentThemes : `, this.currentThemes)
-    console.log(`localStorage.length : `, localStorage.length);
   }
 
   public actualDate: Observable<string> = interval(1000)

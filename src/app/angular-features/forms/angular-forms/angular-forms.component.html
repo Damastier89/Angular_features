@@ -1,1 +1,46 @@
-<p>angular-forms works!</p>
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+
+  <h2 class="form__title">Форма</h2>
+  <mat-form-field class="form__control" appearance="outline">
+    <mat-label>Заголовок формы</mat-label>
+    <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="Заголовок">
+    <mat-error *ngIf="form.controls['title'].hasError('required')">Введите заголовок формы</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__control" appearance="outline">
+    <mat-label>Контент</mat-label>
+    <input type="content" matInput formControlName="content" [errorStateMatcher]="matcher" placeholder="Текст">
+    <mat-error *ngIf="form.controls['content'].hasError('required')">Заполните поле</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__control" appearance="outline">
+    <mat-label>Автор</mat-label>
+    <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="Имя">
+    <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form__control" appearance="outline">
+    <mat-label>Возраст</mat-label>
+    <input type="age" matInput formControlName="age" [errorStateMatcher]="matcher" placeholder="Возраст">
+    <mat-error *ngIf="form.controls['age'].hasError('required')">Введите возраст</mat-error>
+    <mat-error *ngIf="form.controls['age'].hasError('min')">Ограничение по возрасту 18+</mat-error>
+    <mat-error *ngIf="form.controls['age'].hasError('max')">Максимально допустипый возраст 65 лет</mat-error>
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">Отправить</button>
+  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">
+    <mat-icon>
+      error_outline
+    </mat-icon>
+  </button>
+  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">
+    <mat-icon>
+      check_circle
+    </mat-icon>
+  </button>
+  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">
+    <mat-icon>
+      report_problem
+    </mat-icon>
+  </button>
+
+</form>

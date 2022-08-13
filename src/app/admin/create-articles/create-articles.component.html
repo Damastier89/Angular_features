@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="form" (ngSubmit)="submitArticle()"> 
+<form class="form" [formGroup]="form" (ngSubmit)="submitArticle()">
 
   <h2 class="form__title">Форма добавления нового раздела</h2>
   <mat-form-field class="form__control" appearance="outline">
@@ -18,6 +18,6 @@
     <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
   </mat-form-field>
 
-  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">Создать раздел</button>
-  
+  <button type="submit" class="btn click" [disabled]="form.invalid || submitted">Создать раздел</button>
+
 </form>

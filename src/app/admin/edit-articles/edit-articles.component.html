@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="form" (ngSubmit)="editArticle()"> 
+<form class="form" [formGroup]="form" (ngSubmit)="editArticle()">
 
   <h2 class="form__title">Форма редактирования раздела</h2>
   <mat-form-field class="form__control" appearance="outline">
@@ -18,6 +18,6 @@
     <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
   </mat-form-field>
 
-  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">Редактировать</button>
-  
+  <button type="submit" class="border-button" [disabled]="form.invalid || submitted">Редактировать</button>
+
 </form>

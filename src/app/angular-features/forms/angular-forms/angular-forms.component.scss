@@ -1,0 +1,14 @@
+.form {
+  max-width: 1700px;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__control {
+  display: block;
+  color: #888;
+  margin-bottom: .8rem;
+  }
+}

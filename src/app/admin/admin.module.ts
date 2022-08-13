@@ -32,7 +32,7 @@ import { EditArticlesComponent } from './edit-articles/edit-articles.component';
     RouterModule.forChild([
       {
         path: '', component: AdminLayoutComponent, children: [
-          { path: '', redirectTo: '/admin/authenticated-page', pathMatch: 'full' },
+          { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
           { path: 'authenticated-page', component: AuthenticatedPageComponent },
           { path: 'create-article', component: CreateArticlesComponent, canActivate: [AuthGuard] },
           { path: 'dashboard', component: DashboardArticleComponent, canActivate: [AuthGuard] },

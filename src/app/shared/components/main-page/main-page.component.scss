@@ -1,6 +1,6 @@
 $default: 'default';
-$militant: 'militant';
-$traning: 'traning';
+$danger: 'danger';
+$success: 'success';
 
 .navbar {
   display: flex;
@@ -17,12 +17,12 @@ $traning: 'traning';
     background: var(--dark-color);
   }
 
-  &--#{$militant} {
-    background: var(--militant);
+  &--#{$danger} {
+    background: var(--danger-color);
   }
 
-  &--#{$traning} {
-    background: var(--traning);
+  &--#{$success} {
+    background: var(--success-color);
   }
 
   &.main {

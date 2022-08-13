@@ -4,10 +4,10 @@
       <div class="header">
         <h1>{{ article.title }}</h1>
         <div class="header__button">
-          <button routerLink="/all_articles" mat-raised-button color="primary">
+          <button [routerLink]="['/all_articles']" class="border-button">
             Вернуть к разделам
           </button>
-          <button [routerLink]="['/admin', 'dashboard']" mat-raised-button color="primary">
+          <button [routerLink]="['/admin', 'dashboard']" class="border-button">
             Вернуть к управлению разделам
           </button>
         </div>

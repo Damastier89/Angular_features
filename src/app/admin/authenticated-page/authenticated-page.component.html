@@ -27,7 +27,7 @@
       Сейчас пароль {{ form.get('password')?.errors?.['minlength']?.actualLength }} символ.
     </mat-error>
   </mat-form-field>
-  
-    <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid || submitted">Войти</button>
+
+    <button type="submit" class="btn click" [disabled]="form.invalid || submitted">Войти</button>
 
 </form>

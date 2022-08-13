@@ -16,14 +16,29 @@ export class TitleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.setDefaultThemes();
     this.getCurrentThemes();
-    this.currentThemes = this.theme;
+    this.getThemesFromStorage();
   }
 
   public getCurrentThemes(): void {
     this.changeThemesService.changeThemes.subscribe(res => {
       this.currentThemes = res;
     })
+  }
+
+  private setDefaultThemes(): void {
+    if (this.currentThemes === null && localStorage.length === 0) {
+      this.currentThemes = 'default';
+    }
+  }
+
+  private getThemesFromStorage(): void {
+    if (this.theme === null) {
+      this.currentThemes = 'default';
+    } else {
+      this.currentThemes = this.theme;
+    }
   }
 
 }

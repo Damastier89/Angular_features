@@ -4,19 +4,20 @@ import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material
 
 const actionsData: any = {
   error: {
-    txt: 'Ошибка',
+    txt: '⛔',
     cssClass: 'snackBar-error'
   },
   success: {
-    txt: 'Успешно',
+    txt: '✅',
     cssClass: 'snackBar-success'
   },
   warning: {
-    txt: 'Предупреждение',
+    txt: '⚠️',
     cssClass: 'snackBar-warning'
   }
 };
 
+// '☢️' '🚫'
 /* стилизация в файле src/style.scss */
 /* при добавлении нового типа, необходимо его так же добавить в src/app/shared/_models/snack-bar-types.enum.ts */
 @Injectable({
@@ -38,5 +39,4 @@ export class SnackBarService {
     cfg.matSnackBarCfg.panelClass = actionsData[cfg.actionType].cssClass;
     return this.snackBar.open(cfg.message , actionsData[cfg.actionType].txt, cfg.matSnackBarCfg);
   };
-
 }
