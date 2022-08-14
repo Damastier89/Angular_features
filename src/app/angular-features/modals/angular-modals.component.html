@@ -1,0 +1,19 @@
+<div cdkDrag cdkDragHandle>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Введите ваше имя</mat-label>
+      <input matInput [(ngModel)]="name">
+    </mat-form-field>
+  </div>
+  <div>
+    <button
+      mat-raised-button 
+      (click)="openDialog()"
+      [disabled]="!name"
+    >
+      Жми сюда</button>
+  </div>
+  <div *ngIf="thing">
+    Вы любите: <i>{{ thing }}</i>
+  </div>
+</div>
