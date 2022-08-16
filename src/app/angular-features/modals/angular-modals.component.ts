@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { takeUntil, takeWhile, tap } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 
 export interface DialogData {
@@ -25,11 +26,15 @@ export class AngularModalsComponent implements OnInit {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
+      hasBackdrop: false,
       data: {name: this.name, animal: this.thing},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.thing = result;
+    dialogRef.afterClosed().pipe(
+      takeWhile(res => res), // Если false то дальше не пойдет, нужно для отписки. [mat-dialog-close]="false"
+    ).subscribe((result: DialogData) => {
+      console.log(`result :`, result);
+      this.thing = result.thing;
     });
   }
 }

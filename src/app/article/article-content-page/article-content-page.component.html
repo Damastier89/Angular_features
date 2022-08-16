@@ -4,10 +4,16 @@
       <div class="header">
         <h1>{{ article.title }}</h1>
         <div class="header__button">
-          <button [routerLink]="['/all_articles']" class="border-button">
+          <button
+            class="btn click"
+            [routerLink]="['/all_articles']"
+          >
             Вернуть к разделам
           </button>
-          <button [routerLink]="['/admin', 'dashboard']" class="border-button">
+          <button
+            class="btn click"
+            [routerLink]="['/admin', 'dashboard']"
+          >
             Вернуть к управлению разделам
           </button>
         </div>
@@ -25,7 +31,6 @@
   </div>
 
   <ng-template #loading>
-    <!-- <p class="text-centor">Loading...</p> -->
     <mat-spinner></mat-spinner>
   </ng-template>
 </div>

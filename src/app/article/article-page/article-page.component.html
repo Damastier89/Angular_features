@@ -8,7 +8,10 @@
     <small>{{ article.author }}</small>
   </div>
 
-  <button [routerLink]="['/article', article.id]" class="border-button">
+  <button
+    class="btn click"
+    [routerLink]="['/article', article.id]"
+  >
     Открыть
   </button>
 </div>

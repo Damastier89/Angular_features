@@ -1,0 +1,17 @@
+.snackBar {
+  &-success {
+    .mat-simple-snackbar-action {
+      color: limegreen;
+    }
+  }
+  &-warning {
+    .mat-simple-snackbar-action {
+      color: #ffc058;
+    }
+  }
+  &-error {
+    .mat-simple-snackbar-action {
+      color:#b10012;
+    }
+  }
+}

@@ -12,8 +12,8 @@
     justify-content: space-between;
     align-items: center;
 
-    &__button button {
-      margin: 5px 5px
+    &__button {
+      display: flex;
     }
   }
 

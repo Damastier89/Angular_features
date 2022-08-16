@@ -56,7 +56,7 @@ export class EditArticlesComponent implements OnInit {
   public editArticle() {
     this.confirmRef = this.dialog.open(ConfirmComponent, {
       data: {
-        text: 'Закончить редактирование раздела?',
+        text: 'Закончить редактирование?',
         buttons: {
           confirm: 'Да',
           cancel: 'Нет'
