@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -37,6 +39,8 @@ import { DialogComponent } from './modals/dialog/dialog.component';
     MatIconModule,
     MatDialogModule,
     DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     RouterModule.forChild([
       {
         path: '', component: AngularFeaturesComponent, children: [

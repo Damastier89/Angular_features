@@ -16,10 +16,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AngularFormsComponent implements OnInit {
   public form = new UntypedFormGroup({
-    title: new UntypedFormControl(null, Validators.required),
-    content: new UntypedFormControl(null, Validators.required),
-    author: new UntypedFormControl(null, Validators.required),
-    age: new UntypedFormControl(null, [Validators.required, Validators.min(18), Validators.max(65)])
+    name: new UntypedFormControl('', Validators.required),
+    surname: new UntypedFormControl('', Validators.required),
+    age: new UntypedFormControl('', [Validators.required, Validators.min(18), Validators.max(65)]),
+    dateOfBirth: new UntypedFormControl('', Validators.required),
+    address: new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', Validators.required),
   });
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
@@ -27,8 +29,12 @@ export class AngularFormsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.form.controls['name'].setValue('VPN')
   }
 
-  public submit(): void {}
+  public submit(): void {
+    console.log(`form : `, this.form)
+    console.log(`form dateOfBirth : `, this.form.value.dateOfBirth.toDateString())
+  }
 
 }
