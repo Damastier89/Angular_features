@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -41,6 +43,8 @@ import { DialogComponent } from './modals/dialog/dialog.component';
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
+    TextFieldModule,
     RouterModule.forChild([
       {
         path: '', component: AngularFeaturesComponent, children: [
