@@ -8,6 +8,14 @@
     border: 2px solid var(--border-buttom);
     border-radius: 5px;
     margin-bottom: 5px;
+
+    &_skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      border: 2px solid var(--border-buttom);
+      border-radius: 5px;
+    }
   }
 
   &__title {
@@ -20,10 +28,42 @@
   width: 100%;
   padding: 20px 13px 0px 13px;
 
-    &-checbox {
+    &_checkbox {
       display: flex;
       flex-direction: column;
       padding: 26px 10px;
     }
+
+    &_btn {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    &_about {
+      padding: 10px;
+    }
+
+    &_skill {
+      margin: 5px 10px 1px 10px;
+    }
   }
+}
+
+:host ::ng-deep .mat-radio-label-content {
+  padding-right: 15px;
+}
+
+@media (max-width: 1920px) {
+  .form__control_skill {
+    margin: -14px 50px -15px 11px;
+  }
+  // .form {
+
+  //   &__control {
+
+  //     &_skills {
+  //       margin: -14px 50px -15px 11px;
+  //     }
+  //   }
+  // }
 }

@@ -13,6 +13,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -45,6 +47,8 @@ import { DialogComponent } from './modals/dialog/dialog.component';
     MatNativeDateModule,
     MatRadioModule,
     TextFieldModule,
+    MatCheckboxModule,
+    MatTooltipModule,
     RouterModule.forChild([
       {
         path: '', component: AngularFeaturesComponent, children: [

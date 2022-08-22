@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatRadioChange } from '@angular/material/radio';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
@@ -27,13 +29,15 @@ export class AngularFormsComponent implements OnInit {
     email: new UntypedFormControl('', Validators.required),
     phone: new UntypedFormControl('', Validators.required),
     about: new UntypedFormControl(''),
+    skills: new UntypedFormArray([]),
   });
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
+  public isAbout: boolean = false;
 
-  // public get aboutControl(): UntypedFormArray {
-  //   return this.form.get('about') as UntypedFormArray;
-  // }
+  public get aboutControl(): UntypedFormArray {
+    return this.form.get('skills') as UntypedFormArray;
+  }
 
   constructor() { }
 
@@ -50,14 +54,21 @@ export class AngularFormsComponent implements OnInit {
     const date = new Date(this.form.value.dateOfBirth);
     const now = moment(date).format("DD.MM.YYYY");
     console.log(`form : `, this.form)
-    console.log(`moment dateOfBirth : `, now); 
-    console.log(`form dateOfBirth : `, this.form.value.dateOfBirth.toDateString());
+    // console.log(`moment dateOfBirth : `, now);
+    // console.log(`form dateOfBirth : `, this.form.value.dateOfBirth.toDateString());
     // this.form.reset();
   }
 
-  // public addAboute(): void {
-  //   const control: any = new UntypedFormControl('');
-  //   (this.form.get('about') as UntypedFormArray).push(control);
-  // }
+  public isShowAbout(): boolean {
+    return this.isAbout = !this.isAbout;
+  }
+
+  public addSkills(): void {
+    const skill: any = new UntypedFormGroup({
+      skill: new UntypedFormControl(''),
+      // skill: new UntypedFormControl(''),
+    });
+    (this.form.get('skills') as UntypedFormArray).push(skill);
+  }
 
 }

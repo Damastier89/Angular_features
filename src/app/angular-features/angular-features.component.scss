@@ -13,10 +13,8 @@
 }
 
 .features {
-  &__main {
-    display: flex;
-    height: calc(100% - 64px);
-  }
+  display: flex;
+  height: calc(100% - 64px);
 
   &__left-bar {
     background: var(--sidebar-color);
@@ -33,6 +31,7 @@
   }
 
   &__content {
+    overflow-y: auto;
     height: 100%;
     width: 75%;
     margin: 0 auto;
