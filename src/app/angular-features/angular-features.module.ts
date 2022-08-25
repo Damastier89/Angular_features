@@ -22,6 +22,11 @@ import { AngularFormsComponent } from './forms/angular-forms/angular-forms.compo
 import { AngularTabsComponent } from './tabs/angular-tabs.component';
 import { AngularModalsComponent } from './modals/angular-modals.component';
 import { DialogComponent } from './modals/dialog/dialog.component';
+import { CheckNegativeNumber } from './directives/checkNegatineNumber.directive';
+import { CheckAllLetters } from './directives/checkAllLetters.directive';
+import { CheckNumbers } from './directives/checkNumbers.directive';
+import { CheckSpecialCharacters } from './directives/chekcSpecialСharacters.directive';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,10 @@ import { DialogComponent } from './modals/dialog/dialog.component';
     AngularTabsComponent,
     AngularModalsComponent,
     DialogComponent,
+    CheckNegativeNumber,
+    CheckAllLetters,
+    CheckNumbers,
+    CheckSpecialCharacters,
   ],
   imports: [
     CommonModule,
@@ -49,6 +58,7 @@ import { DialogComponent } from './modals/dialog/dialog.component';
     TextFieldModule,
     MatCheckboxModule,
     MatTooltipModule,
+    NgxMaskModule.forRoot(),
     RouterModule.forChild([
       {
         path: '', component: AngularFeaturesComponent, children: [
@@ -59,7 +69,7 @@ import { DialogComponent } from './modals/dialog/dialog.component';
         ]
       }
     ]),
-  ]
+  ],
 })
 
-export class AngularFeatures {}
+export class AngularFeaturesModule {}

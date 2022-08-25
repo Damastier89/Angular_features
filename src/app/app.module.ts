@@ -21,6 +21,7 @@ import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { ArticleService } from './admin/shared/services/article.service';
 import { GraphicsModule } from './graphics/graphics.module';
+import { AngularFeaturesModule } from './angular-features/angular-features.module';
 registerLocaleData(ru);
 
 @NgModule({
@@ -42,8 +43,10 @@ registerLocaleData(ru);
     ArticlesModule,
     GraphicsModule,
     MatIconModule,
+    AngularFeaturesModule,
     // NgxsModule.forRoot([]),
   ],
+  exports: [],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

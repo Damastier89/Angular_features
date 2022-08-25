@@ -53,17 +53,30 @@
   padding-right: 15px;
 }
 
-@media (max-width: 1920px) {
-  .form__control_skill {
-    margin: -14px 50px -15px 11px;
+@media (max-width: 2560px) {
+  .form {
+    &__control {
+      &_skill {
+        margin: -12px 43px -13px 15px;
+      }
+    }
   }
-  // .form {
-
-  //   &__control {
-
-  //     &_skills {
-  //       margin: -14px 50px -15px 11px;
-  //     }
-  //   }
+  // .form__control_skill {
+  //   margin: -12px 43px -13px 15px;
   // }
 }
+
+@media (max-width: 1920px) {
+  .form {
+    &__control {
+      &_skill {
+        margin: -14px 50px -15px 11px;
+      }
+    }
+  }
+  // .form__control_skill {
+  //   margin: -14px 50px -15px 11px;
+  // }
+}
+
+

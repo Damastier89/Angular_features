@@ -26,7 +26,7 @@ export class AngularFormsComponent implements OnInit {
     dateOfBirth: new UntypedFormControl('', Validators.required),
     sex: new UntypedFormControl('', Validators.required),
     address: new UntypedFormControl('', Validators.required),
-    email: new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
     phone: new UntypedFormControl('', Validators.required),
     about: new UntypedFormControl(''),
     skills: new UntypedFormArray([]),
@@ -45,9 +45,9 @@ export class AngularFormsComponent implements OnInit {
     this.form.controls['name'].setValue('VPN')
     this.form.controls['surname'].setValue('VPN')
     this.form.controls['age'].setValue('VPN')
-    this.form.controls['address'].setValue('VPN')
-    this.form.controls['email'].setValue('VPN')
-    this.form.controls['phone'].setValue('VPN')
+    this.form.controls['address'].setValue('VPN@mmk.ru')
+    this.form.controls['email'].setValue('VPN@mmk.ru')
+    // this.form.controls['phone'].setValue('VPN')
   }
 
   public submit(): void {

@@ -1,105 +1,115 @@
 <div class="forms">
-  <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
 
     <h2 class="form__title">Форма обратной связи</h2>
     <div class="form__groupcontrol">
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Имя</mat-label>
-        <input 
-          type="name" 
-          matInput 
-          formControlName="name" 
-          [errorStateMatcher]="matcher" 
+        <input
+          matInput
+          formControlName="name"
+          [errorStateMatcher]="matcher"
           placeholder="Имя"
+          checkNumbers
+          checkSpecialCharacters
         >
         <mat-error *ngIf="form.controls['name'].hasError('required')">Введите имя</mat-error>
       </mat-form-field>
-  
+
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Фамилия</mat-label>
-        <input 
-          type="surname" 
-          matInput 
-          formControlName="surname" 
-          [errorStateMatcher]="matcher" 
+        <input
+          matInput
+          formControlName="surname"
+          [errorStateMatcher]="matcher"
           placeholder="Фамилия"
+          checkNumbers
+          checkSpecialCharacters
         >
         <mat-error *ngIf="form.controls['surname'].hasError('required')">Введите фамилию</mat-error>
       </mat-form-field>
     </div>
-  
+
     <div class="form__groupcontrol">
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Возраст</mat-label>
-        <input 
-          type="age" 
-          matInput 
-          formControlName="age" 
+        <input
+          matInput
+          formControlName="age"
           placeholder="Возраст"
+          checkNegativeNumber
+          checkAllLetters
+          checkSpecialCharacters
         >
         <mat-error *ngIf="form.controls['age'].hasError('required')">Введите возраст</mat-error>
         <mat-error *ngIf="form.controls['age'].hasError('min')">Ограничение по возрасту 18</mat-error>
         <mat-error *ngIf="form.controls['age'].hasError('max')">Максимально допустипый возраст 65 лет</mat-error>
       </mat-form-field>
-  
+
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Дата рождения</mat-label>
-        <input 
-          matInput 
-          formControlName="dateOfBirth" 
+        <input
+          matInput
+          formControlName="dateOfBirth"
           [matDatepicker]="picker"
         >
         <mat-hint></mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.controls['dateOfBirth'].hasError('required')">Введите дату рождения</mat-error>
       </mat-form-field>
-  
+
       <section class="form__control_checkbox">
         <mat-radio-group formControlName="sex" >
           <mat-radio-button value="man">Муж</mat-radio-button>
           <mat-radio-button value="woman">Жен</mat-radio-button>
         </mat-radio-group>
+        <mat-error *ngIf="form.controls['sex'].hasError('required')">Укажите ваш пол</mat-error>
       </section>
     </div>
-  
+
     <div class="form__groupcontrol">
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Адрес</mat-label>
-        <input 
-          type="address" 
-          matInput 
-          formControlName="address" 
-          [errorStateMatcher]="matcher" 
+        <input
+          type="address"
+          matInput
+          formControlName="address"
+          [errorStateMatcher]="matcher"
           placeholder="Укажите ваш город"
+          checkSpecialCharacters
         >
-        <mat-error *ngIf="form.controls['address'].hasError('required')">Заполните поле</mat-error>
+        <mat-error *ngIf="form.controls['address'].hasError('required')">Введите адрес</mat-error>
       </mat-form-field>
-  
+
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Почта</mat-label>
-        <input 
-          type="email" 
-          matInput 
-          formControlName="email" 
-          [errorStateMatcher]="matcher" 
+        <input
+          type="email"
+          matInput
+          formControlName="email"
+          [errorStateMatcher]="matcher"
           placeholder="Почта"
         >
-        <mat-error *ngIf="form.controls['email'].hasError('required')">Заполните поле</mat-error>
+        <mat-error *ngIf="form.controls['email'].hasError('required')">Введите почту</mat-error>
+        <mat-error *ngIf="form.controls['email'].hasError('email')">Не корректный email</mat-error>
       </mat-form-field>
-  
+
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Телефон</mat-label>
-        <input 
-          type="phone" 
-          matInput 
-          formControlName="phone" 
-          [errorStateMatcher]="matcher" 
+        <input
+          type="phone"
+          matInput
+          formControlName="phone"
+          [errorStateMatcher]="matcher"
           placeholder="Телефон"
+          prefix="+7"
+          mask="(000) 000 00 00"
         >
-        <mat-error *ngIf="form.controls['phone'].hasError('required')">Заполните поле</mat-error>
+        <mat-error *ngIf="form.controls['phone'].hasError('required')">Введите телефон</mat-error>
       </mat-form-field>
     </div>
-  
+
     <section class="form__control form__control_about">
       <mat-checkbox
         (change)="isShowAbout()"
@@ -108,7 +118,7 @@
         {{ isAbout ? 'Скрыть' : 'Добавить' }} информацю о себе
       </mat-checkbox>
     </section>
-  
+
     <div class="form__groupcontrol" *ngIf="isAbout">
       <mat-form-field class="form__control" appearance="outline">
         <mat-label>Расскажите немного о себе</mat-label>
@@ -123,7 +133,7 @@
         </textarea>
       </mat-form-field>
     </div>
-  
+
     <button
       type="button"
       [matTooltip]="'Добавить ключевой навык'"
@@ -132,7 +142,7 @@
     >
       <mat-icon>add</mat-icon>
     </button>
-  
+
     <div
       class="form__groupcontrol form__groupcontrol_skills"
       formArrayName="skills"
@@ -148,7 +158,7 @@
         </mat-form-field>
       </div>
     </div>
-  
+
     <button
       class="form__control_btn btn click"
       type="submit"
@@ -171,7 +181,7 @@
         report_problem
       </mat-icon>
     </button> -->
-  
+
   </form>
 </div>
 
