@@ -13,7 +13,7 @@ export class FormService {
   constructor(private http: HttpClient) {}
 
   public createNewDataFromForm(data: DataForm): Observable<DataForm> {
-    return this.http.post<any>(`${environments}/data.json`, data)
+    return this.http.post<any>(`${environments}/data-form.json`, data)
       .pipe(
         map((response: FbCreateResponse) => {
           return {
