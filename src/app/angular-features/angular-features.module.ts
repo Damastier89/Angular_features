@@ -22,11 +22,13 @@ import { AngularFormsComponent } from './forms/angular-forms/angular-forms.compo
 import { AngularTabsComponent } from './tabs/angular-tabs.component';
 import { AngularModalsComponent } from './modals/angular-modals.component';
 import { DialogComponent } from './modals/dialog/dialog.component';
-import { CheckNegativeNumber } from './directives/checkNegatineNumber.directive';
-import { CheckAllLetters } from './directives/checkAllLetters.directive';
-import { CheckNumbers } from './directives/checkNumbers.directive';
-import { CheckSpecialCharacters } from './directives/chekcSpecialСharacters.directive';
+import { CheckNegativeNumber } from './shared/directives/checkNegatineNumber.directive';
+import { CheckAllLetters } from './shared/directives/checkAllLetters.directive';
+import { CheckNumbers } from './shared/directives/checkNumbers.directive';
+import { CheckSpecialCharacters } from './shared/directives/chekcSpecialСharacters.directive';
 import { NgxMaskModule } from 'ngx-mask';
+import { FormService } from './shared/services/form.service';
+import { AutocompleteOffDirective } from './directives/autocompliteOff.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { NgxMaskModule } from 'ngx-mask';
     CheckAllLetters,
     CheckNumbers,
     CheckSpecialCharacters,
+    AutocompleteOffDirective,
   ],
   imports: [
     CommonModule,
@@ -70,6 +73,9 @@ import { NgxMaskModule } from 'ngx-mask';
       }
     ]),
   ],
+  providers: [
+    FormService,
+  ]
 })
 
 export class AngularFeaturesModule {}

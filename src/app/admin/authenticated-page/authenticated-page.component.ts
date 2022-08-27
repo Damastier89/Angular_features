@@ -30,7 +30,7 @@ export class AuthenticatedPageComponent implements OnInit {
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
-  constructor( 
+  constructor(
     public auth: AuthService,
     private router: Router,
     private snackBarService: SnackBarService,
@@ -67,7 +67,7 @@ export class AuthenticatedPageComponent implements OnInit {
   }
 
   private _openSnackBar(actionType: string, message: string): void {
-    message = message + '[ admin ] ';
+    message += '[ admin ] ';
     this.snackBarService.openSnackBar({
       actionType,
       message,

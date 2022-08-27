@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatRadioChange } from '@angular/material/radio';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import { DataForm } from '../../shared/interfaces/formData';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -41,22 +39,86 @@ export class AngularFormsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.form.controls['name'].setValue('VPN')
-    this.form.controls['surname'].setValue('VPN')
-    this.form.controls['age'].setValue('VPN')
-    this.form.controls['address'].setValue('VPN@mmk.ru')
-    this.form.controls['email'].setValue('VPN@mmk.ru')
-    // this.form.controls['phone'].setValue('VPN')
+  // ngOnInit(): void {
+  //   // this.form.controls['name'].setValue('VPN')
+  //   // this.form.controls['surname'].setValue('VPN')
+  //   // this.form.controls['age'].setValue('VPN')
+  //   // this.form.controls['address'].setValue('VPN@mmk.ru')
+  //   // this.form.controls['email'].setValue('VPN@mmk.ru')
+  //   // this.form.controls['phone'].setValue('VPN')
+  // }
+
+  browserName = '';
+  browserVersion = '';
+  
+  ngOnInit() {
+      this.browserName = this.detectBrowserName();
+      this.browserVersion = this.detectBrowserVersion();
+      console.log(this.browserName)
+      console.log(this.browserVersion)
+    }
+
+  public detectBrowserName() { 
+    const agent = window.navigator.userAgent.toLowerCase()
+    switch (true) {
+      case agent.indexOf('edge') > -1:
+        return 'edge';
+      case agent.indexOf('opr') > -1 && !!(<any>window).opr:
+        return 'opera';
+      case agent.indexOf('chrome') > -1 && !!(<any>window).chrome:
+        return 'chrome';
+      case agent.indexOf('trident') > -1:
+        return 'ie';
+      case agent.indexOf('firefox') > -1:
+        return 'firefox';
+      case agent.indexOf('safari') > -1:
+        return 'safari';
+      default:
+        return 'other';
+    }
   }
+  public detectBrowserVersion(){
+      var userAgent = navigator.userAgent, tem, 
+      matchTest = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+      
+      if(/trident/i.test(matchTest[1])){
+          tem =  /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+          return 'IE '+(tem[1] || '');
+      }
+      if(matchTest[1]=== 'Chrome'){
+          tem = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
+          if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
+      matchTest= matchTest[2]? [matchTest[1], matchTest[2]]: [navigator.appName, navigator.appVersion, '-?'];
+      if((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
+      return matchTest.join(' ');
+  }
+  
 
   public submit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     const date = new Date(this.form.value.dateOfBirth);
     const now = moment(date).format("DD.MM.YYYY");
-    console.log(`form : `, this.form)
-    // console.log(`moment dateOfBirth : `, now);
-    // console.log(`form dateOfBirth : `, this.form.value.dateOfBirth.toDateString());
-    // this.form.reset();
+    const dataFromForm: DataForm = {
+      name: this.form.value.name,
+      surname: this.form.value.surname,
+      age: this.form.value.age,
+      dateOfBirth: now,
+      sex: this.form.value.sex,
+      address: this.form.value.address,
+      email: this.form.value.email,
+      phone: this.form.value.phone,
+      about: this.form.value.about || null,
+      skills: this.form.value.skills || null,
+      date: new Date(),
+    }
+    this.submitted = true;
+
+    console.log(`form : `, this.form);
+    console.log(`form : `, dataFromForm);
   }
 
   public isShowAbout(): boolean {

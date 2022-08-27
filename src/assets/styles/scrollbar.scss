@@ -1,3 +1,10 @@
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: grey;
+}
+
+/* Works on Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
   width: 9px;
   height: 5px;
