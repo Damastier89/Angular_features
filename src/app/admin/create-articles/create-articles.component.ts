@@ -74,14 +74,13 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
           this.submitted = false;
         })
       } else {
-        this._openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!')
+        this.openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!')
       }
 
     });
   }
 
-  private _openSnackBar(actionType: string, message: string): void {
-    message = message;
+  private openSnackBar(actionType: string, message: string): void {
     this.snackBarServive.openSnackBar({
       actionType,
       message,

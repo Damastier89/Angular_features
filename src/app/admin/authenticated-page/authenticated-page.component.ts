@@ -56,18 +56,23 @@ export class AuthenticatedPageComponent implements OnInit {
       returnSecureToken: true,
     }
 
-    this.auth.authPassword(admin).pipe(takeUntil(this.destroyNotifier)).subscribe(() => {
-      this.router.navigate(['/admin', 'create-article']);
-      this.form.reset();
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
+    this.auth.authPassword(admin).pipe(takeUntil(this.destroyNotifier)).subscribe({
+      next: () => {
+        this.router.navigate(['/admin', 'create-article']);
+        this.form.reset();
+        this.submitted = false;
+        this.openSnackBar(SnackBarTypes.Success, 'Вы вошли как [ admin ]');
+      },
+      error: () => {
+        this.openSnackBar(SnackBarTypes.Error, 'Ошибка. Не верный пароль или email');
+        this.form.reset();
+        this.submitted = false;
+      }
     })
-    this._openSnackBar(SnackBarTypes.Success, 'Вы вошли как ');
+    
   }
 
-  private _openSnackBar(actionType: string, message: string): void {
-    message += '[ admin ] ';
+  private openSnackBar(actionType: string, message: string): void {
     this.snackBarService.openSnackBar({
       actionType,
       message,

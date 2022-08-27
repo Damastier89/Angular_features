@@ -1,8 +1,9 @@
-import { environment } from './../../../../environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, tap, Subject, throwError } from 'rxjs';
-import { Admin } from './../interfaces/admin';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { environment } from './../../../../environments/environment';
+import { Admin } from './../interfaces/admin';
 
 const env = environment.apiKey;
 
@@ -12,7 +13,9 @@ const env = environment.apiKey;
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
 
-  constructor( private http: HttpClient ) { }
+  constructor( 
+    private http: HttpClient,
+  ) { }
 
   public get token(): any {
     const expDate = new Date(localStorage.getItem('fb-token-exp') as string);
