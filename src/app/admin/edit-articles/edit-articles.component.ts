@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
@@ -22,13 +22,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './edit-articles.component.html',
   styleUrls: ['./edit-articles.component.scss']
 })
-export class EditArticlesComponent implements OnInit {
+export class EditArticlesComponent implements OnInit, OnDestroy {
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
   public form!: UntypedFormGroup;
   public article!: Article;
 
   private confirmRef!: MatDialogRef<ConfirmComponent>
+  private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class EditArticlesComponent implements OnInit {
       switchMap(params => {
         return this.articleService.getArticleById(params['id']);
       })
-    ).subscribe(article => {
+    ).pipe(takeUntil(this.destroyNotifier)).subscribe(article => {
       this.article = article;
       this.form = new UntypedFormGroup({
         title: new UntypedFormControl(this.article.title),
@@ -51,6 +52,11 @@ export class EditArticlesComponent implements OnInit {
         author: new UntypedFormControl(this.article.author),
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyNotifier.next(true);
+    this.destroyNotifier.complete();
   }
 
   public editArticle() {
@@ -64,7 +70,7 @@ export class EditArticlesComponent implements OnInit {
       }
     });
 
-    this.confirmRef.afterClosed().subscribe((result: boolean) => {
+    this.confirmRef.afterClosed().pipe(takeUntil(this.destroyNotifier)).subscribe((result: boolean) => {
       if (result) {
         if (this.form.invalid) {
           return;
@@ -77,12 +83,18 @@ export class EditArticlesComponent implements OnInit {
           content: this.form.value.content,
           author: this.form.value.author,
           date: new Date(),
-        }).subscribe(() => {
-          this.submitted = false;
-          this.router.navigate(['/admin', 'dashboard']);
+        }).pipe(takeUntil(this.destroyNotifier)).subscribe({
+          next: () => {
+            this.submitted = false;
+            this.router.navigate(['/admin', 'dashboard']);
+            this.openSnackBar(SnackBarTypes.Success, 'Раздел отредактирован');
+          },
+          error: () => {
+            this.submitted = false;
+            this.router.navigate(['/admin', 'edit']);
+            this.openSnackBar(SnackBarTypes.Error, 'Не удалось отредактировать раздел');
+          }
         });
-
-        this.openSnackBar(SnackBarTypes.Success, 'Раздел отредактирован');
       } else {
         this.openSnackBar(SnackBarTypes.Warning, 'Редактирование раздела прервано');
       }

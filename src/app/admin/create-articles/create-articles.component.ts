@@ -69,9 +69,17 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
           date: new Date(),
         }
         this.submitted = true;
-        this.articleService.createArticle(article).pipe(takeUntil(this.destroyNotifier)).subscribe(() => {
-          this.form.reset();
-          this.submitted = false;
+        this.articleService.createArticle(article).pipe(takeUntil(this.destroyNotifier)).subscribe({
+          next: () => {
+            this.form.reset();
+            this.submitted = false;
+            this.openSnackBar(SnackBarTypes.Success, 'Раздел добавлен успешно');
+          },
+          error: () => {
+            this.form.reset();
+            this.submitted = false;
+            this.openSnackBar(SnackBarTypes.Error, 'Не удалось добавить раздел');
+          }
         })
       } else {
         this.openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!')

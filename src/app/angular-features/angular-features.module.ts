@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
-import { AngularFormsComponent } from './forms/angular-forms/angular-forms.component';
+import { AngularFormsComponent } from './form/angular-forms/angular-forms.component';
 import { AngularTabsComponent } from './tabs/angular-tabs.component';
 import { AngularModalsComponent } from './modals/angular-modals.component';
 import { DialogComponent } from './modals/dialog/dialog.component';
@@ -29,6 +29,7 @@ import { CheckSpecialCharacters } from './shared/directives/chekcSpecialСharact
 import { NgxMaskModule } from 'ngx-mask';
 import { FormService } from './shared/services/form.service';
 import { AutocompleteOffDirective } from './directives/autocompliteOff.directive';
+import { FormResultComponent } from './form-result/form-result/form-result.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AutocompleteOffDirective } from './directives/autocompliteOff.directive
     CheckNumbers,
     CheckSpecialCharacters,
     AutocompleteOffDirective,
+    FormResultComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { AutocompleteOffDirective } from './directives/autocompliteOff.directive
         path: '', component: AngularFeaturesComponent, children: [
           { path: '', redirectTo: 'forms', pathMatch: 'full'},
           { path: 'forms', component: AngularFormsComponent },
+          { path: 'form-result', component: FormResultComponent},
           { path: 'tabs', component: AngularTabsComponent },
           { path: 'modals', component: AngularModalsComponent },
         ]

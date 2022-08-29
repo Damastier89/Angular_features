@@ -24,4 +24,8 @@ export class FormService {
         })
       );
   }
+
+  public getAllDataForm(): Observable<DataForm> {
+    return  this.http.get<DataForm>(`${environments}/data-form.json`);
+  }
 }

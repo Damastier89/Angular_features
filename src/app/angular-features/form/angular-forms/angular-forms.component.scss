@@ -1,0 +1,82 @@
+.form {
+  max-width: 900px;
+  margin: 0 auto;
+
+  &__groupcontrol {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid var(--border-buttom);
+    border-radius: 5px;
+    margin-bottom: 5px;
+
+    &_skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      border: 2px solid var(--border-buttom);
+      border-radius: 5px;
+    }
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__control {
+  display: block;
+  color: #888;
+  width: 100%;
+  padding: 20px 13px 0px 13px;
+
+    &_checkbox {
+      display: flex;
+      flex-direction: column;
+      padding: 26px 10px;
+    }
+
+    &_btn {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    &_about {
+      padding: 10px;
+    }
+
+    &_skill {
+      margin: 5px 10px 1px 10px;
+    }
+  }
+}
+
+:host ::ng-deep .mat-radio-label-content {
+  padding-right: 15px;
+}
+
+@media (max-width: 2560px) {
+  .form {
+    &__control {
+      &_skill {
+        margin: -12px 43px -13px 15px;
+      }
+    }
+  }
+  // .form__control_skill {
+  //   margin: -12px 43px -13px 15px;
+  // }
+}
+
+@media (max-width: 1920px) {
+  .form {
+    &__control {
+      &_skill {
+        margin: -14px 50px -15px 11px;
+      }
+    }
+  }
+  // .form__control_skill {
+  //   margin: -14px 50px -15px 11px;
+  // }
+}
+
+

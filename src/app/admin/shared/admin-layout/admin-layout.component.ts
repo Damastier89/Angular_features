@@ -1,17 +1,20 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AuthService } from './../services/auth.service';
 import { ChangeThemesService } from '../../../shared/services/change-themes.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })
-export class AdminLayoutComponent implements OnInit {
+export class AdminLayoutComponent implements OnInit, OnDestroy {
   public currentThemes: string | null = '';
   public theme = localStorage.getItem('nameThemes');
+
+  private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public auth: AuthService,
@@ -25,6 +28,11 @@ export class AdminLayoutComponent implements OnInit {
     this.getThemesFromStorage();
   }
 
+  ngOnDestroy(): void {
+    this.destroyNotifier.next(true);
+    this.destroyNotifier.complete();
+  }
+
   public logout(event: Event): void {
     event.preventDefault();
     this.auth.logout();
@@ -32,7 +40,9 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   public getCurrentThemes(): void {
-    this.changeThemesService.changeThemes.subscribe(res => {
+    this.changeThemesService.changeThemes.pipe(
+      takeUntil(this.destroyNotifier)
+    ).subscribe(res => {
       this.currentThemes = res;
     })
   }

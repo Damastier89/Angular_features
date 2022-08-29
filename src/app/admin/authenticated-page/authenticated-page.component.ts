@@ -1,7 +1,7 @@
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from './../shared/services/auth.service';
 import { Admin } from './../shared/interfaces/admin';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './authenticated-page.component.html',
   styleUrls: ['./authenticated-page.component.scss'],
 })
-export class AuthenticatedPageComponent implements OnInit {
+export class AuthenticatedPageComponent implements OnInit, OnDestroy {
   public form = new UntypedFormGroup({
     email: new UntypedFormControl("", [Validators.required, Validators.email]),
     password: new UntypedFormControl("", [Validators.required, Validators.minLength(7)]),
@@ -34,7 +34,7 @@ export class AuthenticatedPageComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private snackBarService: SnackBarService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {}
 
@@ -69,7 +69,7 @@ export class AuthenticatedPageComponent implements OnInit {
         this.submitted = false;
       }
     })
-    
+
   }
 
   private openSnackBar(actionType: string, message: string): void {
