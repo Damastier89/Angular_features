@@ -55,7 +55,7 @@ export class AngularFormsComponent implements OnInit {
       this.browserName = this.detectBrowserName();
       this.browserVersion = this.detectBrowserVersion();
       console.log(this.browserName)
-      console.log(this.browserVersion)
+      // console.log(this.browserVersion)
     }
 
   public submit(): void {
