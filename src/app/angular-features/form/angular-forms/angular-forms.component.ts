@@ -63,12 +63,12 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit() {
-    this.form.controls['name'].setValue('VPN')
-    this.form.controls['surname'].setValue('VPN')
-    this.form.controls['age'].setValue('VPN')
-    this.form.controls['address'].setValue('VPN@mmk.ru')
-    this.form.controls['email'].setValue('VPN@mmk.ru')
-    this.form.controls['phone'].setValue('VPN')
+    this.form.controls['name'].setValue('Maxim')
+    this.form.controls['surname'].setValue('Ivanov')
+    this.form.controls['age'].setValue('51')
+    this.form.controls['address'].setValue('Moscow')
+    this.form.controls['email'].setValue('Maxim@mmk.ru')
+    // this.form.controls['phone'].setValue('VPN')
 
     this.browserName = this.detectBrowserName();
     this.browserVersion = this.detectBrowserVersion();
@@ -152,19 +152,19 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
     }
   }
   public detectBrowserVersion(){
-      var userAgent = navigator.userAgent, tem,
+      let userAgent = navigator.userAgent, tem,
       matchTest = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 
-      if(/trident/i.test(matchTest[1])){
+      if (/trident/i.test(matchTest[1])) {
           tem =  /\brv[ :]+(\d+)/g.exec(userAgent) || [];
           return 'IE '+(tem[1] || '');
       }
-      if(matchTest[1]=== 'Chrome'){
+      if (matchTest[1]=== 'Chrome') {
           tem = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
-          if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+          if (tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
       }
-      matchTest= matchTest[2]? [matchTest[1], matchTest[2]]: [navigator.appName, navigator.appVersion, '-?'];
-      if((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
+      matchTest= matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
+      if ((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
       return matchTest.join(' ');
   }
 

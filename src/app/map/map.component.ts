@@ -17,6 +17,8 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
 
+import { icons } from '../map/open-layer/_types/icons'
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -173,10 +175,17 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public drawImage() {
     console.log( ` done : `);
-    this.drawIcon.activate('biological-hazard-color');
+    // icons.forEach( icon => {
+    //   this.drawIcon.activate(icon.type);
+    // })
+
+    // this.drawIcon.activate('biological-hazard-color')
+    this.drawIcon.activate('biological-hazard-color')
+
   }
 
   public clickMouse() {
+    console.log(` done deactivate`)
     this.map.getViewport().addEventListener('contextmenu', (event) => {
       this.drawIcon.deactivate();
     })

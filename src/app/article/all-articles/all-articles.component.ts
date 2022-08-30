@@ -10,6 +10,7 @@ import { ArticleService } from '../../admin/shared/services/article.service';
 })
 export class AllArticlesComponent implements OnInit {
   public articles$!: Observable<Article[]>;
+  // public allArticles!: Article[];
   public article: string = 'Cтатьи о возможностях Angular и не только';
   public searchArticleName: any = '';
 
@@ -19,6 +20,10 @@ export class AllArticlesComponent implements OnInit {
 
   ngOnInit(): void {
     this.articles$ = this.articleService.getAllArticles();
+    // this.articleService.getAllArticles().subscribe((articles: Article[]) => {
+    //   this.allArticle = articles;
+    //   console.log(`test `, this.allArticle)
+    // })
   }
 
 }

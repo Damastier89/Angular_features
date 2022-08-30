@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -63,6 +64,7 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
     TextFieldModule,
     MatCheckboxModule,
     MatTooltipModule,
+    MatCardModule,
     NgxMaskModule.forRoot(),
     RouterModule.forChild([
       {

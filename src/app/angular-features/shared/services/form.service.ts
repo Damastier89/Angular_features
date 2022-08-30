@@ -25,7 +25,16 @@ export class FormService {
       );
   }
 
-  public getAllDataForm(): Observable<DataForm> {
-    return  this.http.get<DataForm>(`${environments}/data-form.json`);
+  public getAllDataForm(): Observable<DataForm[]> {
+    return  this.http.get<DataForm>(`${environments}/data-form.json`)
+      .pipe(
+        map((response: {[key: string]: any}) => {
+          return Object.keys(response).map(key => ({
+            ...response[key],
+            id: key,
+            date: new Date(response[key].date)
+          }))
+        })
+      );
   }
 }

@@ -1,10 +1,6 @@
 import { IconData } from "../interfaces/iconData";
 
 export const icons: IconData[] = [
-  // {
-  //   type: 'biological-hazard-color',
-  //   source: '../../../assets/image/biological-hazard-color.png'
-  // },
   {
     type: 'biological-hazard-color',
     source: '../../../assets/image/biological-hazard-color-smal.png'
@@ -14,16 +10,16 @@ export const icons: IconData[] = [
     source: '../../../assets/image/biological-hazard-triangles.png'
   },
   {
+    type: 'radiation-hazard-marcer',
+    source: '../../../assets/image/radiation-hazard-marcer.png'
+  },
+  {
     type: 'radiation_hazard-black',
     source: '../../../assets/image/radiation_hazard-black.png'
   },
   {
     type: 'radiation-hazard-color',
-    source: '../../../assets/image/bradiation-hazard-color.png'
-  },
-  {
-    type: 'radiation-hazard-marcer',
-    source: '../../../assets/image/radiation-hazard-marcer.png'
+    source: '../../../assets/image/radiation-hazard-color.png'
   },
   {
     type: 'radiation-hazard-orange',

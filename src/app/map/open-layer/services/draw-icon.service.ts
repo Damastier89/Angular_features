@@ -29,6 +29,7 @@ export class DrawIconService {
   public activate(type: string) {
     this.draws.forEach(draw => {
       if (draw.get('iconType') === type) {
+        console.log(`type `, type)
         draw.setActive(true);
       } else {
         draw.setActive(false);
@@ -118,7 +119,6 @@ export class DrawIconService {
         // offset: [1, 0],
         // opacity: 0.5,
         // scale: 1.0,
-
       }),
     })
   }

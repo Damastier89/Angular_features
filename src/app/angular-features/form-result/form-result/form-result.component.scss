@@ -1,0 +1,23 @@
+.card {
+
+  &__image {
+    background-image: url('../../../../assets/image/radiation-hazard-marcer.png');
+    background-size: cover;
+  }
+
+  &__data {
+    margin-left: 20px;
+  }
+}
+
+:host ::ng-deep {
+
+  .mat-card {
+    margin: 25px 100px 0 100px;
+  }
+
+  .mat-card-image {
+    width: 300px;
+    margin: 0 auto;
+  }
+}
