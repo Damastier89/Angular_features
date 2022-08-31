@@ -26,7 +26,7 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
   public form = new UntypedFormGroup({
     name: new UntypedFormControl('', Validators.required),
     surname: new UntypedFormControl('', Validators.required),
-    age: new UntypedFormControl('', [Validators.required, Validators.min(18), Validators.max(65)]),
+    age: new UntypedFormControl('', [Validators.required, Validators.min(18), Validators.max(30)]),
     dateOfBirth: new UntypedFormControl('', Validators.required),
     sex: new UntypedFormControl('', Validators.required),
     address: new UntypedFormControl('', Validators.required),
@@ -65,7 +65,7 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form.controls['name'].setValue('Maxim')
     this.form.controls['surname'].setValue('Ivanov')
-    this.form.controls['age'].setValue('51')
+    this.form.controls['age'].setValue('30')
     this.form.controls['address'].setValue('Moscow')
     this.form.controls['email'].setValue('Maxim@mmk.ru')
     // this.form.controls['phone'].setValue('VPN')

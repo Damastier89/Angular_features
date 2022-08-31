@@ -1,41 +1,40 @@
-<mat-card class="card">
-  <mat-card-header>
-    <div mat-card-avatar class="card__image"></div>
-    <mat-card-title>{{ dataFromForm ? dataFromForm.name : '___' }}</mat-card-title>
-    <mat-card-subtitle>{{ dataFromForm ? dataFromForm.surname : '___'}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="../../../../assets/image/radiation-hazard-orange.png" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <div class="card__data">
-      <ul>
-        <li>
-          Согласно переданным данным, вам - {{ dataFromForm ? dataFromForm.age : '___' }}
-        </li>
-        <li>
-          Дата рождения - {{ dataFromForm ? dataFromForm.dateOfBirth : '___' }}
-        </li>
-        <li>
-          Пол - {{ dataFromForm ? dataFromForm.sex : '___' }}
-        </li>
-        <li>
-          Вы живёте в по адресу - {{ dataFromForm ? dataFromForm.address : '___' }}
-        </li>
-        <li>
-          Ваш телефон - +7{{ dataFromForm ? dataFromForm.phone : '___' }}
-        </li>
-        <li>
-          Ваша почта - {{ dataFromForm ? dataFromForm.email : '___' }}
-        </li>
-        <li>
-          Немного о Вас - {{ dataFromForm ? dataFromForm.about : '___' }}
-        </li>
-        <li>
-          Ваши ключевые навыки - {{ dataFromForm ? dataFromForm.skills  : '___' }}
-        </li>
-        <li>
-          Дата заполнения формы - {{ dataFromForm?.date  | date : 'd MMMM y , EE H.mm:ss' }}
-        </li>
-      </ul>
+<div class="blog-card">
+  <div class="meta">
+    <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
+    <ul class="details">
+      <li class="author">{{ dataFromForm?.name ? dataFromForm?.name : 'Не указано' }} {{ dataFromForm?.surname ? dataFromForm?.surname : 'Не указано'}}</li>
+      <li class="date">{{ dataFromForm?.dateOfBirth ? dataFromForm?.dateOfBirth : 'Не указано' }}</li>
+      <li class="tags">{{ dataFromForm?.age ? dataFromForm?.age : 'Не указано' }} {{ agePerson }}</li>
+    </ul>
+  </div>
+  <div class="description">
+    <h1>{{ dataFromForm?.name ? dataFromForm?.name : 'Не указано' }} {{ dataFromForm?.surname ? dataFromForm?.surname : 'Не указано'}}</h1>
+    <h2>{{ dataFromForm?.email ? dataFromForm?.email : 'Не указано' }}</h2>
+    <p> {{ dataFromForm?.about ? dataFromForm?.about : 'Не указано' }}</p>
+  </div>
+</div>
+<div class="blog-card alt">
+  <div class="meta">
+    <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)"></div>
+    <!-- <ul class="details">
+      <li class="author"><a href="#">Jane Doe</a></li>
+      <li class="date">July. 15, 2015</li>
+      <li class="tags">
+        <ul>
+          <li><a href="#">Learn</a></li>
+          <li><a href="#">Code</a></li>
+          <li><a href="#">JavaScript</a></li>
+        </ul>
+      </li>
+    </ul> -->
+  </div>
+  <div class="description">
+    <h1>Ваши ключевые навыки</h1>
+    <div *ngFor="let item of skillPerson">
+      <p>{{ item.skill ? item.skill : 'Не указано' }}</p>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div class="read-more">
+      {{ dataFromForm?.date  | date : 'd MMMM y , EE H.mm:ss' }}
+    </div>
+  </div>
+</div>

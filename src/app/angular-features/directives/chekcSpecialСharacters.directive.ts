@@ -8,7 +8,7 @@ export class CheckSpecialCharacters {
   public numbers = [
     '!', '@', '#', '$', '%', '&', '?', '-', '+', '=',
     '~', '>', '<', '/', '|', '\\', '[', ']', '{', '}',
-    ',', '.', '_',
+    ',', '.', '_', '`', '(', ')', '*', '^', ':', '"'
   ];
 
   @HostListener('keydown', ['$event'])

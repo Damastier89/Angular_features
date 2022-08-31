@@ -12,7 +12,10 @@ import { FormService } from '../../shared/services/form.service';
   styleUrls: ['./form-result.component.scss']
 })
 export class FormResultComponent implements OnInit, OnDestroy {
-  public dataFromForm!: DataForm | undefined;
+  public dataFromForm!: any;
+  public agePerson!: string;
+  public skillPerson!: any[];
+  
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -23,20 +26,30 @@ export class FormResultComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formService.getAllDataForm().pipe(
       takeUntil(this.destroyNotifier)
-    ).subscribe((data: DataForm[]) => {
-      console.log(data)
+    ).subscribe((data: any) => {
       if (data) {
         this.dataFromForm = data.pop();
+        this.checkAgePerson(Number(this.dataFromForm.age));
+        this.skillPerson = this.dataFromForm.skills;
       } else {
         this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить данные формы')
       }
-
     })
   }
 
   ngOnDestroy(): void {
     this.destroyNotifier.next(true);
     this.destroyNotifier.complete();
+  }
+
+  public checkAgePerson(age: number): any {
+    if (age <= 20 || age >= 25) {
+      this.agePerson = 'лет';
+    } else if (age == 21 || age == 31) {
+      this.agePerson = 'год';
+    } else if (age >= 22 || age <= 24) {
+      this.agePerson = 'года';
+    }
   }
 
   private openSnackBar(actionType: string, message: string): void {

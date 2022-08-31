@@ -11,9 +11,5 @@ export class CheckNegativeNumber {
     if (event.key === '-' && event.code === 'Minus') {
       event.preventDefault();
     }
-
-    if (event.key === '0' && event.code === 'Digit0') {
-      event.preventDefault();
-    }
   }
 }
