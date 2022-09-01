@@ -8,10 +8,11 @@ import { QuillModule } from "ngx-quill";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.component';
 import { AuthenticatedPageComponent } from './authenticated-page/authenticated-page.component';
-import { AuthGuard } from './shared/services/auth.guarrd';
+import { AuthGuard } from './shared/services/auth.guard';
 import { DashboardArticleComponent } from './dashboard-article/dashboard-article.component';
 import { SearchPipe } from './shared/pipes/search.pipe';
 import { EditArticlesComponent } from './edit-articles/edit-articles.component';
+import { ArticleDataService } from './shared/services/articleData.service';
 
 @NgModule({
   declarations: [

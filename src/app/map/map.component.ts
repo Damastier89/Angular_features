@@ -16,19 +16,20 @@ import { ReferenceService } from './open-layer/services/_index';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
+import { SIDEBAR_ANIMATION_SWITCHER } from './animation/animation-config';
 
-import { icons } from '../map/open-layer/_types/icons'
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  animations: [SIDEBAR_ANIMATION_SWITCHER],
 })
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
   @ViewChild('coordinates') coordinates?: any;
   public name: string = 'Map Viewer - Openlayers & Angular'
-  public panelOpenState = false;
+  public panelOpenState: boolean = false;
   public isMap: boolean = false;
   public map!: Map;
   drawInteractions!: Draw;
@@ -40,6 +41,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public coordinatesX: string = '00° 00′ 00″ С.Ш.';
   public coordinatesY: string = '00° 00′ 00″ В.Д.';
+
+  public isOpenProperties: boolean = false;
+  public isAnimationProperties: boolean = false;
 
   private baseLayers!: LayerGroup;
   private rasterLayers!: LayerGroup;
@@ -174,7 +178,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public drawImage() {
-    console.log( ` done : `);
+    // console.log( ` done : `);
     // icons.forEach( icon => {
     //   this.drawIcon.activate(icon.type);
     // })
@@ -228,6 +232,20 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public drawGeometryCollection(): void {
     this.drawGeometry.createGeometryCollection(this.map)
+  }
+
+/**
+ * Анимация правой панели
+ */
+  public handleAnimationEvent(event: any): void {
+    if (event.toState) {
+      this.isAnimationProperties = true;
+    }
+  }
+
+  public toggelPanel() {
+    this.isOpenProperties = !this.isOpenProperties;
+    this.isAnimationProperties = false;
   }
 
 /**

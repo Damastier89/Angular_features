@@ -95,8 +95,22 @@
       </mat-expansion-panel>
     </mat-accordion>
 
+    <button
+      class="map__panel"
+      (click)="toggelPanel()"
+    >
+      <mat-icon>{{isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
+    </button>
 
   </div>
+
+  <div class="map__properties"
+    (@toggleSidebar.done)="handleAnimationEvent($event)"
+    [@toggleSidebar]="isOpenProperties ? 'open' : 'close'"
+  >
+    <app-properties *ngIf="isAnimationProperties"></app-properties>
+  </div>
+
   <div id="map" class="map-container"></div>
   <div class="map-container__coordinate">
     <p>X = {{ coordinatesX }}</p>

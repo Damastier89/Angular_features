@@ -1,9 +1,9 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { MatIconModule } from '@angular/material/icon';
 // import { NgxsModule } from '@ngxs/store';
@@ -34,9 +34,9 @@ registerLocaleData(ru);
   imports: [
     FormsModule,
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     SharedModule,
-    BrowserAnimationsModule,
     MaterialModule,
     MapModule,
     TitleModule,
@@ -44,6 +44,7 @@ registerLocaleData(ru);
     GraphicsModule,
     MatIconModule,
     AngularFeaturesModule,
+    BrowserAnimationsModule,
     // NgxsModule.forRoot([]),
   ],
   exports: [],
@@ -57,12 +58,13 @@ registerLocaleData(ru);
       provide: LOCALE_ID,
       useValue: "ru-RU",
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (configService: ArticleService) => () => configService.load(),
-      deps:[ArticleService],
-      multi: true
-    }
+    // В моем случае APP_INITIALIZER и DataService дают двойную подписку
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (configService: ArticleService) => () => configService.load(),
+    //   deps:[ArticleService],
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

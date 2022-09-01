@@ -185,7 +185,7 @@
     z-index: 1;
     position: absolute;
     top: 10%;
-    right: 5%;
+    right: 20%;
     background-color: rgb(243, 243, 243);
   }
 
@@ -280,9 +280,47 @@
   &__radio {
     margin: 5px;
   }
+
+  &__properties {
+    height: calc(100% - 64px);
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;
+    width: 20%;
+    max-width: 30%;
+    padding: 16px;
+  }
+
+  &__panel {
+    position: absolute;
+    z-index: 1;
+    left: 20%;
+    top: 4.8%;
+    text-decoration: none;
+    display: inline;
+    padding: 0px 15.5px;
+    margin: 3px 3px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 85% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+      background-position: 0 0;
+      cursor: pointer;
+    }
+  }
 }
 
-@media (max-width: 1939px) {
+@media (max-width: 1920px) {
   ::ng-deep .ol-rotate {
     button {
       padding: 5px 15px;
@@ -291,5 +329,11 @@
   ::ng-deep .ol-scale-line {
     bottom: 2%;
     right: 93%;
+  }
+
+  .map {
+    &__panel {
+      top: 6.9%;
+    }
   }
 }

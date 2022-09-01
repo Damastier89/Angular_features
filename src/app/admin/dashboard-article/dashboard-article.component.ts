@@ -1,7 +1,11 @@
-import { Article } from './../shared/interfaces/article';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ArticleService } from '../shared/services/article.service';
 import { Subject, takeUntil } from 'rxjs';
+
+import { Article } from './../shared/interfaces/article';
+import { ArticleService } from '../shared/services/article.service';
+import { ArticleDataService } from '../shared/services/articleData.service';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 
 @Component({
   selector: 'app-dashboard-article',
@@ -14,12 +18,27 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
-  constructor( private articleService: ArticleService ) { }
+  constructor(
+    private articleService: ArticleService,
+    private articleDataService: ArticleDataService,
+    private snackBarServive: SnackBarService,
+  ) { }
 
   ngOnInit(): void {
-    this.articleService.getAllArticles().pipe(
+    this.articleDataService.getDataArticle();
+    this.articleDataService.getDataArticleSubscription().pipe(
       takeUntil(this.destroyNotifier)
-    ).subscribe(article => this.articles = article);
+    ).subscribe({
+      next: (article: Article[]) => {
+        this.articles = article;
+      },
+      error: () => {
+        this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы')
+      }
+    });
+    // this.articleService.getAllArticles().pipe(
+    //   takeUntil(this.destroyNotifier)
+    // ).subscribe(article => this.articles = article);
   }
 
   ngOnDestroy(): void {
@@ -35,6 +54,10 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
     })
   }
 
-
-
+  private openSnackBar(actionType: string, message: string): void {
+    this.snackBarServive.openSnackBar({
+      actionType,
+      message,
+    })
+  }
 }

@@ -8,7 +8,7 @@
       </button>
   </mat-form-field>
 
-  <div class="categories" *ngIf="articles$ | async as allArticles; else loading">
+  <div class="categories" *ngIf="allArticles; else loading">
       <div class="categories-items">
         <div *ngFor="let article of allArticles | searchArticles : searchArticleName">
           <app-article-page  class="categories-item"  [article]="article"></app-article-page>
