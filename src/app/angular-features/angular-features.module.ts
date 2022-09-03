@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -20,7 +19,6 @@ import { MatCardModule } from '@angular/material/card';
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
 import { AngularFormsComponent } from './form/angular-forms/angular-forms.component';
-import { AngularTabsComponent } from './tabs/angular-tabs.component';
 import { AngularModalsComponent } from './modals/angular-modals.component';
 import { DialogComponent } from './modals/dialog/dialog.component';
 import { CheckNegativeNumber } from './shared/directives/checkNegatineNumber.directive';
@@ -36,7 +34,6 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
   declarations: [
     AngularFeaturesComponent,
     AngularFormsComponent,
-    AngularTabsComponent,
     AngularModalsComponent,
     DialogComponent,
     CheckNegativeNumber,
@@ -49,7 +46,6 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
   imports: [
     CommonModule,
     TitleModule,
-    MatTabsModule,
     MatButtonModule,
     MatFormFieldModule,
     FormsModule,
@@ -72,7 +68,6 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
           { path: '', redirectTo: 'forms', pathMatch: 'full'},
           { path: 'forms', component: AngularFormsComponent },
           { path: 'form-result', component: FormResultComponent},
-          { path: 'tabs', component: AngularTabsComponent },
           { path: 'modals', component: AngularModalsComponent },
         ]
       }

@@ -6,19 +6,25 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { TitleModule } from '../shared/components/title/title.module';
 import { DrawIconService } from './open-layer/services/draw-icon.service';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { PropertiesComponent } from './map-properties/properties/properties.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CoordinatesComponent } from './map-coordinates/coordinates/coordinates.component';
+import { CoordinatesService } from './open-layer/services/coordinate.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     MapComponent,
     PropertiesComponent,
+    CoordinatesComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     TitleModule,
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: MapComponent }
     ]),
@@ -29,6 +35,7 @@ import { PropertiesComponent } from './map-properties/properties/properties.comp
   providers: [
     DrawIconService,
     referenceProviders,
+    CoordinatesService,
   ]
 })
 export class MapModule { }

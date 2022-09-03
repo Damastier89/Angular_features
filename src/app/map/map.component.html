@@ -18,6 +18,7 @@
         <div class="map__context-menu" (contextmenu)="onContextMenu($event)">Кликните правой кнопкой мыши</div>
 
         <div
+          #contextMenuGeometryTrigger
           style="visibility: hidden; position: fixed"
           [style.left.px]="contextMenuPosition.x"
           [style.top.px]="contextMenuPosition.y"
@@ -47,7 +48,28 @@
           <mat-panel-title>Изображения</mat-panel-title>
         </mat-expansion-panel-header>
 
-        <button class="map__draw btn click" (click)="drawImage()">Добавить img</button>
+        <div class="map__context-menu" (contextmenu)="onContextMenuMarcer($event)">Кликните правой кнопкой мыши</div>
+
+        <div
+          #contextMenuMarcerTrigger
+          style="visibility: hidden; position: fixed"
+          [style.left.px]="contextMenuPosition.x"
+          [style.top.px]="contextMenuPosition.y"
+          [matMenuTriggerFor]="contextMenuMarcer"
+          >
+        </div>
+
+        <mat-menu #contextMenuMarcer="matMenu">
+          <button mat-menu-item (click)="drawImage('biological-hazard-color-small')">Добавить Biological hazard color</button>
+          <button mat-menu-item (click)="drawImage('biological-hazard-triangles-small')">Добавить Biological hazard triangles</button>
+          <button mat-menu-item (click)="drawImage('radiation-hazard-marcer-small')">Добавить Radiation hazard marcer</button>
+          <button mat-menu-item (click)="drawImage('radiation-hazard-black-small')">Добавить Radiation hazard black</button>
+          <button mat-menu-item (click)="drawImage('radiation-hazard-color-small')">Добавить Radiation hazard color</button>
+          <button mat-menu-item (click)="drawImage('radiation-hazard-orange-small')">Добавить Radiation hazard orange</button>
+          <button mat-menu-item (click)="drawImage('radiation-hazard-trianges-small')">Добавить Radiation hazard trianges</button>
+        </mat-menu>
+
+        <!-- <button class="map__draw btn click" (click)="drawImage()">Добавить img</button> -->
 
       </mat-expansion-panel>
     </mat-accordion>

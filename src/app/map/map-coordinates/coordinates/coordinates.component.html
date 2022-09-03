@@ -1,0 +1,46 @@
+<div class="coordinates">
+  <div class="coordinates__title">
+    <h3>Добавить поле координат</h3>
+    <div class="coordinates__add">
+      <button
+        mat-icon-button
+        (click)="addCoordinates()"
+      >
+        <mat-icon>add_box</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <form
+    class="coordinates__form"
+    [formGroup]="form"
+    (ngSubmit)="sendCoordinates()"
+    *ngIf="form.controls['coordinates'].value != ''"
+  >
+    <div
+      class=""
+      formArrayName="coordinates"
+    >
+      <div  *ngFor="let skill of coordinatesControl.controls; let i = index"  [formGroupName]="i">
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Координата Х</mat-label>
+            <input
+              formControlName="coordinateX"
+              matInput
+            >
+        </mat-form-field>
+
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Координата Y</mat-label>
+            <input
+              formControlName="coordinateY"
+              matInput
+            >
+        </mat-form-field>
+      </div>
+    </div>
+    <button type="submit">Отправить координаты</button>
+  </form>
+</div>
+
+

@@ -1,5 +1,5 @@
 import 'ol/ol.css';
-import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { defaults , FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
 import { Overlay, View } from 'ol';
@@ -17,6 +17,7 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
 import { SIDEBAR_ANIMATION_SWITCHER } from './animation/animation-config';
+import { CoordinatesService } from './open-layer/services/coordinate.service';
 
 
 @Component({
@@ -26,13 +27,14 @@ import { SIDEBAR_ANIMATION_SWITCHER } from './animation/animation-config';
   animations: [SIDEBAR_ANIMATION_SWITCHER],
 })
 export class MapComponent implements OnInit, OnDestroy {
-  @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
+  @ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
+  @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
   @ViewChild('coordinates') coordinates?: any;
-  public name: string = 'Map Viewer - Openlayers & Angular'
+  public name: string = 'Map Viewer - Openlayers & Angular';
   public panelOpenState: boolean = false;
   public isMap: boolean = false;
   public map!: Map;
-  drawInteractions!: Draw;
+  public drawInteractions!: Draw;
   public popup = new Overlay({
     element: this.coordinates,
   });
@@ -67,6 +69,7 @@ export class MapComponent implements OnInit, OnDestroy {
     // указывает тип обьекта ссылку на который будем хранить в сервисе
     @Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>,
     private drawIcon: DrawIconService,
+    private coordinatesService: CoordinatesService,
   ) {}
 
   ngOnInit(): void {
@@ -86,7 +89,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.dragRotateInteraction();
   }
 
-  public onContextMenu(event: MouseEvent){
+  public onContextMenu(event: MouseEvent) {
     event.preventDefault();
 
     // Опционально получаем координаты элемента(Диалоговое меню и т.д) для корректной отрисовки Mat-menu
@@ -100,6 +103,22 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // Обращаемся к меню для его открытия
     this.contextMenu.openMenu();
+  }
+
+  public onContextMenuMarcer(event: MouseEvent) {
+    event.preventDefault();
+
+    // Опционально получаем координаты элемента(Диалоговое меню и т.д) для корректной отрисовки Mat-menu
+    const clientRect = this.elementRef.nativeElement.getBoundingClientRect();
+    // this.contextMenuPosition.x = event.clientX - clientRect.x + 10;
+    // this.contextMenuPosition.y = event.clientY - clientRect.y + 34;
+
+    // Получаем координаты мыши
+    this.contextMenuPosition.x = event.clientX;
+    this.contextMenuPosition.y = event.clientY;
+
+    // Обращаемся к меню для его открытия
+    this.contextMenuMarcer.openMenu();
   }
 
   private initMap() {
@@ -163,7 +182,8 @@ export class MapComponent implements OnInit, OnDestroy {
   private getCoordinateOnMapToClick(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
-      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate)
+      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate);
+      this.coordinatesService.coordinates$.next(clickedCoordinate);
     })
   }
 
@@ -177,15 +197,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.addInteraction(dragRotate);
   }
 
-  public drawImage() {
-    // console.log( ` done : `);
-    // icons.forEach( icon => {
-    //   this.drawIcon.activate(icon.type);
-    // })
-
-    // this.drawIcon.activate('biological-hazard-color')
-    this.drawIcon.activate('biological-hazard-color')
-
+  public drawImage(iconType: string) {
+    this.drawIcon.activate(iconType);
   }
 
   public clickMouse() {

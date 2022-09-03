@@ -320,6 +320,14 @@
   }
 }
 
+@media (max-width: 2560px) {
+  .map {
+    &__panel {
+      top: 4.9%;
+    }
+  }
+}
+
 @media (max-width: 1920px) {
   ::ng-deep .ol-rotate {
     button {
@@ -337,3 +345,5 @@
     }
   }
 }
+
+
