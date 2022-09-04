@@ -17,11 +17,8 @@
     (ngSubmit)="sendCoordinates()"
     *ngIf="form.controls['coordinates'].value != ''"
   >
-    <div
-      class=""
-      formArrayName="coordinates"
-    >
-      <div  *ngFor="let skill of coordinatesControl.controls; let i = index"  [formGroupName]="i">
+    <div formArrayName="coordinates">
+      <div class="coordinates__coord"  *ngFor="let skill of coordinatesControl.controls; let i = index"  [formGroupName]="i">
         <mat-form-field class="" appearance="outline">
           <mat-label>Координата Х</mat-label>
             <input
@@ -39,8 +36,50 @@
         </mat-form-field>
       </div>
     </div>
-    <button type="submit">Отправить координаты</button>
+    <button 
+      class="border-button"
+      type="submit"
+      [disabled]="form.invalid || submitted"
+    >
+      Отправить координаты
+    </button>
   </form>
+
+<div *ngIf="isCoordinates">
+  <div *ngIf="form.controls['coordinates'].value.length != 0">
+    <h3>Скопируйте координаты</h3>
+      <form class="coordinates__click" [formGroup]="coordinatesform">
+        Координата Х :
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Координата Х</mat-label>
+            <input
+              formControlName="clickCoordinateX"
+              matInput
+            >
+            <button
+              matSuffix
+              mat-icon-button
+              [matTooltip]="'Копировать координаты'"
+            >
+                <mat-icon>content_copy</mat-icon>
+            </button>
+        </mat-form-field>
+        Координата Y :
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Координата Y</mat-label>
+            <input
+              formControlName="clickCoordinateY"
+              matInput
+            >
+            <button
+              matSuffix
+              mat-icon-button
+              [matTooltip]="'Копировать координаты'"
+            >
+              <mat-icon>content_copy</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </div>
 </div>
-
-
+</div>

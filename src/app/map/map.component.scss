@@ -251,7 +251,7 @@
   }
 
   &__left-bar {
-    width: 20%;
+    width: 23%;
     background-color: var(--sidebar-color);
   }
 
@@ -296,7 +296,7 @@
   &__panel {
     position: absolute;
     z-index: 1;
-    left: 20%;
+    left: 22%;
     top: 4.8%;
     text-decoration: none;
     display: inline;
@@ -341,7 +341,7 @@
 
   .map {
     &__panel {
-      top: 6.9%;
+      top: 6.8%;
     }
   }
 }

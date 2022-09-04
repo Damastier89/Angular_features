@@ -1,3 +1,17 @@
+:host ::ng-deep {
+  .mat-form-field-flex {
+    width: 95%;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: -5.7px 3.5px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 10px 0 10px 0;
+  }
+}
+
 .coordinates {
   &__title {
     display: flex;
@@ -6,5 +20,13 @@
 
   &__add {
     padding: 4px 0px 7px 15px;
+  }
+
+  &__coord {
+    display: flex;
+  }
+
+  &__click {
+    margin-top: 15px;
   }
 }

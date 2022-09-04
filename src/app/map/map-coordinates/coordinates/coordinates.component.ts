@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { CoordinatesService } from '../../open-layer/services/coordinate.service';
 
@@ -12,6 +12,12 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   public form = new UntypedFormGroup({
     coordinates: new UntypedFormArray([]),
   });
+  public coordinatesform = new UntypedFormGroup({
+    clickCoordinateX: new UntypedFormControl({ value : '0', disabled: true}, [Validators.required]),
+    clickCoordinateY: new UntypedFormControl({ value : '0', disabled: true}, [Validators.required]),
+  })
+  public submitted: boolean = false;
+  public isCoordinates!: any;
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
@@ -27,8 +33,11 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     this.coordinatesService.coordinates$.pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe({
-      next: (coord: string) => {
-        // this.coordinates = coord;
+      next: (coordinates: any[]) => {
+        this.isCoordinates = coordinates
+        this.coordinatesform.controls['clickCoordinateX'].setValue(coordinates[0]);
+        this.coordinatesform.controls['clickCoordinateY'].setValue(coordinates[1]);
+        console.log(`coord`, coordinates)
       },
       error: (err) => {
         console.log(`err`, err);
@@ -53,8 +62,8 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
 
   public addCoordinates(): void {
     const coordinatesGroup = new UntypedFormGroup({
-      coordinateX: new UntypedFormControl(''),
-      coordinateY: new UntypedFormControl(''),
+      coordinateX: new UntypedFormControl('', [Validators.required]),
+      coordinateY: new UntypedFormControl('', [Validators.required]),
     });
     (this.form.get('coordinates') as UntypedFormArray).push(coordinatesGroup);
   }

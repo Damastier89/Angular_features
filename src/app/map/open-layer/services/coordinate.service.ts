@@ -3,5 +3,5 @@ import { BehaviorSubject, ReplaySubject } from "rxjs";
 
 @Injectable()
 export class CoordinatesService {
-  public coordinates$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public coordinates$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 }

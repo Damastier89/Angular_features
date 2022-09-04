@@ -183,7 +183,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
       this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate);
-      this.coordinatesService.coordinates$.next(clickedCoordinate);
+      this.coordinatesService.coordinates$.next(event.coordinate);
     })
   }
 
