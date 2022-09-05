@@ -56,6 +56,10 @@
   background: rgba(255, 255, 255, .2);
 }
 
+.border-button:disabled {
+  color: #acacac;
+}
+
 @media(max-width: 2560px) {
   .border-button {
     font-size: 18px;

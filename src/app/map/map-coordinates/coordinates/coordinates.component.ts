@@ -18,6 +18,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   })
   public submitted: boolean = false;
   public isCoordinates!: any;
+  test: any
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
@@ -30,6 +31,17 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.initReceivedCoordinates();
+    // this.isValidForm()
+  }
+
+  ngOnDestroy(): void {
+    this.destroyNotifier.next(true);
+    this.destroyNotifier.complete();
+    this.coordinatesService.coordinates$.next('');
+  }
+
+  public initReceivedCoordinates(): void {
     this.coordinatesService.coordinates$.pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe({
@@ -45,12 +57,6 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.destroyNotifier.next(true);
-    this.destroyNotifier.complete();
-    this.coordinatesService.coordinates$.next('');
-  }
-
   public sendCoordinates(): void {
     console.log(`form : `, this.form);
     const polygonCoordinates: any[] = [];
@@ -58,14 +64,46 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
       polygonCoordinates.push([coord.coordinateX, coord.coordinateY])
     })
     console.log(polygonCoordinates)
+
+    const coord = {
+      coord: [polygonCoordinates]
+    }
+    this.coordinatesService.sendGeometryPolygon(coord);
+
   }
 
   public addCoordinates(): void {
     const coordinatesGroup = new UntypedFormGroup({
-      coordinateX: new UntypedFormControl('', [Validators.required]),
-      coordinateY: new UntypedFormControl('', [Validators.required]),
+      coordinateX: new UntypedFormControl({value : '', disabled: true}, [Validators.required]),
+      coordinateY: new UntypedFormControl({value : '', disabled: true}, [Validators.required]),
     });
     (this.form.get('coordinates') as UntypedFormArray).push(coordinatesGroup);
   }
+
+  public removeSelectedCoordinates(index: number): void {
+    (this.form.get('coordinates') as UntypedFormArray).controls.splice(index, 1);
+    (this.form.get('coordinates') as UntypedFormArray).value.splice(index, 1);
+  }
+
+  public copyCoordinates(): void {
+    for (let i = 0; i < this.form.controls['coordinates'].value.length; i++) {
+      if (this.form.controls['coordinates'].value[i].coordinateX && this.form.controls['coordinates'].value[i].coordinateY) continue;
+      
+      this.form.controls['coordinates'].value[i].coordinateX = this.coordinatesform.get('clickCoordinateX')?.value;
+      (this.form.controls['coordinates'] as UntypedFormArray).controls[i].patchValue({coordinateX: this.coordinatesform.get('clickCoordinateX')?.value});
+  
+      this.form.controls['coordinates'].value[i].coordinateY = this.coordinatesform.get('clickCoordinateY')?.value;
+      (this.form.controls['coordinates'] as UntypedFormArray).controls[i].patchValue({coordinateY: this.coordinatesform.get('clickCoordinateY')?.value});
+
+    }
+  }
+
+  // public isValidForm(): boolean {
+  //   let test: any;
+  //   if (this.form.controls['coordinates'].value.length < 3 || this.form.controls['coordinates'].value != '') {
+  //     test = false
+  //   }
+  //   return test;
+  // }
 
 }

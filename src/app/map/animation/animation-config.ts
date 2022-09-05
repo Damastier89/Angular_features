@@ -9,7 +9,7 @@ import {
 
 export const SIDEBAR_ANIMATION_SWITCHER: AnimationTriggerMetadata = trigger('toggleSidebar', [
   state('open', style({
-    minWidth: '23%',
+    minWidth: '26.3%',
     maxWidth: '30%',
   })),
   state('close', style({
