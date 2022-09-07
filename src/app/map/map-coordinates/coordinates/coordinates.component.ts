@@ -1,7 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { CoordinatesService } from '../../open-layer/services/coordinate.service';
+
+type CoordinatesFormGroup = FormGroup<{
+  coordinateX: FormControl<string | null>;
+  coordinateY: FormControl<string | null>;
+}>
 
 @Component({
   selector: 'app-coordinates',
@@ -9,21 +14,23 @@ import { CoordinatesService } from '../../open-layer/services/coordinate.service
   styleUrls: ['./coordinates.component.scss']
 })
 export class CoordinatesComponent implements OnInit, OnDestroy {
-  public form = new UntypedFormGroup({
-    coordinates: new UntypedFormArray([]),
+  public form = new FormGroup({
+    coordinates: new FormArray<CoordinatesFormGroup>([], [Validators.required]),
   });
-  public coordinatesform = new UntypedFormGroup({
-    clickCoordinateX: new UntypedFormControl({ value : '0', disabled: true}, [Validators.required]),
-    clickCoordinateY: new UntypedFormControl({ value : '0', disabled: true}, [Validators.required]),
+  public coordinatesform = new FormGroup({
+    clickCoordinateX: new FormControl({ value : '0', disabled: true}, [Validators.required]),
+    clickCoordinateY: new FormControl({ value : '0', disabled: true}, [Validators.required]),
   })
   public submitted: boolean = false;
+  public enabled: boolean = false;
+  public tests:  boolean = false;
   public isCoordinates!: any;
-  test: any
+  public test!: any[];
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
-  public get coordinatesControl(): UntypedFormArray {
-    return this.form.get('coordinates') as UntypedFormArray;
+  public get coordinatesControl(): FormArray {
+    return this.form.controls.coordinates;
   }
 
   constructor(
@@ -32,7 +39,21 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initReceivedCoordinates();
-    // this.isValidForm()
+    this.checkValueCoordinatesGroup();
+    this.checkValueCoordinates();
+    this.coordinatesService.getGeometryPolygon().pipe(
+      takeUntil(this.destroyNotifier)
+    ).subscribe({
+      next: (res) => {
+        console.log(`res`, res[0].coordinates);
+        // this.test.push(res[0].coordinates);
+        this.test = res[0].coordinates;
+        console.log(`this.test`, this.test);
+      },
+      error: (err) => {
+        console.log(`err`, err)
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -49,7 +70,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
         this.isCoordinates = coordinates
         this.coordinatesform.controls['clickCoordinateX'].setValue(coordinates[0]);
         this.coordinatesform.controls['clickCoordinateY'].setValue(coordinates[1]);
-        console.log(`coord`, coordinates)
+        console.log(`coordinates`, coordinates)
       },
       error: (err) => {
         console.log(`err`, err);
@@ -58,52 +79,60 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   }
 
   public sendCoordinates(): void {
-    console.log(`form : `, this.form);
     const polygonCoordinates: any[] = [];
-    (this.form.get('coordinates') as UntypedFormArray).value.forEach((coord: any) => {
-      polygonCoordinates.push([coord.coordinateX, coord.coordinateY])
+    this.form.controls.coordinates.value.forEach((coordinate: any) => {
+      console.log(`sendCoordinates`,coordinate)
+      polygonCoordinates.push([coordinate.coordinateX, coordinate.coordinateY])
     })
-    console.log(polygonCoordinates)
 
-    const coord = {
-      coord: [polygonCoordinates]
+    const coordinatesAreaPolygon = {
+      coordinates: polygonCoordinates
     }
-    this.coordinatesService.sendGeometryPolygon(coord);
 
+    this.coordinatesService.sendGeometryPolygon(coordinatesAreaPolygon).subscribe();
+
+    console.log(`polygonCoordinates`,polygonCoordinates)
+    console.log(`form : `, this.form);
   }
 
   public addCoordinates(): void {
-    const coordinatesGroup = new UntypedFormGroup({
-      coordinateX: new UntypedFormControl({value : '', disabled: true}, [Validators.required]),
-      coordinateY: new UntypedFormControl({value : '', disabled: true}, [Validators.required]),
+    const coordinatesGroup = new FormGroup({
+      coordinateX: new FormControl({value : '', disabled: true}, [Validators.required]),
+      coordinateY: new FormControl({value : '', disabled: true}, [Validators.required]),
     });
-    (this.form.get('coordinates') as UntypedFormArray).push(coordinatesGroup);
+    this.form.controls.coordinates.push(coordinatesGroup);
   }
 
   public removeSelectedCoordinates(index: number): void {
-    (this.form.get('coordinates') as UntypedFormArray).controls.splice(index, 1);
-    (this.form.get('coordinates') as UntypedFormArray).value.splice(index, 1);
+    this.form.controls.coordinates.removeAt(index);
   }
 
   public copyCoordinates(): void {
-    for (let i = 0; i < this.form.controls['coordinates'].value.length; i++) {
-      if (this.form.controls['coordinates'].value[i].coordinateX && this.form.controls['coordinates'].value[i].coordinateY) continue;
-      
-      this.form.controls['coordinates'].value[i].coordinateX = this.coordinatesform.get('clickCoordinateX')?.value;
-      (this.form.controls['coordinates'] as UntypedFormArray).controls[i].patchValue({coordinateX: this.coordinatesform.get('clickCoordinateX')?.value});
-  
-      this.form.controls['coordinates'].value[i].coordinateY = this.coordinatesform.get('clickCoordinateY')?.value;
-      (this.form.controls['coordinates'] as UntypedFormArray).controls[i].patchValue({coordinateY: this.coordinatesform.get('clickCoordinateY')?.value});
+    for (let i = 0; i < this.form.controls.coordinates.value.length; i++) {
+      if (this.form.controls.coordinates.value[i].coordinateX && this.form.controls.coordinates.value[i].coordinateY) continue;
+
+      this.form.controls.coordinates.value[i].coordinateX = this.coordinatesform.get('clickCoordinateX')?.value;
+      this.form.controls.coordinates.controls[i].patchValue({coordinateX: this.coordinatesform.get('clickCoordinateX')?.value});
+
+      this.form.controls.coordinates.value[i].coordinateY = this.coordinatesform.get('clickCoordinateY')?.value;
+      this.form.controls.coordinates.controls[i].patchValue({coordinateY: this.coordinatesform.get('clickCoordinateY')?.value});
 
     }
   }
 
-  // public isValidForm(): boolean {
-  //   let test: any;
-  //   if (this.form.controls['coordinates'].value.length < 3 || this.form.controls['coordinates'].value != '') {
-  //     test = false
-  //   }
-  //   return test;
-  // }
+  public checkValueCoordinatesGroup(): void {
+    this.form.controls.coordinates.valueChanges.pipe(
+        takeUntil(this.destroyNotifier)
+      ).subscribe(value => {
+      this.enabled = !value.every(control => control.coordinateX && control.coordinateY);
+    })
+  }
 
+  public checkValueCoordinates(): void {
+    if (this.form.controls.coordinates.length >= 3) {
+      this.tests = false;
+    } else {
+      this.tests = true;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { FbCreateResponse } from "src/app/admin/shared/interfaces/fbCreateResponse";
 import { environment } from "../../../../environments/environment";
 
 const environments = environment.fbDbUrl
@@ -18,6 +19,13 @@ export class CoordinatesService {
   }
 
   public getGeometryPolygon(): Observable<any> {
-    return this.http.get<any>(`${environments}/coordinates.json`);
+    return this.http.get<any>(`${environments}/coordinates.json`)
+    .pipe(
+      map((response: {[key: string]: any}) => {
+        return Object.keys(response).map(key => ({
+          ...response[key]
+        }))
+      })
+    );;
   }
 }

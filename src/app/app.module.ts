@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -19,7 +19,6 @@ import { TimerComponent } from './shared/components/timer/timer.component';
 import { MapModule } from './map/map.module';
 import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
-import { ArticleService } from './admin/shared/services/article.service';
 import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
 registerLocaleData(ru);

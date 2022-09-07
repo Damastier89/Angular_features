@@ -3,8 +3,10 @@
     <h2>Добавить координаты полигона</h2>
     <div class="coordinates__add">
       <button
+        class="addCoordinates"
         mat-icon-button
         (click)="addCoordinates()"
+        [disabled]="enabled"
       >
         <mat-icon>add_box</mat-icon>
       </button>
@@ -15,10 +17,10 @@
     class="coordinates__form"
     [formGroup]="form"
     (ngSubmit)="sendCoordinates()"
-    *ngIf="form.controls['coordinates'].value != ''"
+    *ngIf="form.controls.coordinates.value.length != 0"
   >
     <div formArrayName="coordinates">
-      <div class="coordinates__coord"  *ngFor="let coord of coordinatesControl.controls; let i = index"  [formGroupName]="i">
+      <div class="coordinates__coord"  *ngFor="let coord of form.controls.coordinates.controls; let i = index"  [formGroupName]="i">
         <mat-form-field appearance="outline">
           <mat-label>Координата Х</mat-label>
             <input
@@ -45,7 +47,7 @@
     <button
       class="border-button"
       type="submit"
-      [disabled]="form.invalid || submitted || this.form.controls['coordinates'].value.length < 3 || this.form.controls['coordinates'].value != ''"
+      [disabled]="enabled && tests"
     >
       Отправить координаты
     </button>
