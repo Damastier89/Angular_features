@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CoordinatesComponent } from './map-coordinates/coordinates/coordinates.component';
 import { CoordinatesService } from './open-layer/services/coordinate.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     RouterModule.forChild([
       { path: '', component: MapComponent }
     ]),

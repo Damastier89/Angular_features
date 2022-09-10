@@ -178,15 +178,29 @@
   height: 100%;
   width: 100%;
 
-  &__msc {
+  &__wrapper-mini {
     border:3px solid black;
-    height: 500px;
-    width: 500px;
+    height: 541px;
+    width: 506px;
     z-index: 1;
     position: absolute;
     top: 10%;
-    right: 20%;
+    right: 27%;
     background-color: rgb(243, 243, 243);
+  }
+
+  &__drag {
+    background-color: #6ab1d7;
+    height: 35px;
+
+    &:hover {
+      cursor: all-scroll;
+    }
+  }
+
+  &__msc {
+    height: 500px;
+    width: 500px;
   }
 
   &__close {

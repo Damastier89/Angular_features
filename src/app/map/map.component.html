@@ -82,7 +82,7 @@
         </mat-expansion-panel-header>
 
           <button class="map__draw btn click" (click)="initMoscow()">Показать Мск</button>
-          <button class="map__draw btn click" (click)="initTula()">Показать Клг</button>
+          <button class="map__draw btn click" (click)="initKaluga()">Показать Клг</button>
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -127,10 +127,9 @@
   </div>
 
   <div class="map__properties"
-    (@toggleSidebar.done)="handleAnimationEvent($event)"
     [@toggleSidebar]="isOpenProperties ? 'open' : 'close'"
   >
-    <app-properties *ngIf="isAnimationProperties"></app-properties>
+    <app-properties  *ngIf="isOpenProperties"></app-properties>
   </div>
 
   <div id="map" class="map-container"></div>
@@ -138,9 +137,20 @@
     <p>X = {{ coordinatesX }}</p>
     <p>Y = {{ coordinatesY }}</p>
   </div>
-  <div *ngIf="isMap" id="msc" class="map-container__msc" tabindex="0">
-    <span>
-      <p class="map-container__close" (click)="closeMap()">X</p>
-    </span>
+
+  <div
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragBoundary=".map__main"
+    *ngIf="isMap"
+    class="map-container__wrapper-mini"
+  >
+  <div cdkDragHandle class="map-container__drag"></div>
+    <div id="msc" class="map-container__msc" tabindex="0">
+      <span>
+        <p class="map-container__close" (click)="closeMap()">X</p>
+      </span>
+    </div>
   </div>
+
 </div>

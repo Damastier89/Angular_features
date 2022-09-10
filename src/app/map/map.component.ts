@@ -45,7 +45,7 @@ export class MapComponent implements OnInit, OnDestroy {
   public coordinatesY: string = '00° 00′ 00″ В.Д.';
 
   public isOpenProperties: boolean = false;
-  public isAnimationProperties: boolean = false;
+  // public isAnimationProperties: boolean = false;
 
   private baseLayers!: LayerGroup;
   private rasterLayers!: LayerGroup;
@@ -80,6 +80,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.mapRefService.clear();
+    this.coordinatesService.isPolygons.next(false);
   }
 
   public initAllMethodsForMap(): void {
@@ -153,7 +154,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.isMap = this.mapControl.isCliked
   }
 
-  public initTula() {
+  public initKaluga() {
     this.mapControl.initNewCityOnMap('msc', CoordinatesСity.KALUGA, true)
     this.closeMap();
     this.isMap = this.mapControl.isCliked
@@ -183,7 +184,9 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
       this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate);
-      this.coordinatesService.coordinates$.next(event.coordinate);
+      // В BehaviorSubject нет необходимости, так как есть mapRefService
+      // в котором хранится ссылка на карту
+      // this.coordinatesService.coordinates$.next(event.coordinate);
     })
   }
 
@@ -250,15 +253,8 @@ export class MapComponent implements OnInit, OnDestroy {
 /**
  * Анимация правой панели
  */
-  public handleAnimationEvent(event: any): void {
-    if (event.toState) {
-      this.isAnimationProperties = true;
-    }
-  }
-
   public toggelPanel() {
     this.isOpenProperties = !this.isOpenProperties;
-    this.isAnimationProperties = false;
   }
 
 /**

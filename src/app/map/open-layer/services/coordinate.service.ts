@@ -7,14 +7,19 @@ import { environment } from "../../../../environments/environment";
 const environments = environment.fbDbUrl
 @Injectable()
 export class CoordinatesService {
-  public coordinates$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  // В BehaviorSubject нет необходимости, так как есть mapRefService
+  // в котором хранится ссылка на карту
+  // public coordinates$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+
+  public isPolygons: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // -NBWrnpT2Ktx_tlL--Q-
 
   constructor(
     private http: HttpClient,
   ) {}
 
   public sendGeometryPolygon(coordinates: any): Observable<any> {
-    console.log(`sendGeometryPolygon :`, coordinates);
     return this.http.post<any>(`${environments}/coordinates.json`, coordinates);
   }
 
@@ -27,5 +32,9 @@ export class CoordinatesService {
         }))
       })
     );;
+  }
+
+  public removePolygon(): Observable<void> {
+    return this.http.delete<void>(`${environments}/coordinates/-NBWrnpT2Ktx_tlL--Q-.json`);
   }
 }

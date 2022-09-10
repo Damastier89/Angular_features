@@ -1,14 +1,32 @@
 <div class="coordinates">
   <div class="coordinates__title">
-    <h2>Добавить координаты полигона</h2>
+    <h2>Панель управления</h2>
     <div class="coordinates__add">
       <button
         class="addCoordinates"
         mat-icon-button
+        [matTooltip]="'Добавить поле для координат'"
         (click)="addCoordinates()"
         [disabled]="enabled"
       >
         <mat-icon>add_box</mat-icon>
+      </button>
+      <button
+        class="addCoordinates"
+        mat-icon-button
+        [matTooltip]="'Получить все полигоны'"
+        (click)="getAllPolygonsCoordinates()"
+        [disabled]="isPolygons"
+      >
+        <mat-icon>map</mat-icon>
+      </button>
+      <button
+        class="addCoordinates"
+        mat-icon-button
+        [matTooltip]="'Удалить полигон'"
+        (click)="removeCurrentPolygon()"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </div>
@@ -47,7 +65,7 @@
     <button
       class="border-button"
       type="submit"
-      [disabled]="enabled && tests"
+      [disabled]="enabled"
     >
       Отправить координаты
     </button>
