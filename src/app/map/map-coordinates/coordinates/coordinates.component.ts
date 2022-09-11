@@ -62,13 +62,13 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
       this.isPolygons = result;
     });
 
-    this.mapRefService.snapshot?.on('click', (event) => {
-      console.log(`event`, event)
-      console.log(`pixel`, this.layerPolygon.getFeatures(event.pixel))
-      this.layerPolygon.getFeatures(event.pixel).then(function (res: any) {
-        console.log(`res`, res);
-      })
-    })
+    // this.mapRefService.snapshot?.on('click', (event) => {
+    //   console.log(`event`, event)
+    //   console.log(`pixel`, this.layerPolygon.getFeatures(event.pixel))
+    //   this.layerPolygon.getFeatures(event.pixel).then(function (res: any) {
+    //     console.log(`res`, res);
+    //   })
+    // })
   }
 
   ngOnDestroy(): void {
@@ -161,7 +161,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     this.coordinatesService.getGeometryPolygon().pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe({
-      next: (polygonsCoordinates) => {
+      next: (polygonsCoordinates: PolygonCoordinates[]) => {
         this.coordinatesService.isPolygons.next(true);
         console.log(`polygonsCoordinates` , polygonsCoordinates)
         this.drawAllPolygons(polygonsCoordinates);
