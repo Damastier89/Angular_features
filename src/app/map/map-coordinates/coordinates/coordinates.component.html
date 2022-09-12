@@ -23,8 +23,9 @@
       <button
         class="addCoordinates"
         mat-icon-button
-        [matTooltip]="'Удалить полигон'"
-        (click)="removeCurrentPolygon()"
+        [matTooltip]="'Удалить выбранный полигон'"
+        (click)="removeSelectedPolygon()"
+        [disabled]="isSelectedPolygon"
       >
         <mat-icon>delete</mat-icon>
       </button>

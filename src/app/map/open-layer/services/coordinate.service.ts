@@ -28,13 +28,26 @@ export class CoordinatesService {
     .pipe(
       map((response: {[key: string]: any}) => {
         return Object.keys(response).map(key => ({
-          ...response[key]
+          ...response[key],
+          id: key
         }))
       })
     );;
   }
 
-  public removePolygon(): Observable<void> {
-    return this.http.delete<void>(`${environments}/coordinates/-NBWrnpT2Ktx_tlL--Q-.json`);
+  public getPolygonById(id: string): Observable<any> {
+    return this.http.get<any>(`${environments}/coordinates/${id}.json`)
+    .pipe(
+      map((polygon: any) => {
+        return {
+          ...polygon,
+          id,
+        }
+      })
+    )
+  }
+
+  public removePolygon(id: string): Observable<void> {
+    return this.http.delete<void>(`${environments}/coordinates/${id}.json`);
   }
 }

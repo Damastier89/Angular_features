@@ -12,6 +12,9 @@ import VectorSource from 'ol/source/Vector';
 import { CoordinatesService } from '../../open-layer/services/coordinate.service';
 import { ReferenceService } from '../../open-layer/services/reference.service';
 import { MAIN_MAP } from '../../open-layer/tokens/reference.token';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
+import { Select } from 'ol/interaction';
 
 type CoordinatesFormGroup = FormGroup<{
   coordinateX: FormControl<string | null>;
@@ -20,6 +23,7 @@ type CoordinatesFormGroup = FormGroup<{
 
 interface PolygonCoordinates {
   coordinates: number;
+  id: string
 }
 
 @Component({
@@ -40,9 +44,12 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   public tests:  boolean = false;
   public isPolygons: boolean = false;
   public isCoordinates!: number[];
+  public isSelectedPolygon: boolean = true;
   public currentMap!: any;
 
-  public layerPolygon: any
+  private layerPolygon!: VectorLayer<any>;
+  private featuresPolygon!: Feature;
+  private selectInteraction!: Select;
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
@@ -52,23 +59,20 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
 
   constructor(
     private coordinatesService: CoordinatesService,
+    private snackBarService: SnackBarService,
     @Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>,
   ) { }
 
   ngOnInit(): void {
     this.initReceivedCoordinates();
     this.checkValueCoordinatesGroup();
+    // this.selectedPolygon();
     this.coordinatesService.isPolygons.subscribe((result: boolean) => {
       this.isPolygons = result;
     });
 
-    // this.mapRefService.snapshot?.on('click', (event) => {
-    //   console.log(`event`, event)
-    //   console.log(`pixel`, this.layerPolygon.getFeatures(event.pixel))
-    //   this.layerPolygon.getFeatures(event.pixel).then(function (res: any) {
-    //     console.log(`res`, res);
-    //   })
-    // })
+    // this.mapRefService.snapshot?.getAllLayers();
+
   }
 
   ngOnDestroy(): void {
@@ -76,32 +80,15 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     this.destroyNotifier.complete();
     // Удаляет прослушиватель событий, используя ключ, возвращаемый on() или Once().
     unByKey(this.currentMap);
-    // В BehaviorSubject нет необходимости, так как есть mapRefService
-    // в котором хранится ссылка на карту
-    // this.coordinatesService.coordinates$.next('');
   }
 
   public initReceivedCoordinates(): void {
-    this.currentMap = this.mapRefService.snapshot?.on('click', (event) => {
+    this.currentMap = this.getMap();
+    this.currentMap.on('click', (event: any) => {
         this.isCoordinates = event.coordinate;
         this.coordinatesform.controls['clickCoordinateX'].setValue(event.coordinate[0].toString());
         this.coordinatesform.controls['clickCoordinateY'].setValue(event.coordinate[1].toString());
     })
-    // В BehaviorSubject нет необходимости, так как есть mapRefService
-    // в котором хранится ссылка на карту
-    // this.coordinatesService.coordinates$.pipe(
-    //   takeUntil(this.destroyNotifier)
-    // ).subscribe({
-    //   next: (coordinates: any[]) => {
-    //     this.isCoordinates = coordinates
-    //     this.coordinatesform.controls['clickCoordinateX'].setValue(coordinates[0]);
-    //     this.coordinatesform.controls['clickCoordinateY'].setValue(coordinates[1]);
-    //     console.log(`MAIN coordinates`, coordinates)
-    //   },
-    //   error: (err) => {
-    //     console.log(`err`, err);
-    //   }
-    // })
   }
 
   public sendCoordinates(): void {
@@ -111,11 +98,19 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     })
 
     const coordinatesAreaPolygon = {
-      coordinates: polygonCoordinates
+      coordinates: polygonCoordinates,
     }
 
-    this.coordinatesService.sendGeometryPolygon(coordinatesAreaPolygon).subscribe();
-    console.log(`coordinatesAreaPolygon`, coordinatesAreaPolygon)
+    this.coordinatesService.sendGeometryPolygon(coordinatesAreaPolygon).pipe(
+      takeUntil(this.destroyNotifier)
+    ).subscribe({
+      next: () => {
+        this.openSnackBar(SnackBarTypes.Success, `Полигон добавлен`)
+      },
+      error: () => {
+        this.openSnackBar(SnackBarTypes.Error, `Не удалось добавить полигон`)
+      }
+    });
   }
 
   public addCoordinates(): void {
@@ -151,10 +146,21 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Методы получения и добавления полигонов на карту
+   * Методы получения, добавления и удаления Features на карту
    */
-  public removeCurrentPolygon(): void {
-    this.coordinatesService.removePolygon().subscribe();
+  public removeSelectedPolygon(): void {
+    const selectedCollection = this.selectInteraction.getFeatures();
+    // для удаления одной Feature
+    // const selectedFeatures = selectedCollection.item(0);
+    // this.layerPolygon.getSource().removeFeature(selectedFeatures);
+    // selectedCollection.clear();
+
+    // для множественного выбора и удаления нескольких Features
+    selectedCollection.forEach((feature) => {
+      this.layerPolygon.getSource().removeFeature(feature);
+      this.openSnackBar(SnackBarTypes.Success, `Выбранный полигон удален`);
+    })
+    selectedCollection.clear();
   }
 
   public getAllPolygonsCoordinates(): void {
@@ -162,8 +168,8 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
       takeUntil(this.destroyNotifier)
     ).subscribe({
       next: (polygonsCoordinates: PolygonCoordinates[]) => {
+        this.selectedPolygon();
         this.coordinatesService.isPolygons.next(true);
-        console.log(`polygonsCoordinates` , polygonsCoordinates)
         this.drawAllPolygons(polygonsCoordinates);
       },
       error: (err) => {
@@ -172,20 +178,33 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     })
   }
 
-  private drawAllPolygons(polygons: PolygonCoordinates[]): void {
-    for (let i = 0; i < polygons.length; i ++) {
-      this.addPolygonsOnMap([polygons[i].coordinates]);
-    }
+  private getMap() {
+    return this.mapRefService.snapshot;
   }
 
-  private addPolygonsOnMap(coordinates: Coordinate): void {
-    const feature = new Feature({
-      geometry: new Polygon(coordinates),
-    });
+  private drawAllPolygons(polygons: PolygonCoordinates[]): void {
+    const map = this.getMap();
+    const features = [];
+
+    for (let i = 0; i < polygons.length; i ++) {
+      const feature = this.createFeature([polygons[i].coordinates]);
+      features.push(feature);
+    }
 
     this.layerPolygon = this.createPolygonLayer();
-    this.layerPolygon.getSource().addFeature(feature);
-    this.mapRefService.snapshot?.addLayer(this.layerPolygon);
+    this.layerPolygon.getSource().addFeatures(features);
+    map?.addLayer(this.layerPolygon);
+  }
+
+  private createFeature(coordinates: Coordinate): Feature {
+    return new Feature({
+      geometry: new Polygon(coordinates),
+    });
+    // Позволяет добавить к Feature дополнительные свойства
+    // this.featuresPolygon.setProperties({
+    //   id: new Date().getTime(),
+    // })
+    // this.featuresPolygon.setGeometryName('My polygon');
   }
 
   private createPolygonLayer(): any {
@@ -201,6 +220,28 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
         }),
       })
     });
+  }
+
+  // метод для выделения Feature
+  private selectedPolygon(): any {
+    const map = this.getMap();
+    this.selectInteraction = this.selectFeature();
+    map?.addInteraction(this.selectInteraction);
+    this.isSelectedPolygon = false;
+  }
+
+  private selectFeature() {
+    return new Select();
+  }
+
+  /**
+   * Сообщения для пользователя
+   */
+  private openSnackBar(actionType: string, message: string): void {
+    this.snackBarService.openSnackBar({
+      actionType,
+      message,
+    })
   }
 
 }

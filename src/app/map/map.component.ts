@@ -205,8 +205,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public clickMouse() {
-    console.log(` done deactivate`)
-    this.map.getViewport().addEventListener('contextmenu', (event) => {
+    this.map.getViewport().addEventListener('contextmenu', () => {
       this.drawIcon.deactivate();
     })
   }

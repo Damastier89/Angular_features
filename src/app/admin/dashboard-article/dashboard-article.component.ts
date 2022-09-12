@@ -36,9 +36,6 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
         this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы')
       }
     });
-    // this.articleService.getAllArticles().pipe(
-    //   takeUntil(this.destroyNotifier)
-    // ).subscribe(article => this.articles = article);
   }
 
   ngOnDestroy(): void {
