@@ -1,21 +1,24 @@
-import 'ol/ol.css';
-import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { defaults , FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
+// import 'ol/ol.css';
+import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
+
+import { defaults, FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
 import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
-import { Overlay, View } from 'ol';
-import { Map } from 'ol';
-import { DragRotate , Draw } from 'ol/interaction';
+import { Overlay, View, Map } from 'ol';
+import { DragRotate, Draw } from 'ol/interaction';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import LayerGroup from 'ol/layer/Group';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+
 import { MapControlService } from './open-layer/services/map-control.service';
 import { DrawGeometryService } from './open-layer/services/draw-geometry.service';
 import { CoordinatesСity } from './open-layer/_types/coordinates';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { LAYERS } from './open-layer/_types/layers';
 import { DrawIconService } from './open-layer/services/draw-icon.service';
 import { MAIN_MAP } from './open-layer/tokens/reference.token';
 import { ReferenceService } from './open-layer/services/_index';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import LayerGroup from 'ol/layer/Group';
 import { SIDEBAR_ANIMATION_SWITCHER } from './animation/animation-config';
 import { CoordinatesService } from './open-layer/services/coordinate.service';
 
@@ -34,7 +37,6 @@ export class MapComponent implements OnInit, OnDestroy {
   public panelOpenState: boolean = false;
   public isMap: boolean = false;
   public map!: Map;
-  public drawInteractions!: Draw;
   public popup = new Overlay({
     element: this.coordinates,
   });
@@ -45,7 +47,10 @@ export class MapComponent implements OnInit, OnDestroy {
   public coordinatesY: string = '00° 00′ 00″ В.Д.';
 
   public isOpenProperties: boolean = false;
-  // public isAnimationProperties: boolean = false;
+
+  private tileLayer = new TileLayer({source: new OSM()});
+  private vectorSource = new VectorSource({wrapX: false});
+  private vectorLayer = new VectorLayer({source: this.vectorSource});
 
   private baseLayers!: LayerGroup;
   private rasterLayers!: LayerGroup;
@@ -64,7 +69,7 @@ export class MapComponent implements OnInit, OnDestroy {
     private zone: NgZone, // Для оптимизации работы приложения
     private readonly renderer: Renderer2,
     private mapControl: MapControlService,
-    private drawGeometry: DrawGeometryService,
+    private drawGeometryService: DrawGeometryService,
     private readonly elementRef: ElementRef, // Мы получаем доступ к DOM элементам в это компоненте через DI.
     // указывает тип обьекта ссылку на который будем хранить в сервисе
     @Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>,
@@ -74,8 +79,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initAllMethodsForMap();
-    this.initLayersToMap();
-    this.clickMouse();
+    // this.initLayersToMap();
+    this.removeAction();
   }
 
   ngOnDestroy() {
@@ -108,27 +113,14 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public onContextMenuMarcer(event: MouseEvent) {
     event.preventDefault();
-
-    // Опционально получаем координаты элемента(Диалоговое меню и т.д) для корректной отрисовки Mat-menu
-    const clientRect = this.elementRef.nativeElement.getBoundingClientRect();
-    // this.contextMenuPosition.x = event.clientX - clientRect.x + 10;
-    // this.contextMenuPosition.y = event.clientY - clientRect.y + 34;
-
-    // Получаем координаты мыши
     this.contextMenuPosition.x = event.clientX;
     this.contextMenuPosition.y = event.clientY;
-
-    // Обращаемся к меню для его открытия
     this.contextMenuMarcer.openMenu();
   }
 
   private initMap() {
     this.map = new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
+      layers: [this.tileLayer, this.vectorLayer],
       view: new View({
         center: [0, 0],
         zoom: 1,
@@ -204,49 +196,18 @@ export class MapComponent implements OnInit, OnDestroy {
     this.drawIcon.activate(iconType);
   }
 
-  public clickMouse() {
+  public removeAction() {
     this.map.getViewport().addEventListener('contextmenu', () => {
       this.drawIcon.deactivate();
+      this.map.removeInteraction(this.drawGeometryService.drawGeometry);
     })
   }
 
 /**
- * Методы для отрисовки геометрических фигур
+ * Метод для отрисовки геометрических фигур
  */
-  public drawPolygon(): void {
-    this.drawGeometry.createPolygon(this.map)
-  }
-
-  public drawMultiPolygon(): void {
-    this.drawGeometry.createMultiPolygon(this.map)
-  }
-
-  public drawCircle(): void {
-    this.drawGeometry.createCircle(this.map)
-  }
-
-  public drawPoint(): void {
-    this.drawGeometry.createPoint(this.map)
-  }
-
-  public drawLineString(): void {
-    this.drawGeometry.createLineString(this.map)
-  }
-
-  public drawLinearRing(): void {
-    this.drawGeometry.createLinearRing(this.map)
-  }
-
-  public drawMultiPoint(): void {
-    this.drawGeometry.createMultiPoint(this.map)
-  }
-
-  public drawMultiLineString(): void {
-    this.drawGeometry.createMultiLineString(this.map)
-  }
-
-  public drawGeometryCollection(): void {
-    this.drawGeometry.createGeometryCollection(this.map)
+  public drawPolygon(type: any): any {
+    this.drawGeometryService.createPolygon(type, this.map, this.vectorSource);
   }
 
 /**

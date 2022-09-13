@@ -27,15 +27,10 @@
         </div>
 
         <mat-menu #contextMenu="matMenu">
-          <button mat-menu-item (click)="drawPolygon()">Добавить полигон</button>
-          <button mat-menu-item (click)="drawMultiPolygon()">Добавить М-полигон</button>
-          <button mat-menu-item (click)="drawCircle()">Добавить круг</button>
-          <button mat-menu-item (click)="drawPoint()">Добавить точку</button>
-          <button mat-menu-item (click)="drawMultiPoint()">Добавить М-точку</button>
-          <button mat-menu-item (click)="drawLineString()">Добавить линию</button>
-          <button mat-menu-item (click)="drawLinearRing()">Добавить Р-линию</button>
-          <button mat-menu-item (click)="drawMultiLineString()">Добавить М-линию</button>
-          <button mat-menu-item (click)="drawGeometryCollection()">Добавить Коллекцию</button>
+          <button mat-menu-item (click)="drawPolygon('Polygon')">Добавить полигон</button>
+          <button mat-menu-item (click)="drawPolygon('Circle')">Добавить круг</button>
+          <button mat-menu-item (click)="drawPolygon('Point')">Добавить точку</button>
+          <button mat-menu-item (click)="drawPolygon('LineString')">Добавить линию</button>
         </mat-menu>
 
       </mat-expansion-panel>
