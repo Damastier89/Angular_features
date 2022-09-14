@@ -31,6 +31,8 @@
           <button mat-menu-item (click)="drawPolygon('Circle')">Добавить круг</button>
           <button mat-menu-item (click)="drawPolygon('Point')">Добавить точку</button>
           <button mat-menu-item (click)="drawPolygon('LineString')">Добавить линию</button>
+          <button mat-menu-item (click)="addGeoJsonToMap()">Добавить GeoJson</button>
+          <button mat-menu-item (click)="addPopUp()">Добавить popup</button>
         </mat-menu>
 
       </mat-expansion-panel>
@@ -128,6 +130,7 @@
   </div>
 
   <div id="map" class="map-container"></div>
+
   <div class="map-container__coordinate">
     <p>X = {{ coordinatesX }}</p>
     <p>Y = {{ coordinatesY }}</p>
@@ -146,6 +149,11 @@
         <p class="map-container__close" (click)="closeMap()">X</p>
       </span>
     </div>
+  </div>
+
+  <div #popup class="ol-popup">
+    <button (click)="removePopup()" class="popup-closer ol-popup-closer"></button>
+    <div class="popup-content"><p>You clicked here:</p><code> {{ hdms }} </code></div>
   </div>
 
 </div>

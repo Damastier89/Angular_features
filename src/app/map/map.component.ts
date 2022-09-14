@@ -3,14 +3,16 @@ import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Renderer2, Vi
 import { MatMenuTrigger } from '@angular/material/menu';
 
 import { defaults, FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
-import { altKeyOnly } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
+import { altKeyOnly, click } from 'ol/events/condition'; // import * as olEvents from 'ol/events';
 import { Overlay, View, Map } from 'ol';
-import { DragRotate, Draw } from 'ol/interaction';
+import { DragRotate, Draw, Select } from 'ol/interaction';
+import { Fill, Stroke, Style } from 'ol/style';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import LayerGroup from 'ol/layer/Group';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
+import GeoJSON from 'ol/format/GeoJSON';
 
 import { MapControlService } from './open-layer/services/map-control.service';
 import { DrawGeometryService } from './open-layer/services/draw-geometry.service';
@@ -21,7 +23,9 @@ import { MAIN_MAP } from './open-layer/tokens/reference.token';
 import { ReferenceService } from './open-layer/services/_index';
 import { SIDEBAR_ANIMATION_SWITCHER } from './animation/animation-config';
 import { CoordinatesService } from './open-layer/services/coordinate.service';
-
+import { GEO_JSON_FEATURE_COLLECTION } from './open-layer/_types/geojson';
+import { toStringHDMS } from 'ol/coordinate';
+import { toLonLat } from 'ol/proj';
 
 @Component({
   selector: 'app-map',
@@ -33,13 +37,15 @@ export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
   @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
   @ViewChild('coordinates') coordinates?: any;
+
   public name: string = 'Map Viewer - Openlayers & Angular';
   public panelOpenState: boolean = false;
   public isMap: boolean = false;
+
   public map!: Map;
-  public popup = new Overlay({
-    element: this.coordinates,
-  });
+  // public popup = new Overlay({
+  //   element: this.coordinates,
+  // });
 
   public contextMenuPosition = { x: 0, y: 0 };
 
@@ -48,12 +54,41 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public isOpenProperties: boolean = false;
 
+  // Layers and Source
   private tileLayer = new TileLayer({source: new OSM()});
   private vectorSource = new VectorSource({wrapX: false});
   private vectorLayer = new VectorLayer({source: this.vectorSource});
+  private jsonVectorSource = new VectorSource({
+    features: new GeoJSON({
+      featureProjection: 'EPSG:3857'
+    }).readFeatures(GEO_JSON_FEATURE_COLLECTION)
+  });
+  private jsonLayer = new VectorLayer({
+    source: this.jsonVectorSource,
+  });
 
+  // Select
+  private selectInteraction!: Select;
+  private selectStyle = new Style({
+    stroke: new Stroke({
+      color: '#64ff00',
+      width: 2,
+    }),
+    fill: new Fill({
+      color: 'rgba(131,157,62, 0.5)',
+    }),
+  });
+
+  // Popup
+  @ViewChild('popup', {read: ElementRef, static: true}) public container!: ElementRef;
+  public hdms!: string;
+  private overlay!: Overlay;
+
+  // LayerGroup
   private baseLayers!: LayerGroup;
   private rasterLayers!: LayerGroup;
+  
+  // Controls
   private zoomToExtentControls = new ZoomToExtent();
   private scaleLineControls = new ScaleLine();
   private fullScreenControl = new FullScreen();
@@ -116,6 +151,13 @@ export class MapComponent implements OnInit, OnDestroy {
     this.contextMenuPosition.x = event.clientX;
     this.contextMenuPosition.y = event.clientY;
     this.contextMenuMarcer.openMenu();
+  }
+
+/**
+ * Анимация правой панели
+ */
+  public toggelPanel(): any {
+    this.isOpenProperties = !this.isOpenProperties;
   }
 
   private initMap() {
@@ -192,6 +234,9 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.addInteraction(dragRotate);
   }
 
+/**
+ * Метод для добавления изображения
+ */
   public drawImage(iconType: string) {
     this.drawIcon.activate(iconType);
   }
@@ -211,10 +256,52 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
 /**
- * Анимация правой панели
+ * Метод для добавления geojson на карту
  */
-  public toggelPanel() {
-    this.isOpenProperties = !this.isOpenProperties;
+  public addGeoJsonToMap(): any {
+    this.map.addLayer(this.jsonLayer);
+    this.selectFeatures();
+  }
+
+/**
+ * Метод для выделения Features
+ */
+  private selectFeatures() {
+    this.selectInteraction = this.select();
+    this.map.addInteraction(this.selectInteraction);
+  }
+
+  private select(): Select {
+    return new Select({
+      condition: click,
+      style: this.selectStyle,
+    });
+  }
+
+/**
+ * Метод для добавления и удаления popup 
+ */  
+  public addPopUp() {
+    this.overlay = new Overlay({
+      element: this.container.nativeElement,
+      autoPan: {
+        animation: {
+          duration: 200
+        }
+      }
+    })
+
+    this.map.on('singleclick', (event) => {
+      const coordinate = event.coordinate;
+      this.hdms = toStringHDMS(toLonLat(coordinate));
+      this.overlay.setPosition(coordinate);
+      this.map.addOverlay(this.overlay);
+    });
+  }
+
+  public removePopup(): any {
+    this.overlay.setPosition(undefined);
+    this.map.removeOverlay(this.overlay);
   }
 
 /**

@@ -37,7 +37,7 @@
     "@angular-devkit/build-angular": "^14.1.0",
     "@angular/cli": "^14.1.0",
     "@angular/compiler-cli": "^14.1.0",
-    "@types/geojson": "^7946.0.8",
+    "@types/geojson": "^7946.0.10",
     "@types/jasmine": "~3.10.0",
     "@types/jquery": "^3.5.13",
     "@types/node": "^12.11.1",
