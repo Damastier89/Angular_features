@@ -6,4 +6,4 @@ export const environment: Enviroment = {
   fbDbUrl: 'https://agular-features-default-rtdb.firebaseio.com/',
 };
 
-/////////// для теста оставлю это тут
+// для теста оставлю это тут
