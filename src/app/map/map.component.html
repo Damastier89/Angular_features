@@ -32,7 +32,6 @@
           <button mat-menu-item (click)="drawPolygon('Point')">Добавить точку</button>
           <button mat-menu-item (click)="drawPolygon('LineString')">Добавить линию</button>
           <button mat-menu-item (click)="addGeoJsonToMap()">Добавить GeoJson</button>
-          <button mat-menu-item (click)="addPopUp()">Добавить popup</button>
         </mat-menu>
 
       </mat-expansion-panel>
@@ -115,11 +114,20 @@
     </mat-accordion>
 
     <button
+    [matTooltip]="'Открыть панель для добавления координат'"
       class="map__panel"
       (click)="toggelPanel()"
     >
       <mat-icon>{{isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
     </button>
+
+    <button
+    [matTooltip]="'Показать координыты по клику на карту'"
+    class="map__panel-marcer"
+    (click)="addPopUp()"
+  >
+    <mat-icon>add_location_alt</mat-icon>
+  </button>
 
   </div>
 
@@ -152,8 +160,8 @@
   </div>
 
   <div #popup class="ol-popup">
-    <button (click)="removePopup()" class="popup-closer ol-popup-closer"></button>
-    <div class="popup-content"><p>You clicked here:</p><code> {{ hdms }} </code></div>
+    <button (click)="removePopup()" class="click popup-closer ol-popup-closer"></button>
+    <div class="popup-content"><p>Вы кликнули тут:</p><code>{{hdms}}</code></div>
   </div>
 
 </div>

@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+
 # Only exists if Bazel was run
 /bazel-out
 
@@ -39,6 +40,8 @@ chrome-profiler-events*.json
 npm-debug.log
 yarn-error.log
 testem.log
+environment.ts
+environment.prod.ts
 /typings
 
 # System Files

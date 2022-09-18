@@ -5,3 +5,5 @@ export const environment: Enviroment = {
   apiKey: "AIzaSyBPUAfi8bdwfu3dCv6IOy4VMU1VsvDm4qM",
   fbDbUrl: 'https://agular-features-default-rtdb.firebaseio.com/',
 };
+
+/////////// для теста оставлю это тут

@@ -26,6 +26,8 @@ import { CoordinatesService } from './open-layer/services/coordinate.service';
 import { GEO_JSON_FEATURE_COLLECTION } from './open-layer/_types/geojson';
 import { toStringHDMS } from 'ol/coordinate';
 import { toLonLat } from 'ol/proj';
+import { unByKey } from 'ol/Observable';
+import { EventsKey } from 'ol/events';
 
 @Component({
   selector: 'app-map',
@@ -43,9 +45,6 @@ export class MapComponent implements OnInit, OnDestroy {
   public isMap: boolean = false;
 
   public map!: Map;
-  // public popup = new Overlay({
-  //   element: this.coordinates,
-  // });
 
   public contextMenuPosition = { x: 0, y: 0 };
 
@@ -83,11 +82,12 @@ export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('popup', {read: ElementRef, static: true}) public container!: ElementRef;
   public hdms!: string;
   private overlay!: Overlay;
+  private singleClickEvent!: EventsKey;
 
   // LayerGroup
   private baseLayers!: LayerGroup;
   private rasterLayers!: LayerGroup;
-  
+
   // Controls
   private zoomToExtentControls = new ZoomToExtent();
   private scaleLineControls = new ScaleLine();
@@ -279,9 +279,10 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
 /**
- * Метод для добавления и удаления popup 
- */  
+ * Метод для добавления и удаления popup
+ */
   public addPopUp() {
+    this.renderer.setStyle(this.container.nativeElement, 'display', 'block');
     this.overlay = new Overlay({
       element: this.container.nativeElement,
       autoPan: {
@@ -291,7 +292,7 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.map.on('singleclick', (event) => {
+    this.singleClickEvent = this.map.on('singleclick', (event) => {
       const coordinate = event.coordinate;
       this.hdms = toStringHDMS(toLonLat(coordinate));
       this.overlay.setPosition(coordinate);
@@ -300,9 +301,11 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public removePopup(): any {
+    unByKey(this.singleClickEvent);
     this.overlay.setPosition(undefined);
     this.map.removeOverlay(this.overlay);
   }
+
 
 /**
  * Методы для переключения слоёв
