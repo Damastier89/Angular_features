@@ -2,9 +2,26 @@
 <div class="map__main">
   <div class="map__left-bar">
     <div class="map__container">
-      <div class="map__coordinates">
+      <!-- <div class="map__coordinates">
         <h3>Координаты на карте :</h3>
-        <div  #coordinates></div>
+        <div #coordinates></div>
+      </div> -->
+      <div class="map__coordinates">
+        <button
+          [matTooltip]="'Открыть панель для добавления координат'"
+          class="map__panel"
+          (click)="toggelPanel()"
+        >
+          <mat-icon>{{isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
+        </button>
+
+        <button
+          [matTooltip]="'Показать координыты по клику на карту'"
+          class="map__panel"
+          (click)="addPopUp()"
+        >
+          <mat-icon>add_location_alt</mat-icon>
+        </button>
       </div>
     </div>
 
@@ -65,8 +82,6 @@
           <button mat-menu-item (click)="drawImage('radiation-hazard-trianges-small')">Добавить Radiation hazard trianges</button>
         </mat-menu>
 
-        <!-- <button class="map__draw btn click" (click)="drawImage()">Добавить img</button> -->
-
       </mat-expansion-panel>
     </mat-accordion>
 
@@ -112,23 +127,6 @@
 
       </mat-expansion-panel>
     </mat-accordion>
-
-    <button
-    [matTooltip]="'Открыть панель для добавления координат'"
-      class="map__panel"
-      (click)="toggelPanel()"
-    >
-      <mat-icon>{{isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
-    </button>
-
-    <button
-    [matTooltip]="'Показать координыты по клику на карту'"
-    class="map__panel-marcer"
-    (click)="addPopUp()"
-  >
-    <mat-icon>add_location_alt</mat-icon>
-  </button>
-
   </div>
 
   <div class="map__properties"

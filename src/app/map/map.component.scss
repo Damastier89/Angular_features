@@ -5,177 +5,7 @@
   height: 100%;
 }
 
-::ng-deep .ol-scale-line {
-    color: rgb(12, 12, 12);
-    font-size: 16px;
-    font-weight: 600;
-    position: absolute;
-    bottom: 2%;
-    right: 95%;
-    background-color: rgb(255, 255, 255, 0.6);
-    width: 87px;
-    padding: 3px 12px;
-}
-
-// Может понадобиться для отрисовки контролов на новых картах(фреймах)
-
-// ::ng-deep .ol-mouse-position {
-//   color: rgb(12, 12, 12);
-//   font-size: 16px;
-//   font-weight: 600;
-//   position: absolute;
-//   bottom: 2%;
-//   right: 2%;
-//   background-color: rgb(255, 255, 255);
-//   width: 350px;
-//   padding: 3px 15px;
-//   border: 2px solid rgb(0, 110, 255);
-// }
-
-::ng-deep .ol-zoom {
-  width: 100px;
-
-  button {
-    text-decoration: none;
-    display: inline;
-    padding: 5px 16px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-}
-
-::ng-deep .ol-rotate {
-  width: 100px;
-
-  button {
-    text-decoration: none;
-    display: inline;
-    padding: 5px 14px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-}
-
-::ng-deep .ol-attribution {
-  // display: none;
-  position: absolute;
-  bottom: 0%;
-  right: 1%;
-}
-
-::ng-deep .ol-attribution-collapse {
-  display: none;
-}
-
-
-::ng-deep .ol-full-screen {
-  width: 100px;
-
-  button {
-    text-decoration: none;
-    display: inline;
-    padding: 5px 14px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-}
-
-::ng-deep .ol-overviewmap {
-  width: 100px;
-
-  button {
-    text-decoration: none;
-    display: inline;
-    padding: 5px 18px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-}
-
-::ng-deep .ol-zoom-extent {
-  width: 100px;
-
-  button {
-    text-decoration: none;
-    display: inline;
-    padding: 5px 15.5px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-}
-
 .map-container {
-  // flex-grow: 1;
   height: 100%;
   width: 100%;
 
@@ -191,7 +21,7 @@
   }
 
   &__drag {
-    background-color: #6ab1d7;
+    background-color: #8196b9;
     height: 35px;
 
     &:hover {
@@ -207,23 +37,22 @@
   &__close {
     z-index: 2;
     position: absolute;
-    right: 0%;
-    width: 43px;
-    padding: 7px 15.5px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
+    top: 8%;
+    right: 2%;
+    display: block;
     color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
+    font-weight: bold;
+    line-height: .4em;
+    background-color: rgba(0,60,136,0.5);
+    border: none;
+    border-radius: 2px;
+    height: 1.375em;
+    width: 1.375em;
+    padding: 8px 5px;
+    margin: 3px 3px;
+    font-family: 'Montserrat', sans-serif;
 
     &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
       cursor: pointer;
     }
   }
@@ -240,18 +69,6 @@
     width: 225px;
     padding: 3px 15px;
   }
-
-  // &__scale {
-  //   color: rgb(12, 12, 12);
-  //   font-size: 16px;
-  //   font-weight: 600;
-  //   position: absolute;
-  //   bottom: 7%;
-  //   right: 1%;
-  //   background-color: rgb(255, 255, 255);
-  //   width: 185px;
-  //   padding: 3px 12px;
-  // }
 }
 
 .map {
@@ -271,8 +88,8 @@
   }
 
   &__coordinates {
-    border: 2px solid rgb(0, 110, 255);
-    padding: 10px;
+    border: 2px solid rgb(129, 150, 185);
+    padding: 17px;
     min-height: 75px;
   }
 
@@ -309,88 +126,17 @@
   }
 
   &__panel {
-    position: absolute;
-    z-index: 1;
-    left: 23%;
-    top: 4.8%;
     text-decoration: none;
     display: inline;
     padding: 0px 15.5px;
     margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
+    background-color: rgb(109 145 186);
     color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
+    border-radius: 3px;
+    border: inherit;
 
     &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
-      cursor: pointer;
-    }
-  }
-
-  &__panel-marcer {
-    position: absolute;
-    z-index: 1;
-    left: 25.7%;
-    top: 4.9%;
-    text-decoration: none;
-    display: inline;
-    padding: 0px 15.5px;
-    margin: 3px 3px;
-    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
-    background-position: 85% 0;
-    background-size: 200% 200%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: white;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
-    transition: .5s;
-
-    &:hover {
-      box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
-      background-position: 0 0;
       cursor: pointer;
     }
   }
 }
-
-@media (max-width: 2560px) {
-  .map {
-    &__panel {
-      top: 4.9%;
-    }
-  }
-}
-
-@media (max-width: 1920px) {
-  ::ng-deep .ol-rotate {
-    button {
-      padding: 5px 15px;
-    }
-  }
-  ::ng-deep .ol-scale-line {
-    bottom: 2%;
-    right: 93%;
-  }
-
-  .map {
-    &__panel {
-      top: 6.8%;
-      left: 23.6%;
-    }
-
-    &__panel-marcer {
-      top: 6.8%;
-      left: 27.1%;
-    }
-  }
-}
-
-

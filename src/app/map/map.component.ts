@@ -38,7 +38,7 @@ import { EventsKey } from 'ol/events';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
   @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
-  @ViewChild('coordinates') coordinates?: any;
+  // @ViewChild('coordinates') coordinates?: any;
 
   public name: string = 'Map Viewer - Openlayers & Angular';
   public panelOpenState: boolean = false;
@@ -173,7 +173,7 @@ export class MapComponent implements OnInit, OnDestroy {
       keyboardEventTarget: document,
       controls: defaults().extend([
         this.fullScreenControl,
-        this.overviewMapControl,
+        // this.overviewMapControl,
         this.scaleLineControls,
         this.zoomToExtentControls,
       ])
@@ -217,7 +217,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private getCoordinateOnMapToClick(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
-      this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate);
+      // this.renderer.setProperty(this.coordinates.nativeElement, 'innerHTML', clickedCoordinate);
       // В BehaviorSubject нет необходимости, так как есть mapRefService
       // в котором хранится ссылка на карту
       // this.coordinatesService.coordinates$.next(event.coordinate);
