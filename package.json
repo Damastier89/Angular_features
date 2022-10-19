@@ -30,6 +30,7 @@
     "primeicons": "^5.0.0",
     "primeng": "^14.0.0",
     "rxjs": "7.4.0",
+    "three": "^0.145.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -41,6 +42,7 @@
     "@types/jasmine": "~3.10.0",
     "@types/jquery": "^3.5.13",
     "@types/node": "^12.11.1",
+    "@types/three": "^0.144.0",
     "compass-mixins": "^0.12.12",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",

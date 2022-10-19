@@ -21,6 +21,7 @@ import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
+import { Model3DModule } from './model3D/model3D.module';
 registerLocaleData(ru);
 
 @NgModule({
@@ -44,6 +45,7 @@ registerLocaleData(ru);
     MatIconModule,
     AngularFeaturesModule,
     BrowserAnimationsModule,
+    Model3DModule,
     // NgxsModule.forRoot([]),
   ],
   exports: [],

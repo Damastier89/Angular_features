@@ -38,7 +38,7 @@ import { EventsKey } from 'ol/events';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
   @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
-  // @ViewChild('coordinates') coordinates?: any;
+  @ViewChild('coordinates') coordinates?: any;
 
   public name: string = 'Map Viewer - Openlayers & Angular';
   public panelOpenState: boolean = false;
