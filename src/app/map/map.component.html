@@ -138,8 +138,7 @@
   <div id="map" class="map-container"></div>
 
   <div class="map-container__coordinate">
-    <p>X = {{ coordinatesX }}</p>
-    <p>Y = {{ coordinatesY }}</p>
+    <p>{{ lonLat }}</p>
   </div>
 
   <div
@@ -158,7 +157,7 @@
   </div>
 
   <div #popup class="ol-popup">
-    <button (click)="removePopup()" class="click popup-closer ol-popup-closer"></button>
+    <button (click)="removePopup()" class=" popup-closer ol-popup-closer"></button>
     <div class="popup-content"><p>Вы кликнули тут:</p><code>{{hdms}}</code></div>
   </div>
 

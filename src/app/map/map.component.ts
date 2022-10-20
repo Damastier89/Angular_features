@@ -48,8 +48,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public contextMenuPosition = { x: 0, y: 0 };
 
-  public coordinatesX: string = '00° 00′ 00″ С.Ш.';
-  public coordinatesY: string = '00° 00′ 00″ В.Д.';
+  public lonLat: string = '00° 00′ 00″ С.Ш.';
+  // public coordinatesX: string = '00° 00′ 00″ С.Ш.';
+  // public coordinatesY: string = '00° 00′ 00″ В.Д.';
 
   public isOpenProperties: boolean = false;
 
@@ -206,8 +207,10 @@ export class MapComponent implements OnInit, OnDestroy {
  */
   private getCoordinateMouseOnMap(): void {
     this.map.on('pointermove', (event) => {
-      this.coordinatesX = `${event.coordinate[0]}`;
-      this.coordinatesY= `${event.coordinate[1]}`;
+      const hdms = this.convertToRussianHDMS(toStringHDMS(toLonLat(event.coordinate)));
+      // this.coordinatesX = `${event.coordinate[0]}`;
+      // this.coordinatesY= `${event.coordinate[1]}`;
+      this.lonLat = `${hdms}`;
     })
   }
 
@@ -294,10 +297,17 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.singleClickEvent = this.map.on('singleclick', (event) => {
       const coordinate = event.coordinate;
-      this.hdms = toStringHDMS(toLonLat(coordinate));
+      this.hdms = this.convertToRussianHDMS(toStringHDMS(toLonLat(coordinate)));
       this.overlay.setPosition(coordinate);
       this.map.addOverlay(this.overlay);
     });
+  }
+
+  public convertToRussianHDMS(hdms: string): string {
+    return  hdms.replace('N', 'С')
+                .replace('S', 'Ю')
+                .replace('W', 'З')
+                .replace('E', 'В');
   }
 
   public removePopup(): any {
@@ -305,7 +315,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.overlay.setPosition(undefined);
     this.map.removeOverlay(this.overlay);
   }
-
 
 /**
  * Методы для переключения слоёв
