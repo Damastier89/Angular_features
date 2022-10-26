@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AngularFormsComponent } from './angular-forms.component';
+import { LoadingDataComponent } from './loading-data.component';
 
-describe('AngularFormsComponent', () => {
-  let component: AngularFormsComponent;
-  let fixture: ComponentFixture<AngularFormsComponent>;
+describe('LoadingDataComponent', () => {
+  let component: LoadingDataComponent;
+  let fixture: ComponentFixture<LoadingDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AngularFormsComponent ]
+      declarations: [ LoadingDataComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AngularFormsComponent);
+    fixture = TestBed.createComponent(LoadingDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -29,6 +29,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { FormService } from './shared/services/form.service';
 import { AutocompleteOffDirective } from './directives/autocompliteOff.directive';
 import { FormResultComponent } from './form-result/form-result/form-result.component';
+import { LoadingDataComponent } from './loading-data/loading-data.component';
+import { FileManagerService } from './shared/services/file-manager.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
     CheckSpecialCharacters,
     AutocompleteOffDirective,
     FormResultComponent,
+    LoadingDataComponent,
   ],
   imports: [
     CommonModule,
@@ -69,12 +72,14 @@ import { FormResultComponent } from './form-result/form-result/form-result.compo
           { path: 'forms', component: AngularFormsComponent },
           { path: 'form-result', component: FormResultComponent},
           { path: 'modals', component: AngularModalsComponent },
+          { path: 'loading-data', component: LoadingDataComponent },
         ]
       }
     ]),
   ],
   providers: [
     FormService,
+    FileManagerService,
   ]
 })
 
