@@ -15,6 +15,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -64,6 +65,7 @@ import { FileManagerService } from './shared/services/file-manager.service';
     MatCheckboxModule,
     MatTooltipModule,
     MatCardModule,
+    MatMenuModule,
     NgxMaskModule.forRoot(),
     RouterModule.forChild([
       {

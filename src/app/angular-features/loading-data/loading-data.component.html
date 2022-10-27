@@ -1,1 +1,24 @@
-<p>loading-data works!</p>
+<div class="documents-menu">
+  <button mat-button [matMenuTriggerFor]="documents">
+    Меню для загрузки файлов <mat-icon>insert_drive_file</mat-icon>
+  </button>
+  <mat-menu #documents="matMenu">
+    <button class="documents-menu__add" mat-menu-item>
+      <label class="document-menu__label" for="fileReader">Добавить файлы в БД</label>
+      <input
+        class="document-menu__reader"
+        accept="image/jpeg,image/jpg,image/png,image/gif,image/bmp,.pdf,.odt,.ods,.ods,.doc,.docx,.xls,.xlsx,.txt"
+        id="fileReader"
+        type="file"
+        (change)="uploadFile($event)"
+      >
+    </button>
+    <button mat-menu-item>Получить файлы из БД</button>
+  </mat-menu>
+</div>
+
+
+<!-- <mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="upload">Загрузить файлы в БД</button>
+  <button mat-menu-item [matMenuTriggerFor]="download">Получить файлы из</button>
+</mat-menu> -->

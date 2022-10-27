@@ -35,6 +35,15 @@ npm install ol
 npm i geojson
 npm i --saveDev @types/geojson
 ```
+## Для установки БД используйте:
+```
+npm i firebase
+```
+
+## Для установки Storage используйте:
+```
+npm i @firebase/storage
+```
 
 ## Разработка
 По-умолчанию все команды запуска фронта запускают dev-сервер, который доступен по адресу http://localhost:4200
