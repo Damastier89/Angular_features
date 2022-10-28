@@ -17,6 +17,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
 import { AngularFormsComponent } from './form/angular-forms/angular-forms.component';
@@ -32,6 +36,9 @@ import { AutocompleteOffDirective } from './directives/autocompliteOff.directive
 import { FormResultComponent } from './form-result/form-result/form-result.component';
 import { LoadingDataComponent } from './loading-data/loading-data.component';
 import { FileManagerService } from './shared/services/file-manager.service';
+import { FIREBASE_CONFIG } from '../shared/fb-config/firebase-config';
+import { FBStorageService } from './shared/storage/fb-storage.service';
+import { LoadingDataDetailsComponent } from './loading-data-details/loading-data-details.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +53,7 @@ import { FileManagerService } from './shared/services/file-manager.service';
     AutocompleteOffDirective,
     FormResultComponent,
     LoadingDataComponent,
+    LoadingDataDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -78,10 +86,14 @@ import { FileManagerService } from './shared/services/file-manager.service';
         ]
       }
     ]),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     FormService,
     FileManagerService,
+    FBStorageService,
   ]
 })
 

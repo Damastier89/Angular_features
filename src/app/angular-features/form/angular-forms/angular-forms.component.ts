@@ -116,8 +116,6 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
         this.submitted = false;
       }
     });
-    console.log(`form : `, this.form);
-    console.log(`form : `, dataFromForm);
   }
 
   public isShowAbout(): boolean {

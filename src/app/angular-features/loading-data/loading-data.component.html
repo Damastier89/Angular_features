@@ -1,24 +1,44 @@
-<div class="documents-menu">
-  <button mat-button [matMenuTriggerFor]="documents">
-    Меню для загрузки файлов <mat-icon>insert_drive_file</mat-icon>
-  </button>
-  <mat-menu #documents="matMenu">
-    <button class="documents-menu__add" mat-menu-item>
-      <label class="document-menu__label" for="fileReader">Добавить файлы в БД</label>
-      <input
-        class="document-menu__reader"
-        accept="image/jpeg,image/jpg,image/png,image/gif,image/bmp,.pdf,.odt,.ods,.ods,.doc,.docx,.xls,.xlsx,.txt"
-        id="fileReader"
-        type="file"
-        (change)="uploadFile($event)"
-      >
-    </button>
-    <button mat-menu-item>Получить файлы из БД</button>
-  </mat-menu>
+<div class="form">
+  <div class="form-group">
+    <input type="file" name="file" id="file" class="input-file" (change)="selectFile($event)">
+    <label for="file" class="btn btn-tertiary js-labelFile">
+      <span class="js-fileName">Загрузить файл</span>
+      <mat-icon>insert_drive_file</mat-icon>
+    </label>
+  </div>
 </div>
 
+<div style="text-align: center;">
+    <button
+      class="border-button"
+      [disabled]="!selectedFiles"
+      (click)="uploadFile()"
+    >
+      Добавить файл в БД
+    </button>
+</div>
 
-<!-- <mat-menu #menu="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]="upload">Загрузить файлы в БД</button>
-  <button mat-menu-item [matMenuTriggerFor]="download">Получить файлы из</button>
-</mat-menu> -->
+<div *ngIf="currentFileUpload">
+  <div 
+    style="text-align: center;"
+    role="progressbar"
+    attr.aria-valuenow="{{ percentage }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [ngStyle]="{ width: percentage + '%' }"
+  >
+    {{ percentage }}%
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">List of Files</div>
+  <ul
+    class="list-group list-group-flush"
+    *ngFor="let file of fileUploads"
+  >
+    <li class="list-group-item">
+      <app-loading-data-details [fileUpload]='file'></app-loading-data-details>
+    </li>
+  </ul>
+</div>

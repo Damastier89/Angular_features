@@ -37,7 +37,7 @@ npm i --saveDev @types/geojson
 ```
 ## Для установки БД используйте:
 ```
-npm i firebase
+npm i firebase or npm i @angular/fire firebase
 ```
 
 ## Для установки Storage используйте:
