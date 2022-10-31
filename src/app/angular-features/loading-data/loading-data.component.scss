@@ -1,3 +1,15 @@
+.card {
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  &__content {
+    margin-top: 10px;
+  }
+}
+
+
 .btn-tertiary{
   color :#555;
   padding: 0;

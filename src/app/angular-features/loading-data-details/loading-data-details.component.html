@@ -1,2 +1,13 @@
-<a href="{{ fileUpload.url }}">{{ fileUpload.name }}</a>
-<button class="btn btn-danger btn-sm" style="float: right" (click)="deleteFileUpload(fileUpload)" >Удалить</button>
+<mat-card class="example-card">
+  <mat-card-title-group>
+    <mat-card-title>{{ fileUpload.name }}</mat-card-title>
+    <mat-card-subtitle>Дата загрузки: {{ fileUpload.date }}</mat-card-subtitle>
+    <img mat-card-md-image src="{{ fileUpload.url }}" >
+  </mat-card-title-group>
+  <mat-card-content>
+    <p>Тут будет текст... Но это не точно:)</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="btn delete" (click)="deleteFileUpload(fileUpload)">Удалить</button>
+  </mat-card-actions>
+</mat-card>

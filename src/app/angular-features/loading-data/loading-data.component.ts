@@ -53,7 +53,16 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
       this.selectedFiles = undefined;
 
       if (file) {
-        this.currentFileUpload = new FileUpload(file);
+        // TODU поправить дату
+        const day = new Date().getDay();
+        const month = new Date().getMonth()
+        const year = new Date().getFullYear();
+        const hours = new Date().getHours();
+        const minutes = new Date().getMinutes()
+
+        const currentDate = `${day}.${month}.${year} ${hours}:${minutes}` ;
+        console.log(`currentDate`, currentDate)
+        this.currentFileUpload = new FileUpload(file, currentDate);
         this.fbStorageService.pushFileToStorage(this.currentFileUpload).subscribe({
           next: percentage => {
             this.percentage = Math.round(percentage ? percentage : 0);

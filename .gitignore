@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /src/environments
+/src/app/shared/fb-config/
 
 # Only exists if Bazel was run
 /bazel-out

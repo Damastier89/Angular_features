@@ -32,13 +32,10 @@
 </div>
 
 <div class="card">
-  <div class="card-header">List of Files</div>
-  <ul
-    class="list-group list-group-flush"
-    *ngFor="let file of fileUploads"
-  >
-    <li class="list-group-item">
+  <h3>Загруженные файлы</h3>
+  <div class="card__container" *ngFor="let file of fileUploads">
+    <div class="card__content">
       <app-loading-data-details [fileUpload]='file'></app-loading-data-details>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>

@@ -3,6 +3,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { FileData } from "../interfaces/files.interface";
 import { finalize, Observable } from "rxjs";
+import { Data } from "@angular/router";
 
 @Injectable()
 export class FBStorageService {
@@ -63,10 +64,12 @@ export class FileUpload {
   key!: string;
   name!: string;
   url!: string;
+  date!: Data;
   file: File;
 
-  constructor(file: File) {
+  constructor(file: File, date: any) {
     this.file = file;
+    this.date = date;
   }
 }
 
