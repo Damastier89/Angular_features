@@ -1,11 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subject } from 'rxjs';
+import * as moment from 'moment';
 
 import { SnackBarTypes } from 'src/app/shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { FileData } from '../shared/interfaces/files.interface';
 import { FBStorageService, FileUpload } from '../shared/storage/fb-storage.service';
-
 
 @Component({
   selector: 'app-loading-data',
@@ -16,8 +15,7 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
   public selectedFiles?: FileList;
   public currentFileUpload?: FileUpload;
   public percentage = 0;
-
-  fileUploads?: any[];
+  public fileUploads?: any[];
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
@@ -53,16 +51,10 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
       this.selectedFiles = undefined;
 
       if (file) {
-        // TODU поправить дату
-        const day = new Date().getDay();
-        const month = new Date().getMonth()
-        const year = new Date().getFullYear();
-        const hours = new Date().getHours();
-        const minutes = new Date().getMinutes()
+        const date = new Date();
+        const now = moment(date).format("DD.MM.YYYY HH:mm");
 
-        const currentDate = `${day}.${month}.${year} ${hours}:${minutes}` ;
-        console.log(`currentDate`, currentDate)
-        this.currentFileUpload = new FileUpload(file, currentDate);
+        this.currentFileUpload = new FileUpload(file, now);
         this.fbStorageService.pushFileToStorage(this.currentFileUpload).subscribe({
           next: percentage => {
             this.percentage = Math.round(percentage ? percentage : 0);

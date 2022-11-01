@@ -1,6 +1,13 @@
 <div class="form">
   <div class="form-group">
-    <input type="file" name="file" id="file" class="input-file" (change)="selectFile($event)">
+    <input 
+      type="file" 
+      name="file" 
+      id="file" 
+      class="input-file" 
+      (change)="selectFile($event)"
+      accept="image/*,.pdf,.odt,.ods,.ods,.doc,.docx,.xls,.xlsx,.txt"
+    >
     <label for="file" class="btn btn-tertiary js-labelFile">
       <span class="js-fileName">Загрузить файл</span>
       <mat-icon>insert_drive_file</mat-icon>

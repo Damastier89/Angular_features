@@ -8,13 +8,15 @@ import { FBStorageService, FileUpload } from '../shared/storage/fb-storage.servi
   styleUrls: ['./loading-data-details.component.scss'],
 })
 export class LoadingDataDetailsComponent implements OnInit {
-  @Input() fileUpload!: FileUpload;
+  @Input() public fileUpload!: FileUpload;
 
   constructor(
     private fbStorageService: FBStorageService,
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(`fileUpload`, this.fileUpload);
+  }
 
   public deleteFileUpload(fileUpload: FileUpload): void {
     this.fbStorageService.deleteFile(fileUpload);
