@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { MatIconModule } from '@angular/material/icon';
-// import { NgxsModule } from '@ngxs/store';
 
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
@@ -46,7 +45,6 @@ registerLocaleData(ru);
     AngularFeaturesModule,
     BrowserAnimationsModule,
     Model3DModule,
-    // NgxsModule.forRoot([]),
   ],
   exports: [],
   providers: [

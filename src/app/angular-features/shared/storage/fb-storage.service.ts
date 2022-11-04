@@ -21,7 +21,7 @@ export class FBStorageService {
 
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
-        storageRef.getDownloadURL().subscribe(downloadURL => {
+        storageRef.getDownloadURL().subscribe((downloadURL: any) => {
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
           this.saveFileData(fileUpload);
