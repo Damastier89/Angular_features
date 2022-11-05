@@ -7,6 +7,8 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { MatIconModule } from '@angular/material/icon';
 
+import { StoreModule } from '@ngrx/store';
+
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { MaterialModule } from './shared/material.module';
@@ -21,6 +23,7 @@ import { ArticlesModule } from './article/articles.module';
 import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
 import { Model3DModule } from './model3D/model3D.module';
+import { AuthenticationService } from './shared/services/authentication.service';
 registerLocaleData(ru);
 
 @NgModule({
@@ -45,9 +48,11 @@ registerLocaleData(ru);
     AngularFeaturesModule,
     BrowserAnimationsModule,
     Model3DModule,
+    // StoreModule.forRoot()
   ],
   exports: [],
   providers: [
+    AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

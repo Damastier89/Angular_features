@@ -20,6 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
@@ -89,6 +91,8 @@ import { LoadingDataDetailsComponent } from './loading-data-details/loading-data
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [
     FormService,
@@ -98,3 +102,5 @@ import { LoadingDataDetailsComponent } from './loading-data-details/loading-data
 })
 
 export class AngularFeaturesModule {}
+
+// https://www.positronx.io/full-angular-firebase-authentication-system/
