@@ -23,6 +23,14 @@ export class ArticleContentPageComponent implements OnInit {
         return this.articleService.getArticleById(params['id']);
       })
     )
+
+    this.route.fragment.subscribe(fragment => {
+      console.log(`fragment`, fragment);
+    });
+
+    this.route.queryParams.subscribe(params => {
+      console.log(`params`, params);
+    });
   }
 
 }

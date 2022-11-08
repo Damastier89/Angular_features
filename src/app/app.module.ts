@@ -2,7 +2,7 @@ import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +24,7 @@ import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
 import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationService } from './shared/services/authentication.service';
+import { SignInComponent } from './shared/authentication/sing-in/sign-in.component';
 registerLocaleData(ru);
 
 @NgModule({
@@ -32,6 +33,7 @@ registerLocaleData(ru);
     MainPageComponent,
     TimerComponent,
     ConfirmComponent,
+    SignInComponent,
   ],
   imports: [
     FormsModule,
@@ -47,6 +49,7 @@ registerLocaleData(ru);
     MatIconModule,
     AngularFeaturesModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule, 
     Model3DModule,
     // StoreModule.forRoot()
   ],

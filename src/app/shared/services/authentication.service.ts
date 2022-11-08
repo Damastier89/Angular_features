@@ -43,7 +43,7 @@ export class AuthenticationService {
         this.setUserData(result.user);
         this.angularFireAuth.authState.subscribe((user: any) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['main-page']);
           }
         });
       })
