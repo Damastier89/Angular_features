@@ -75,13 +75,6 @@ export class AuthenticationService {
       });
   }
 
-  public googleAuth() {
-    return this.authLogin(new auth.GoogleAuthProvider())
-      .then((res: any) => {
-        this.router.navigate(['dashboard']);
-      });
-  }
-
   public forgotPassword(passwordResetEmail: string) {
     return this.angularFireAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
@@ -98,17 +91,6 @@ export class AuthenticationService {
       .then((user: any) => user.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
-      });
-  }
-
-  private authLogin(provider: any) {
-    return this.angularFireAuth.signInWithPopup(provider)
-      .then((result: any) => {
-        this.router.navigate(['dashboard']);
-        this.setUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
       });
   }
 
