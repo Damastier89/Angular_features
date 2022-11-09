@@ -25,6 +25,7 @@ import { AngularFeaturesModule } from './angular-features/angular-features.modul
 import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { SignInComponent } from './shared/authentication/sing-in/sign-in.component';
+import { ErrorPageComponeent } from './shared/components/error/error-page';
 registerLocaleData(ru);
 
 @NgModule({
@@ -34,6 +35,7 @@ registerLocaleData(ru);
     TimerComponent,
     ConfirmComponent,
     SignInComponent,
+    ErrorPageComponeent,
   ],
   imports: [
     FormsModule,

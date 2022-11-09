@@ -4,44 +4,52 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './shared/authentication/sing-in/sign-in.component';
 import { SignUpComponent } from './shared/authentication/sing-up/sign-up.component';
 import { ForgotPasswordComponent } from './shared/authentication/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './shared/authentication/verify-email/verify-email.component';
 import { AuthenticationGuard } from './shared/guard/authentication.guard';
-
-// const routes: Routes = [
-//   // {path: '', redirectTo: '/sign-in', pathMatch: 'full'},
-//   // {path: 'sign-in', component: SignInComponent},
-//   {path: 'main-page', component: MainPageComponent, children: [
-//     {path: 'all_articles', loadChildren: () => import('./article/articles.module').then(module => module.ArticlesModule)},
-//     {path: 'map', loadChildren: () => import('./map/map.module').then(module => module.MapModule)},
-//     {path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule)},
-//     {path: 'graphics', loadChildren: () => import('./graphics/graphics.module').then(module => module.GraphicsModule)},
-//     {path: 'angular-features', loadChildren: () => import('./angular-features/angular-features.module').then(module => module.AngularFeaturesModule)},
-//     {path: 'model3D', loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule)},
-//     ]
-//   },
-// ];
+import { CommonModule } from '@angular/common';
+import { ErrorPageComponeent } from './shared/components/error/error-page';
 
 const routes: Routes = [
-  {path: '', component: MainPageComponent},
-  {path: 'all_articles', loadChildren: () => import('./article/articles.module').then(module => module.ArticlesModule)},
-  {path: 'map', loadChildren: () => import('./map/map.module').then(module => module.MapModule)},
-  {path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule)},
-  {path: 'graphics', loadChildren: () => import('./graphics/graphics.module').then(module => module.GraphicsModule)},
-  {path: 'angular-features', loadChildren: () => import('./angular-features/angular-features.module').then(module => module.AngularFeaturesModule)},
-  {path: 'model3D', loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule)},
+  {path: 'sign-in', component: SignInComponent },
+  {path: 'main-page', component: MainPageComponent, canActivate: [AuthenticationGuard]},
+  {
+    path: 'all_articles', 
+    loadChildren: () => import('./article/articles.module').then(module => module.ArticlesModule), 
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'map', 
+    loadChildren: () => import('./map/map.module').then(module => module.MapModule), 
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'admin', 
+    loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule), 
+    canActivate: [AuthenticationGuard]},
+  {
+    path: 'graphics', 
+    loadChildren: () => import('./graphics/graphics.module').then(module => module.GraphicsModule), 
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'angular-features', 
+    loadChildren: () => import('./angular-features/angular-features.module').then(module => module.AngularFeaturesModule), 
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'model3D', 
+    loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule), 
+    canActivate: [AuthenticationGuard]
+  },
+  {path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  {path: 'error-page', component: ErrorPageComponeent},
+  {path: '**', redirectTo: '/error-page'}
 ];
 
-// const routes: Routes = [
-//   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-//   { path: 'sign-in', component: SignInComponent },
-//   { path: 'register-user', component: SignUpComponent },
-//   { path: 'dashboard', component: MainPageComponent, canActivate: [AuthenticationGuard] },
-//   { path: 'forgot-password', component: ForgotPasswordComponent },
-//   { path: 'verify-email-address', component: VerifyEmailComponent },
-// ];
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -3,6 +3,7 @@
   [ngClass]="'navbar--' + currentThemes"
 >
   <h2 [style.paddingTop.px]="3">Angular features {{ emoj }}</h2>
+
   <button
     [matMenuTriggerFor]="setThemes"
     class="mode__button"
@@ -11,6 +12,16 @@
   >
     <mat-icon>published_with_changes</mat-icon>
   </button>
+
+  <button
+    class="mode__button"
+    mat-icon-button
+    [matTooltip]="'Выйти из приложения'"
+    (click)="logout()"
+  >
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
   <mat-menu #setThemes="matMenu">
     <button mat-menu-item (click)="changeThemes('default')">
       <mat-icon>brightness_1</mat-icon>

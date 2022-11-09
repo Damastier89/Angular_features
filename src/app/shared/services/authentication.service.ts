@@ -14,7 +14,7 @@ export class AuthenticationService {
   // Returns true when user is looged in and email is verified
   public get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null;
   }
 
   constructor(
@@ -43,7 +43,7 @@ export class AuthenticationService {
         this.setUserData(result.user);
         this.angularFireAuth.authState.subscribe((user: any) => {
           if (user) {
-            this.router.navigate(['main-page']);
+            this.router.navigate(['/main-page']);
           }
         });
       })
