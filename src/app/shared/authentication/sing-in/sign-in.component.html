@@ -1,7 +1,12 @@
 <div class="container">
   <form class="form" [formGroup]="form" >
     <h2>Авторизируйтесь для входа в приложение Angular features</h2>
-  
+    <h5 
+    class="active"
+    routerLink="/sing-up"
+    >
+      Если у вас нет аккаунта, кликните сюда
+    </h5>
     <mat-form-field class="form__control" appearance="outline">
       <mat-label>Email</mat-label>
       <input #userName type="email" matInput formControlName="email" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">

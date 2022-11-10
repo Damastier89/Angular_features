@@ -4,6 +4,8 @@ import * as auth from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import { User } from "../interfaces/user";
+import { SnackBarService } from "./snack-bar.service";
+import { SnackBarTypes } from "../_models/snack-bar-types.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +24,12 @@ export class AuthenticationService {
     public angularFireAuth: AngularFireAuth,  // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private snackBarService: SnackBarService,
   ) {
     // Сохранение пользовательских данных в localstorage при вход в систему и установка null при выходе
     this.angularFireAuth.authState.subscribe((user: any) => {
       if (user) {
+        // TODO - собрать безопасный объект пользователя
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -44,11 +48,12 @@ export class AuthenticationService {
         this.angularFireAuth.authState.subscribe((user: any) => {
           if (user) {
             this.router.navigate(['/main-page']);
+            this.openSnackBar(SnackBarTypes.Success, `Вы авторизовались как [ ${user.email} ]`, null);
           }
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.openSnackBar(SnackBarTypes.Error, `Ошибка : ${error.message}`, 10000);
       });
   }
 
@@ -56,13 +61,16 @@ export class AuthenticationService {
   public signUp(email: string, password: string) {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then((result: any) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.sendVerificationMail();
+        // Верифекация работает, нужно подумать что с ней дальше делать
+        // this.sendVerificationMail();
         this.setUserData(result.user);
+        this.router.navigate(['/sing-in']);
+        // Events используется для отслеживания маршрута
+        // this.router.events.subscribe(e => console.log(`e`, e))
+        this.openSnackBar(SnackBarTypes.Success, `Профиль [ ${result.user.email} ] успешно создан `, null);
       })
-      .catch((error) => {
-        window.alert(error.message);
+      .catch(() => {
+        this.openSnackBar(SnackBarTypes.Error, `Ошибка : Firebase: адрес электронной почты уже используется другой учетной записью.`, 10000);
       });
   }
 
@@ -109,4 +117,13 @@ export class AuthenticationService {
 
     return userRef.set(userData, { merge: true });
   }
+
+  private openSnackBar(actionType: string, message: string, duration: number | null): void {
+    if (duration) {
+      this.snackBarService.openSnackBarSetDuration({actionType, message}, duration);
+    } else {
+      this.snackBarService.openSnackBar({actionType, message});
+    }
+  }
+
 }
