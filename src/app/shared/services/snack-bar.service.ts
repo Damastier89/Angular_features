@@ -39,4 +39,15 @@ export class SnackBarService {
     cfg.matSnackBarCfg.panelClass = actionsData[cfg.actionType].cssClass;
     return this.snackBar.open(cfg.message , actionsData[cfg.actionType].txt, cfg.matSnackBarCfg);
   };
+
+  public openSnackBarSetDuration(cfg: openConfig, duration: number): MatSnackBarRef<TextOnlySnackBar> {
+    if (typeof cfg.matSnackBarCfg === 'undefined') {
+      cfg.matSnackBarCfg = {};
+    }
+    if (typeof cfg.matSnackBarCfg.duration === 'undefined') {
+      cfg.matSnackBarCfg.duration = duration;
+    }
+    cfg.matSnackBarCfg.panelClass = actionsData[cfg.actionType].cssClass;
+    return this.snackBar.open(cfg.message , actionsData[cfg.actionType].txt, cfg.matSnackBarCfg);
+  };
 }

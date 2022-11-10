@@ -25,17 +25,15 @@ export class SignInComponent implements OnInit {
   public submitted: boolean = false;
   public matcher = new MyErrorStateMatcher();
 
-  private destroyNotifier: Subject<boolean> = new Subject<boolean>();
-
   constructor(
     public authService: AuthenticationService,
   ) { }
+
   ngOnInit() { }
 
-
-  log() {
-    let mail: any = this.form.value.email;
-    let pass: any = this.form.value.password;
+  public log() {
+    const mail: any = this.form.value.email;
+    const pass: any = this.form.value.password;
     this.authService.signIn(mail, pass);
   }
 }

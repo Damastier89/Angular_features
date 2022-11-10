@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthenticationService } from '../../services/authentication.service';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -7,8 +16,22 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  public form = new FormGroup({
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required, Validators.minLength(7)]),
+  });
+  public submitted: boolean = false;
+  public matcher = new MyErrorStateMatcher();
+
   constructor(
     public authService: AuthenticationService,
   ) { }
+
   ngOnInit() { }
+
+  public createNewUser() {
+    const mail: any = this.form.value.email;
+    const pass: any = this.form.value.password;
+    this.authService.signUp(mail, pass);
+  }
 }

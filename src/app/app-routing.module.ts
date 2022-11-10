@@ -5,11 +5,14 @@ import { SignInComponent } from './shared/authentication/sing-in/sign-in.compone
 import { SignUpComponent } from './shared/authentication/sing-up/sign-up.component';
 import { ForgotPasswordComponent } from './shared/authentication/forgot-password/forgot-password.component';
 import { AuthenticationGuard } from './shared/guard/authentication.guard';
-import { CommonModule } from '@angular/common';
 import { ErrorPageComponeent } from './shared/components/error/error-page';
+import { VerifyEmailComponent } from './shared/authentication/verify-email/verify-email.component';
 
 const routes: Routes = [
-  {path: 'sign-in', component: SignInComponent },
+  {path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  {path: 'sign-in', component: SignInComponent},
+  {path: 'sing-up', component: SignUpComponent},
+  {path: 'verify-email-address', component: VerifyEmailComponent},
   {path: 'main-page', component: MainPageComponent, canActivate: [AuthenticationGuard]},
   {
     path: 'all_articles', 
@@ -40,16 +43,12 @@ const routes: Routes = [
     loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule), 
     canActivate: [AuthenticationGuard]
   },
-  {path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   {path: 'error-page', component: ErrorPageComponeent},
-  {path: '**', redirectTo: '/error-page'}
+  {path: '**', redirectTo: '/error-page',  pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
