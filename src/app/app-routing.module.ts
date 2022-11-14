@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   {path: 'sign-in', component: SignInComponent},
   {path: 'sing-up', component: SignUpComponent},
-  {path: 'verify-email-address', component: VerifyEmailComponent},
+  // {path: 'verify-email-address', component: VerifyEmailComponent},
   {path: 'main-page', component: MainPageComponent, canActivate: [AuthenticationGuard]},
   {
     path: 'all_articles', 
@@ -43,8 +43,8 @@ const routes: Routes = [
     loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule), 
     canActivate: [AuthenticationGuard]
   },
-  {path: 'error-page', component: ErrorPageComponeent},
-  {path: '**', redirectTo: '/error-page',  pathMatch: 'full'}
+  {path: '**', component: ErrorPageComponeent},
+  // {path: '**', redirectTo: '/error-page',  pathMatch: 'full'}
 ];
 
 @NgModule({

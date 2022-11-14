@@ -1,19 +1,19 @@
 import { Injectable, NgZone } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import * as auth from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import { User } from "../interfaces/user";
 import { SnackBarService } from "./snack-bar.service";
 import { SnackBarTypes } from "../_models/snack-bar-types.enum";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  public usename: BehaviorSubject<string> = new BehaviorSubject<string>('default name');
   public userData: any; // Сохранить учетные данные пользователя.
 
-  // Returns true when user is looged in and email is verified
   public get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null;
@@ -29,7 +29,6 @@ export class AuthenticationService {
     // Сохранение пользовательских данных в localstorage при вход в систему и установка null при выходе
     this.angularFireAuth.authState.subscribe((user: any) => {
       if (user) {
-        // TODO - собрать безопасный объект пользователя
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -48,12 +47,12 @@ export class AuthenticationService {
         this.angularFireAuth.authState.subscribe((user: any) => {
           if (user) {
             this.router.navigate(['/main-page']);
-            this.openSnackBar(SnackBarTypes.Success, `Вы авторизовались как [ ${user.email} ]`, null);
+            this.openSnackBar(SnackBarTypes.Success, `Вы авторизовались как [ ${user.displayName} ]`, null);
           }
         });
       })
-      .catch((error) => {
-        this.openSnackBar(SnackBarTypes.Error, `Ошибка : ${error.message}`, 10000);
+      .catch(() => {
+        this.openSnackBar(SnackBarTypes.Error, `Ошибка : Нет записи пользователя, соответствующей этому идентификатору. Возможно, введенные данные не верны.`, 10000);
       });
   }
 
@@ -61,16 +60,26 @@ export class AuthenticationService {
   public signUp(email: string, password: string) {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password)
       .then((result: any) => {
-        // Верифекация работает, нужно подумать что с ней дальше делать
-        // this.sendVerificationMail();
-        this.setUserData(result.user);
-        this.router.navigate(['/sing-in']);
-        // Events используется для отслеживания маршрута
-        // this.router.events.subscribe(e => console.log(`e`, e))
-        this.openSnackBar(SnackBarTypes.Success, `Профиль [ ${result.user.email} ] успешно создан `, null);
+        let customerName = 'default customer name';
+
+        this.usename.subscribe( name => { 
+          customerName = name;
+        });
+
+        result.user.updateProfile({
+          displayName: customerName,
+        }).then(() => {
+          // Верифекация работает, нужно подумать что с ней дальше делать
+          // this.sendVerificationMail();
+          this.setUserData(result.user);
+          this.router.navigate(['/']);
+          // Events используется для отслеживания маршрута
+          // this.router.events.subscribe(e => console.log(`e`, e));
+          this.openSnackBar(SnackBarTypes.Success, `Профиль [ ${result.user.displayName} ] успешно создан `, null);
+        });
       })
       .catch(() => {
-        this.openSnackBar(SnackBarTypes.Error, `Ошибка : Firebase: адрес электронной почты уже используется другой учетной записью.`, 10000);
+        this.openSnackBar(SnackBarTypes.Error, `Ошибка : Адрес электронной почты уже используется другой учетной записью.`, 10000);
       });
   }
 
@@ -79,7 +88,7 @@ export class AuthenticationService {
     return this.angularFireAuth.signOut()
       .then(() => {
         localStorage.removeItem('user');
-        this.router.navigate(['sign-in']);
+        this.router.navigate(['/sign-in']);
       });
   }
 
@@ -112,7 +121,6 @@ export class AuthenticationService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
     };
 
     return userRef.set(userData, { merge: true });

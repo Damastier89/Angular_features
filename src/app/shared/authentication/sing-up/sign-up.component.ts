@@ -17,6 +17,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SignUpComponent implements OnInit {
   public form = new FormGroup({
+    username: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.minLength(7)]),
   });
@@ -32,6 +33,9 @@ export class SignUpComponent implements OnInit {
   public createNewUser() {
     const mail: any = this.form.value.email;
     const pass: any = this.form.value.password;
+    const name: any = this.form.value.username;
+    this.authService.usename.next(name);
     this.authService.signUp(mail, pass);
   }
+
 }
