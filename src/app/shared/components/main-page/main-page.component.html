@@ -4,9 +4,15 @@
 >
   <h2 [style.paddingTop.px]="3">Angular features {{ emoj }}</h2>
 
+  <div mat-icon-button>
+    <mat-icon>
+      <img src="assets/image/duty.svg"> 
+    </mat-icon>
+    <small class="navbar__username">{{ customerName }}</small>
+  </div>
+
   <button
     [matMenuTriggerFor]="setThemes"
-    class="mode__button"
     mat-icon-button
     [matTooltip]="'Сменить тему'"
   >
@@ -14,7 +20,6 @@
   </button>
 
   <button
-    class="mode__button"
     mat-icon-button
     [matTooltip]="'Выйти из приложения'"
     (click)="logout()"

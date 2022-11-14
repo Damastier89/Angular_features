@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent implements OnInit {
-
+  public year: any = new Date().getFullYear();
   constructor() { }
 
   ngOnInit(): void {

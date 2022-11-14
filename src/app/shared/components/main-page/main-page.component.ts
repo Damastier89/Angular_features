@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class MainPageComponent implements OnInit {
   public emoj: string = "☣"
+  public customerName: string = "Ehooooo";
   public currentThemes: string | null = '';
   public theme = localStorage.getItem('nameThemes');
 
@@ -19,6 +20,7 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.setNameCurrentUser();
     this.setDefaultThemes();
     this.getCurrentThemes();
     this.getThemesFromStorage();
@@ -43,6 +45,12 @@ export class MainPageComponent implements OnInit {
   public changeThemes(nameThemes: string): void {
     this.changeThemesService.changeThemes.next(nameThemes);
     localStorage.setItem('nameThemes', nameThemes)
+  }
+
+  public setNameCurrentUser(): void {
+    const user: any = localStorage.getItem('user');
+    const customer = JSON.parse(user);
+    this.customerName = customer;
   }
 
   private setDefaultThemes(): void {

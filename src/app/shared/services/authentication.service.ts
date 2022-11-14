@@ -29,7 +29,7 @@ export class AuthenticationService {
     // Сохранение пользовательских данных в localstorage при вход в систему и установка null при выходе
     this.angularFireAuth.authState.subscribe((user: any) => {
       if (user) {
-        this.userData = user;
+        this.userData = user.displayName;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
       } else {
