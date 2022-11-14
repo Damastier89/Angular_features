@@ -67,6 +67,10 @@ $success: 'success';
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &-top {
+    margin-top: 135px;
+  }
 }
 
 .container {
@@ -95,6 +99,14 @@ $success: 'success';
         z-index: 1;
         transform: translateY(100px);
         border-radius: 10px;
+
+        &--#{$danger} {
+          background: var(--danger-color);
+        }
+      
+        &--#{$success} {
+          background: var(--success-color);
+        }
       }
     }
 
