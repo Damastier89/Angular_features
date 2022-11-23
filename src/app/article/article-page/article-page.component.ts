@@ -20,7 +20,7 @@ export class ArticlePageComponent implements OnInit {
   ngOnInit(): void {}
 
   public openArticle() {
-    this.router.navigate(['/article', this.article.id], {
+    this.router.navigate(['/all_articles','article', this.article.id], {
       queryParams: {
         showQueryParamsNavigate: `name_author:${this.article.author}`,
       },

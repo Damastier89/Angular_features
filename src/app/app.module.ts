@@ -55,7 +55,7 @@ registerLocaleData(ru);
     BrowserAnimationsModule,
     ReactiveFormsModule, 
     Model3DModule,
-    // StoreModule.forRoot()
+    StoreModule.forRoot({})
   ],
   exports: [],
   providers: [

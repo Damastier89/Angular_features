@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
+import { Subject, takeUntil } from 'rxjs';
 
+import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { DataForm } from '../../shared/interfaces/formData';
 import { FormService } from '../../shared/services/form.service';
-import { Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { AbstractDestroySubject } from '../../../shared/directives/abstractDestroySubject.directive';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './angular-forms.component.html',
   styleUrls: ['./angular-forms.component.scss']
 })
-export class AngularFormsComponent implements OnInit, OnDestroy {
+export class AngularFormsComponent extends AbstractDestroySubject implements OnInit, OnDestroy {
   public form = new UntypedFormGroup({
     name: new UntypedFormControl('', Validators.required),
     surname: new UntypedFormControl('', Validators.required),
@@ -41,8 +42,6 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
   public browserName: string = '';
   public browserVersion: string = '';
 
-  private destroyNotifier: Subject<boolean> = new Subject<boolean>();
-
   public get aboutControl(): UntypedFormArray {
     return this.form.get('skills') as UntypedFormArray;
   }
@@ -51,16 +50,9 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
     private formService: FormService,
     private snackBarService: SnackBarService,
     private router: Router,
-  ) { }
-
-  // ngOnInit(): void {
-  //   // this.form.controls['name'].setValue('VPN')
-  //   // this.form.controls['surname'].setValue('VPN')
-  //   // this.form.controls['age'].setValue('VPN')
-  //   // this.form.controls['address'].setValue('VPN@mmk.ru')
-  //   // this.form.controls['email'].setValue('VPN@mmk.ru')
-  //   // this.form.controls['phone'].setValue('VPN')
-  // }
+  ) { 
+    super();
+  }
 
   ngOnInit() {
     this.form.controls['name'].setValue('Maxim')
@@ -68,7 +60,6 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
     this.form.controls['age'].setValue('30')
     this.form.controls['address'].setValue('Moscow')
     this.form.controls['email'].setValue('Maxim@mmk.ru')
-    // this.form.controls['phone'].setValue('VPN')
 
     this.browserName = this.detectBrowserName();
     this.browserVersion = this.detectBrowserVersion();
@@ -76,15 +67,10 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
     console.log(this.browserVersion)
   }
 
-  ngOnDestroy(): void {
-    this.destroyNotifier.next(true);
-    this.destroyNotifier.complete();
-  }
-
   public submit(): void {
     if (this.form.invalid) {
       return;
-  }
+    }
 
     const date = new Date(this.form.value.dateOfBirth);
     const now = moment(date).format("DD.MM.YYYY");
@@ -103,7 +89,7 @@ export class AngularFormsComponent implements OnInit, OnDestroy {
       date: new Date(),
     }
     this.submitted = true;
-    this.formService.createNewDataFromForm(dataFromForm).pipe(takeUntil(this.destroyNotifier)).subscribe({
+    this.formService.createNewDataFromForm(dataFromForm).pipe(takeUntil(this.onDestroy$)).subscribe({
       next: () => {
         this.router.navigate(['form-result']);
         this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');

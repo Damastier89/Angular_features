@@ -3,13 +3,13 @@
   [ngClass]="'navbar--' + currentThemes"
 >
   <h2>
-    <a [routerLink]="['/']">Angular features</a>
+    <a [routerLink]="['/main-page']">Angular features</a>
   </h2>
 
   <ul class="navbar__menu" *ngIf="auth.isAuthenticated()">
 <!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совподает -->
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a [routerLink]="['/']">На главную</a>
+      <a [routerLink]="['/main-page']">На главную</a>
     </li>
     <li routerLinkActive="active">
       <a [routerLink]="['/admin', 'create-article']">Создать раздел</a>

@@ -12,7 +12,7 @@
       <!-- Передаем при переходе по роуту queryParams and fragment(#)-->
   <button
     class="btn click"
-    [routerLink]="['/article', article.id]"
+    [routerLink]="['article', article.id]"
     [queryParams]="{showQueryParams: article.id}"
     [fragment]="article.id"
   >
