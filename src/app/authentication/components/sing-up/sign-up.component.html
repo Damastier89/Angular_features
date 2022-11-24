@@ -40,6 +40,7 @@
       </mat-error>
     </mat-form-field>
   
-      <button (click)="createNewUser()" class="btn click" [disabled]="form.invalid || submitted">Создать профиль</button>
+      <button (click)="createNewUser()" class="btn click" [disabled]="form.invalid">Создать профиль</button>
+      <!-- <button class="btn click" (click)="createNewUser()" [disabled]="isSubmitting$ | async">Создать профиль</button> -->
   </form>
 </div>

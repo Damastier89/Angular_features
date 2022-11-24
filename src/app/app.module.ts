@@ -10,23 +10,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
 
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
+import { AppComponent } from './app.component';
+import { MainPageComponent } from './shared/components/main-page/main-page.component';
+import { ErrorPageComponeent } from './shared/components/error/error-page';
+import { TimerComponent } from './shared/components/timer/timer.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MainPageComponent } from './shared/components/main-page/main-page.component';
-import { TimerComponent } from './shared/components/timer/timer.component';
 import { MapModule } from './map/map.module';
 import { TitleModule } from './shared/components/title/title.module';
 import { ArticlesModule } from './article/articles.module';
 import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
 import { Model3DModule } from './model3D/model3D.module';
-import { AuthenticationService } from './shared/services/authentication.service';
-import { SignInComponent } from './shared/authentication/sing-in/sign-in.component';
-import { ErrorPageComponeent } from './shared/components/error/error-page';
-import { SignUpComponent } from './shared/authentication/sing-up/sign-up.component';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment.prod';
 registerLocaleData(ru);
 
 @NgModule({
@@ -35,8 +35,6 @@ registerLocaleData(ru);
     MainPageComponent,
     TimerComponent,
     ConfirmComponent,
-    SignInComponent,
-    SignUpComponent,
     ErrorPageComponeent,
   ],
   imports: [
@@ -55,11 +53,16 @@ registerLocaleData(ru);
     BrowserAnimationsModule,
     ReactiveFormsModule, 
     Model3DModule,
-    StoreModule.forRoot({})
+    AuthenticationModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Сохраняет последние 25 состояний
+      logOnly: environment.production,
+      autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
+    }),
   ],
   exports: [],
   providers: [
-    AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

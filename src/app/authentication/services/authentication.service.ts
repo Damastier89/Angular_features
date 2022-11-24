@@ -2,9 +2,9 @@ import { Injectable, NgZone } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
-import { User } from "../interfaces/user";
-import { SnackBarService } from "./snack-bar.service";
-import { SnackBarTypes } from "../_models/snack-bar-types.enum";
+import { RegisterUserInterface } from "../types/registerUser.interface";
+import { SnackBarService } from "../../shared/services/snack-bar.service";
+import { SnackBarTypes } from "../../shared/_models/snack-bar-types.enum";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -72,7 +72,7 @@ export class AuthenticationService {
           // Верифекация работает, нужно подумать что с ней дальше делать
           // this.sendVerificationMail();
           this.setUserData(result.user);
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
           // Events используется для отслеживания маршрута
           // this.router.events.subscribe(e => console.log(`e`, e));
           this.openSnackBar(SnackBarTypes.Success, `Профиль [ ${result.user.displayName} ] успешно создан `, null);
@@ -114,9 +114,9 @@ export class AuthenticationService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  private setUserData(user: User) {
+  private setUserData(user: RegisterUserInterface) {
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.uid}`);
-    const userData: User = {
+    const userData: RegisterUserInterface = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,

@@ -1,7 +1,7 @@
 import { Observable, interval, startWith, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ChangeThemesService } from '../../services/change-themes.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../../authentication/services/authentication.service';
 
 @Component({
   selector: 'app-main-page',

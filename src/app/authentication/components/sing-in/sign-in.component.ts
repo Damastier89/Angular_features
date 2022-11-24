@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Subject } from 'rxjs';
+
 import { AuthenticationService } from '../../services/authentication.service';
 
+/** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -11,13 +14,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignInComponent implements OnInit {
   public form = new FormGroup({
-    username: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.minLength(7)]),
   });
@@ -30,12 +32,9 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() { }
 
-  public createNewUser() {
+  public log() {
     const mail: any = this.form.value.email;
     const pass: any = this.form.value.password;
-    const name: any = this.form.value.username;
-    this.authService.usename.next(name);
-    this.authService.signUp(mail, pass);
+    this.authService.signIn(mail, pass);
   }
-
 }

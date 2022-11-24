@@ -91,7 +91,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     this.submitted = true;
     this.formService.createNewDataFromForm(dataFromForm).pipe(takeUntil(this.onDestroy$)).subscribe({
       next: () => {
-        this.router.navigate(['form-result']);
+        this.router.navigate(['/angular-features','form-result']);
         this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');
         this.form.reset();
         this.submitted = false;
