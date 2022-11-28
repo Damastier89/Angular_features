@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { last, Subject, takeLast, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
-import { DataForm } from '../../shared/interfaces/formData';
-import { FormService } from '../../shared/services/form.service';
+import { FeedbackFormService } from '../../shared/services/feedbackForm.service';
 
 @Component({
   selector: 'app-form-result',
@@ -19,12 +18,12 @@ export class FormResultComponent implements OnInit, OnDestroy {
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private formService: FormService,
+    private feedbackFormService: FeedbackFormService,
     private snackBarService: SnackBarService,
   ) { }
 
   ngOnInit(): void {
-    this.formService.getAllDataForm().pipe(
+    this.feedbackFormService.getAllDataForm().pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe((data: any) => {
       if (data) {

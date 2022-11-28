@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,6 +23,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
+import { StoreModule } from '@ngrx/store';
+
 import { TitleModule } from '../shared/components/title/title.module';
 import { AngularFeaturesComponent } from './angular-features.component';
 import { AngularFormsComponent } from './form/angular-forms/angular-forms.component';
@@ -33,7 +35,7 @@ import { CheckAllLetters } from './shared/directives/checkAllLetters.directive';
 import { CheckNumbers } from './shared/directives/checkNumbers.directive';
 import { CheckSpecialCharacters } from './shared/directives/chekcSpecialСharacters.directive';
 import { NgxMaskModule } from 'ngx-mask';
-import { FormService } from './shared/services/form.service';
+import { FeedbackFormService } from './shared/services/feedbackForm.service';
 import { AutocompleteOffDirective } from './directives/autocompliteOff.directive';
 import { FormResultComponent } from './form-result/form-result/form-result.component';
 import { LoadingDataComponent } from './loading-data/loading-data.component';
@@ -41,6 +43,20 @@ import { FileManagerService } from './shared/services/file-manager.service';
 import { FIREBASE_CONFIG } from '../shared/fb-config/firebase-config';
 import { FBStorageService } from './shared/storage/fb-storage.service';
 import { LoadingDataDetailsComponent } from './loading-data-details/loading-data-details.component';
+import { feedbackReducer } from './shared/store/reducers/reducers';
+import { FeedbackEffect } from './shared/store/effects/feedback.effect';
+
+const routes: Routes = [
+  {
+    path: '', component: AngularFeaturesComponent, children: [
+      { path: '', redirectTo: 'forms', pathMatch: 'full'},
+      { path: 'forms', component: AngularFormsComponent },
+      { path: 'form-result', component: FormResultComponent},
+      { path: 'modals', component: AngularModalsComponent },
+      { path: 'loading-data', component: LoadingDataComponent },
+    ]
+  }
+];
 
 @NgModule({
   declarations: [
@@ -77,27 +93,19 @@ import { LoadingDataDetailsComponent } from './loading-data-details/loading-data
     MatCardModule,
     MatMenuModule,
     NgxMaskModule.forRoot(),
-    RouterModule.forChild([
-      {
-        path: '', component: AngularFeaturesComponent, children: [
-          { path: '', redirectTo: 'forms', pathMatch: 'full'},
-          { path: 'forms', component: AngularFormsComponent },
-          { path: 'form-result', component: FormResultComponent},
-          { path: 'modals', component: AngularModalsComponent },
-          { path: 'loading-data', component: LoadingDataComponent },
-        ]
-      }
-    ]),
+    RouterModule.forChild(routes),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    StoreModule.forFeature('feedback', feedbackReducer),
   ],
   providers: [
-    FormService,
+    FeedbackFormService,
     FileManagerService,
     FBStorageService,
+    FeedbackEffect,
   ]
 })
 

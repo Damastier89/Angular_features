@@ -3,16 +3,16 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { FbCreateResponse } from "../../../admin/shared/interfaces/fbCreateResponse";
 import { environment } from "../../../../environments/environment";
-import { DataForm } from "../interfaces/formData";
+import { DataFormInterface } from "../interfaces/dataForm.interface";
 
 const environments = environment.fbDbUrl
 
 @Injectable()
-export class FormService {
+export class FeedbackFormService {
 
   constructor(private http: HttpClient) {}
 
-  public createNewDataFromForm(data: DataForm): Observable<DataForm> {
+  public createNewDataFromForm(data: DataFormInterface): Observable<DataFormInterface> {
     return this.http.post<any>(`${environments}/data-form.json`, data)
       .pipe(
         map((response: FbCreateResponse) => {
@@ -25,8 +25,8 @@ export class FormService {
       );
   }
 
-  public getAllDataForm(): Observable<DataForm[]> {
-    return  this.http.get<DataForm>(`${environments}/data-form.json`)
+  public getAllDataForm(): Observable<DataFormInterface[]> {
+    return  this.http.get<DataFormInterface>(`${environments}/data-form.json`)
       .pipe(
         map((response: {[key: string]: any}) => {
           return Object.keys(response).map(key => ({

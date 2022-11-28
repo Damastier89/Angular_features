@@ -7,11 +7,9 @@ import { SnackBarService } from "../../shared/services/snack-bar.service";
 import { SnackBarTypes } from "../../shared/_models/snack-bar-types.enum";
 import { BehaviorSubject } from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthenticationService {
-  public usename: BehaviorSubject<string> = new BehaviorSubject<string>('default name');
+  public username: BehaviorSubject<string> = new BehaviorSubject<string>('default name');
   public userData: any; // Сохранить учетные данные пользователя.
 
   public get isLoggedIn(): boolean {
@@ -62,7 +60,7 @@ export class AuthenticationService {
       .then((result: any) => {
         let customerName = 'default customer name';
 
-        this.usename.subscribe( name => { 
+        this.username.subscribe( name => { 
           customerName = name;
         });
 

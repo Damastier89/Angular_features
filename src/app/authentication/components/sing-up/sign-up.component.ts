@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { registerAction } from '../../store/actions/register.action';
 import { isSubmittingSelector } from '../../store/selections/selectors';
-import { RegisterReguestInterface } from '../../types/registerUser.interface';
+import { RegisterRequestInterface } from '../../types/registerUser.interface';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -53,10 +53,10 @@ export class SignUpComponent implements OnInit {
           mail: string = this.form.value.email as string,
           password: any = this.form.value.password;
 
-    this.authService.usename.next(username);
+    this.authService.username.next(username);
     this.authService.signUp(mail, password);
 
-    const user: RegisterReguestInterface = {
+    const user: RegisterRequestInterface = {
       username: username,
       email: mail,
       password: password,

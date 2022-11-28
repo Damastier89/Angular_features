@@ -3,13 +3,17 @@ import { FormGroupDirective, NgForm, UntypedFormArray, UntypedFormControl, Untyp
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil, Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
 
 import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
-import { DataForm } from '../../shared/interfaces/formData';
-import { FormService } from '../../shared/services/form.service';
+import { DataFormInterface } from '../../shared/interfaces/dataForm.interface';
+import { FeedbackFormService } from '../../shared/services/feedbackForm.service';
 import { AbstractDestroySubject } from '../../../shared/directives/abstractDestroySubject.directive';
+import { feedbackAction } from '../../shared/store/actions/feedback.action';
+import { isSubmittingSelector } from '../../shared/store/selections/selectors';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -42,14 +46,17 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   public browserName: string = '';
   public browserVersion: string = '';
 
+  public isSubmitting$!: Observable<boolean>; 
+
   public get aboutControl(): UntypedFormArray {
     return this.form.get('skills') as UntypedFormArray;
   }
 
   constructor(
-    private formService: FormService,
+    private feedbackFormService: FeedbackFormService,
     private snackBarService: SnackBarService,
     private router: Router,
+    private store: Store,
   ) { 
     super();
   }
@@ -65,6 +72,16 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     this.browserVersion = this.detectBrowserVersion();
     console.log(this.browserName)
     console.log(this.browserVersion)
+
+    this.initializeValues();
+    this.isSubmitting$.subscribe(res => {
+      console.log(`this.isSubmitting$`, res)
+    })
+  }
+
+  public initializeValues(): void {
+    // Данная констукция выбирает данные из Store по переданному селектору.
+    this.isSubmitting$ = this.store.select(isSubmittingSelector);
   }
 
   public submit(): void {
@@ -75,7 +92,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     const date = new Date(this.form.value.dateOfBirth);
     const now = moment(date).format("DD.MM.YYYY");
 
-    const dataFromForm: DataForm = {
+    const dataFromForm: DataFormInterface = {
       name: this.form.value.name,
       surname: this.form.value.surname,
       age: this.form.value.age,
@@ -88,8 +105,13 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
       skills: this.form.value.skills || null,
       date: new Date(),
     }
+
+    this.store.dispatch(feedbackAction(dataFromForm))
+
     this.submitted = true;
-    this.formService.createNewDataFromForm(dataFromForm).pipe(takeUntil(this.onDestroy$)).subscribe({
+    this.feedbackFormService.createNewDataFromForm(dataFromForm).pipe(
+      takeUntil(this.onDestroy$)
+    ).subscribe({
       next: () => {
         this.router.navigate(['/angular-features','form-result']);
         this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');

@@ -1,4 +1,4 @@
-export interface DataForm {
+export interface DataFormInterface {
   id?: string;
   name: string;
   surname: string;

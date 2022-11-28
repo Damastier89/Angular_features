@@ -8,6 +8,7 @@ import { StoreModule } from "@ngrx/store";
 import { SignInComponent } from "./components/sing-in/sign-in.component";
 import { SignUpComponent } from "./components/sing-up/sign-up.component";
 import { AuthenticationService } from "./services/authentication.service";
+import { RegisterEffect } from "./store/effects/register.effect";
 import { authReducer } from "./store/reducers/redusers";
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService,
+    RegisterEffect,
   ]
 })
 export class AuthenticationModule {}

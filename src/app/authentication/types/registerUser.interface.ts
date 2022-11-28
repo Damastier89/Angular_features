@@ -6,7 +6,7 @@ export interface RegisterUserInterface {
   emailVerified?: boolean;
 }
 
-export interface RegisterReguestInterface {
+export interface RegisterRequestInterface {
   username: string;
   email: string;
   password: string;
