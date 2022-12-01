@@ -27,6 +27,7 @@ import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
+import { EffectsModule } from '@ngrx/effects';
 registerLocaleData(ru);
 
 @NgModule({
@@ -55,11 +56,13 @@ registerLocaleData(ru);
     Model3DModule,
     AuthenticationModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Сохраняет последние 25 состояний
       logOnly: environment.production,
       autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
     }),
+
   ],
   exports: [],
   providers: [

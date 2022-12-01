@@ -45,6 +45,7 @@ import { FBStorageService } from './shared/storage/fb-storage.service';
 import { LoadingDataDetailsComponent } from './loading-data-details/loading-data-details.component';
 import { feedbackReducer } from './shared/store/reducers/reducers';
 import { FeedbackEffect } from './shared/store/effects/feedback.effect';
+import { EffectsModule } from '@ngrx/effects';
 
 const routes: Routes = [
   {
@@ -100,12 +101,12 @@ const routes: Routes = [
     AngularFireAuthModule,
     AngularFirestoreModule,
     StoreModule.forFeature('feedback', feedbackReducer),
+    EffectsModule.forFeature([FeedbackEffect])
   ],
   providers: [
     FeedbackFormService,
     FileManagerService,
     FBStorageService,
-    FeedbackEffect,
   ]
 })
 

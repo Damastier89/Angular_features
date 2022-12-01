@@ -1,16 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupDirective, NgForm, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { takeUntil, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
-import { SnackBarTypes } from '../../../shared/_models/snack-bar-types.enum';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { DataFormInterface } from '../../shared/interfaces/dataForm.interface';
-import { FeedbackFormService } from '../../shared/services/feedbackForm.service';
 import { AbstractDestroySubject } from '../../../shared/directives/abstractDestroySubject.directive';
 import { feedbackAction } from '../../shared/store/actions/feedback.action';
 import { isSubmittingSelector } from '../../shared/store/selections/selectors';
@@ -43,6 +39,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
   public isAbout: boolean = false;
+
   public browserName: string = '';
   public browserVersion: string = '';
 
@@ -53,9 +50,6 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   }
 
   constructor(
-    private feedbackFormService: FeedbackFormService,
-    private snackBarService: SnackBarService,
-    private router: Router,
     private store: Store,
   ) { 
     super();
@@ -109,21 +103,23 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     this.store.dispatch(feedbackAction(dataFromForm))
 
     this.submitted = true;
-    this.feedbackFormService.createNewDataFromForm(dataFromForm).pipe(
-      takeUntil(this.onDestroy$)
-    ).subscribe({
-      next: () => {
-        this.router.navigate(['/angular-features','form-result']);
-        this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');
-        this.form.reset();
-        this.submitted = false;
-      },
-      error: () => {
-        this.openSnackBar(SnackBarTypes.Error, `Ошибка. Не удалось отправить данные`);
-        this.form.reset();
-        this.submitted = false;
-      }
-    });
+    this.form.reset();
+    // Перенесено в feedback.effects.ts
+    // this.feedbackFormService.createNewDataFromForm(dataFromForm).pipe(
+    //   takeUntil(this.onDestroy$)
+    // ).subscribe({
+    //   next: () => {
+    //     this.router.navigate(['/angular-features','form-result']);
+    //     this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');
+    //     this.form.reset();
+    //     this.submitted = false;
+    //   },
+    //   error: () => {
+    //     this.openSnackBar(SnackBarTypes.Error, `Ошибка. Не удалось отправить данные`);
+    //     this.form.reset();
+    //     this.submitted = false;
+    //   }
+    // });
   }
 
   public isShowAbout(): boolean {
@@ -172,12 +168,5 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
       matchTest= matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
       if ((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
       return matchTest.join(' ');
-  }
-
-  private openSnackBar(actionType: string, message: string): void {
-    this.snackBarService.openSnackBar({
-      actionType,
-      message,
-    })
   }
 }
