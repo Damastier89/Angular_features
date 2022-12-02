@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
@@ -35,13 +36,12 @@ export class FeedbackEffect {
           this.router.navigate(['/angular-features','form-result']);
           return feedbackSuccessAction(feedback)
         }),
-        catchError(() => {
-          return of(feedbackFailuerAction())
+        catchError((errorResponse: HttpErrorResponse) => {
+          this.openSnackBar(SnackBarTypes.Error, `Ошибка. Не удалось отправить данные`);
+          this.router.navigate(['/angular-features','forms']);
+          return of(feedbackFailuerAction(errorResponse.error))
         })
       );
-    }),
-    tap((res) => {
-      console.log(`res`, res);
     }),
   ));
 

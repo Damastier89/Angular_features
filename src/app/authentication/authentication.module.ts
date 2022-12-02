@@ -30,7 +30,7 @@ const routes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('authentication', authReducer)
+    // StoreModule.forFeature('authentication', authReducer)
   ],
   providers: [
     AuthenticationService,

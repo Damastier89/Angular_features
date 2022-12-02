@@ -1,11 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { DataFormInterface } from "../../interfaces/dataForm.interface";
+import { HttpErrorsInterface } from "../types/httpErrors.interface";
 import { FeedbackActionsType } from "./feedbackActionsType";
 
 export const feedbackAction = createAction(
   FeedbackActionsType.FEEDBACK,
-  // В props храниться информация которая будет передаваться в action
-  props<DataFormInterface>()
+  props<DataFormInterface>() // В props храниться информация которая будет передаваться в action
 );
 
 export const feedbackSuccessAction = createAction(
@@ -13,4 +13,7 @@ export const feedbackSuccessAction = createAction(
   props<DataFormInterface>()
 );
 
-export const feedbackFailuerAction = createAction(FeedbackActionsType.FEEDBACK_FAILURE);
+export const feedbackFailuerAction = createAction(
+  FeedbackActionsType.FEEDBACK_FAILURE,
+  props<HttpErrorsInterface>()  
+);
