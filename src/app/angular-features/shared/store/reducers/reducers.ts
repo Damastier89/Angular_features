@@ -33,7 +33,7 @@ export const feedbackReducer = createReducer(
 
   on(feedbackFailuerAction, (state, action): FeedbackStateInterface => ({
       ...state,
-      isSubmitting: false,
+      isLoggedIn: false,
       validationErrors: action,
     })
   )

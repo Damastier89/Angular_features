@@ -9,7 +9,8 @@ import { Store } from '@ngrx/store';
 import { DataFormInterface } from '../../shared/interfaces/dataForm.interface';
 import { AbstractDestroySubject } from '../../../shared/directives/abstractDestroySubject.directive';
 import { feedbackAction } from '../../shared/store/actions/feedback.action';
-import { isSubmittingSelector } from '../../shared/store/selections/selectors';
+import { isSubmittingSelector, validationErrorsSelector } from '../../shared/store/selections/selectors';
+import { HttpErrorsInterface } from './../../shared/store/types/httpErrors.interface';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -43,7 +44,8 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   public browserName: string = '';
   public browserVersion: string = '';
 
-  public isSubmitting$!: Observable<boolean>; 
+  public isSubmitting$!: Observable<boolean>; // Пока не используется
+  public validationErrors$!: Observable<HttpErrorsInterface | null>;
 
   public get aboutControl(): UntypedFormArray {
     return this.form.get('skills') as UntypedFormArray;
@@ -67,15 +69,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     console.log(this.browserName)
     console.log(this.browserVersion)
 
-    this.initializeValues();
-    this.isSubmitting$.subscribe(res => {
-      console.log(`this.isSubmitting$`, res)
-    })
-  }
-
-  public initializeValues(): void {
-    // Данная констукция выбирает данные из Store по переданному селектору.
-    this.isSubmitting$ = this.store.select(isSubmittingSelector);
+    this.initializeStoreSelectors();
   }
 
   public submit(): void {
@@ -168,5 +162,13 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
       matchTest= matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
       if ((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
       return matchTest.join(' ');
+  }
+
+/**
+  * Данная констукция выбирает данные из Store по переданному селектору. 
+  */ 
+  private initializeStoreSelectors(): void {
+    this.isSubmitting$ = this.store.select(isSubmittingSelector);
+    this.validationErrors$ = this.store.select(validationErrorsSelector);
   }
 }

@@ -46,6 +46,7 @@ import { LoadingDataDetailsComponent } from './loading-data-details/loading-data
 import { feedbackReducer } from './shared/store/reducers/reducers';
 import { FeedbackEffect } from './shared/store/effects/feedback.effect';
 import { EffectsModule } from '@ngrx/effects';
+import { HttpErrorMassageComponent } from './shared/components/http-error-massage/http-error-massage.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,7 @@ const routes: Routes = [
     FormResultComponent,
     LoadingDataComponent,
     LoadingDataDetailsComponent,
+    HttpErrorMassageComponent,
   ],
   imports: [
     CommonModule,
@@ -102,6 +104,9 @@ const routes: Routes = [
     AngularFirestoreModule,
     StoreModule.forFeature('feedback', feedbackReducer),
     EffectsModule.forFeature([FeedbackEffect])
+  ],
+  exports: [
+    HttpErrorMassageComponent,
   ],
   providers: [
     FeedbackFormService,

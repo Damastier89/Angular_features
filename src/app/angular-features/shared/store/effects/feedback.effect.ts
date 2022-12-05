@@ -34,12 +34,12 @@ export class FeedbackEffect {
         map((feedback: any) => {
           this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');
           this.router.navigate(['/angular-features','form-result']);
-          return feedbackSuccessAction(feedback)
+          return feedbackSuccessAction(feedback);
         }),
         catchError((errorResponse: HttpErrorResponse) => {
           this.openSnackBar(SnackBarTypes.Error, `Ошибка. Не удалось отправить данные`);
           this.router.navigate(['/angular-features','forms']);
-          return of(feedbackFailuerAction(errorResponse.error))
+          return of(feedbackFailuerAction(errorResponse.error));
         })
       );
     }),
