@@ -164,7 +164,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
       return matchTest.join(' ');
   }
 
-/**
+  /**
   * Данная констукция выбирает данные из Store по переданному селектору. 
   */ 
   private initializeStoreSelectors(): void {

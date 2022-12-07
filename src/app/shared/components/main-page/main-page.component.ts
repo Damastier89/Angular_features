@@ -49,13 +49,6 @@ export class MainPageComponent implements OnInit {
     localStorage.setItem('nameThemes', nameThemes)
   }
 
-  public setNameCurrentUser(): void {
-    this.employeeName = this.employeeDataService.getNameCurrentUser();
-    // const user: any = localStorage.getItem('user');
-    // const customer = JSON.parse(user);
-    // this.employeeName = customer;
-  }
-
   private setDefaultThemes(): void {
     if (this.currentThemes === null && localStorage.length === 0) {
       this.currentThemes = 'default';
@@ -68,6 +61,10 @@ export class MainPageComponent implements OnInit {
     } else {
       this.currentThemes = this.theme;
     }
+  }
+
+  private setNameCurrentUser(): void {
+    this.employeeName = this.employeeDataService.getNameCurrentUser();
   }
 
 }

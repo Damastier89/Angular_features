@@ -12,10 +12,18 @@ export class HttpErrorMassageComponent implements OnInit {
    * Alias желателен для того чтобы отличить в коде обычную пременную от @Input() свойства.
    */
   @Input('httpErrors') public httpErrorsProps!: HttpErrorsInterface | null;
-  public httpErrorMassage!: any;
+  public httpErrorMassage: HttpErrorsInterface | null = null;
 
   ngOnInit(): void {
-    console.log(`this.httpErrorsProps`, this.httpErrorsProps);
     this.httpErrorMassage = this.httpErrorsProps;
+    this.changeValueErrorMassage();
+  }
+
+  public changeValueErrorMassage(): void {
+    setInterval(() => {
+      if(this.httpErrorMassage !== null) {
+        this.httpErrorMassage = null;
+      }
+    }, 5000);
   }
 }
