@@ -1,12 +1,15 @@
-import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from './../shared/services/auth.service';
-import { Admin } from './../shared/interfaces/admin';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { takeUntil, tap } from 'rxjs';
+
+import { AuthService } from './../shared/services/auth.service';
+import { Admin } from './../shared/interfaces/admin';
+import { Component, OnInit } from '@angular/core';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { SnackBarTypes } from '../../../app/shared/_models/snack-bar-types.enum';
+import { AbstractDestroySubject } from 'src/app/shared/directives/abstractDestroySubject.directive';
+import { EmployeeDataService } from '../../shared/services/employeeData.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './authenticated-page.component.html',
   styleUrls: ['./authenticated-page.component.scss'],
 })
-export class AuthenticatedPageComponent implements OnInit, OnDestroy {
+export class AuthenticatedPageComponent extends AbstractDestroySubject {
   public form = new UntypedFormGroup({
     email: new UntypedFormControl("", [Validators.required, Validators.email]),
     password: new UntypedFormControl("", [Validators.required, Validators.minLength(7)]),
@@ -28,19 +31,15 @@ export class AuthenticatedPageComponent implements OnInit, OnDestroy {
   public submitted: boolean = false;
   public matcher = new MyErrorStateMatcher();
 
-  private destroyNotifier: Subject<boolean> = new Subject<boolean>();
+  private currentUserName: string = 'Unknown user';
 
   constructor(
     public auth: AuthService,
     private router: Router,
     private snackBarService: SnackBarService,
-  ) { }
-
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.destroyNotifier.next(true);
-    this.destroyNotifier.complete();
+    private employeeDataService: EmployeeDataService,
+  ) {
+    super()
   }
 
   public submit(): void {
@@ -56,12 +55,17 @@ export class AuthenticatedPageComponent implements OnInit, OnDestroy {
       returnSecureToken: true,
     }
 
-    this.auth.authPassword(admin).pipe(takeUntil(this.destroyNotifier)).subscribe({
+    this.auth.authPassword(admin).pipe(
+      takeUntil(this.onDestroy$),
+      tap(() => {
+        this.currentUserName = this.employeeDataService.getNameCurrentUser();
+      })
+    ).subscribe({
       next: () => {
         this.router.navigate(['/admin', 'create-article']);
         this.form.reset();
         this.submitted = false;
-        this.openSnackBar(SnackBarTypes.Success, 'Вы вошли как [ admin ]');
+        this.openSnackBar(SnackBarTypes.Success, `Вы вошли как [ ${this.currentUserName} ]`);
       },
       error: () => {
         this.openSnackBar(SnackBarTypes.Error, 'Ошибка. Не верный пароль или email');

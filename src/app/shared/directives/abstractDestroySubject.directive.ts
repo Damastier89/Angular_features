@@ -13,7 +13,6 @@ export abstract class AbstractDestroySubject implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log(`done`)
     this.onDestroy.next(null);
     this.onDestroy.complete();
   }

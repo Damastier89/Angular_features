@@ -2,6 +2,7 @@ import { Observable, interval, startWith, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ChangeThemesService } from '../../services/change-themes.service';
 import { AuthenticationService } from '../../../authentication/services/authentication.service';
+import { EmployeeDataService } from '../../services/employeeData.service';
 
 @Component({
   selector: 'app-main-page',
@@ -10,13 +11,14 @@ import { AuthenticationService } from '../../../authentication/services/authenti
 })
 export class MainPageComponent implements OnInit {
   public emoj: string = "☣"
-  public customerName: string = "Ehooooo";
+  public employeeName: string = "Ehooooo";
   public currentThemes: string | null = '';
   public theme = localStorage.getItem('nameThemes');
 
   constructor(
     private changeThemesService: ChangeThemesService,
     private authService: AuthenticationService,
+    private employeeDataService: EmployeeDataService,
   ) { }
 
   ngOnInit(): void {
@@ -48,9 +50,10 @@ export class MainPageComponent implements OnInit {
   }
 
   public setNameCurrentUser(): void {
-    const user: any = localStorage.getItem('user');
-    const customer = JSON.parse(user);
-    this.customerName = customer;
+    this.employeeName = this.employeeDataService.getNameCurrentUser();
+    // const user: any = localStorage.getItem('user');
+    // const customer = JSON.parse(user);
+    // this.employeeName = customer;
   }
 
   private setDefaultThemes(): void {
