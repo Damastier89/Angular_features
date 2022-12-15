@@ -1,7 +1,8 @@
+<div>
 <div class="container">
   <form class="form" [formGroup]="form" >
     <h2>Авторизируйтесь для входа в приложение Angular features</h2>
-    <h5 
+    <h5
     class="active"
     routerLink="/sing-up"
     >
@@ -17,7 +18,7 @@
         Адрес электронной почты, <strong>обязателен</strong>
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field class="form__control" appearance="outline">
       <mat-label>Password</mat-label>
       <input #userPassword type="password" matInput formControlName="password" [errorStateMatcher]="matcher" placeholder="**********">
@@ -32,7 +33,13 @@
         Сейчас пароль {{ form.get('password')?.errors?.['minlength']?.actualLength }} символ.
       </mat-error>
     </mat-form-field>
-  
+
       <button (click)="log()" class="btn click" [disabled]="form.invalid || submitted">Войти</button>
   </form>
+</div>
+
+<div class="canvas">
+  <matrix></matrix>
+</div>
+
 </div>

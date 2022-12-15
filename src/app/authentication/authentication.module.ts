@@ -5,6 +5,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { RouterModule, Routes } from "@angular/router";
 import { StoreModule } from "@ngrx/store";
+import { MatrixModule } from "../shared/components/matrix/matrix.module";
 import { SignInComponent } from "./components/sing-in/sign-in.component";
 import { SignUpComponent } from "./components/sing-up/sign-up.component";
 import { AuthenticationService } from "./services/authentication.service";
@@ -31,10 +32,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     // StoreModule.forFeature('authentication', authReducer)
+    MatrixModule,
   ],
   providers: [
     AuthenticationService,
     RegisterEffect,
-  ]
+  ],
 })
 export class AuthenticationModule {}

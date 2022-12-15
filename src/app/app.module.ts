@@ -8,6 +8,7 @@ import ru from '@angular/common/locales/ru';
 import { MatIconModule } from '@angular/material/icon';
 
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { AppComponent } from './app.component';
@@ -27,7 +28,6 @@ import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
-import { EffectsModule } from '@ngrx/effects';
 registerLocaleData(ru);
 
 @NgModule({
@@ -62,7 +62,6 @@ registerLocaleData(ru);
       logOnly: environment.production,
       autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
     }),
-
   ],
   exports: [],
   providers: [

@@ -1,14 +1,20 @@
 .container {
   height: 100%;
-  position: relative
+  position: relative;
+  z-index: 1;
 }
+
+h2, h5 {
+  color: floralwhite
+}
+
 .form {
   max-width: 700px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
 
   &__control {
   display: block;
@@ -32,4 +38,10 @@
   &:hover {
     color: var(--border-buttom);
   }
+}
+
+.canvas {
+  position: absolute;
+  top: -80px;
+  z-index: 0;
 }

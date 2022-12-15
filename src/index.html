@@ -11,6 +11,131 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+  <!-- <canvas></canvas> -->
+
+  <!-- <script>
+          // Initialising the canvas
+      var canvas = document.querySelector('canvas'),
+          ctx = canvas.getContext('2d');
+
+      // Setting the width and height of the canvas
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Setting up the letters
+      var letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+      letters = letters.split('');
+
+      // Setting up the columns
+      var fontSize = 10,
+          columns = canvas.width / fontSize;
+
+      // Setting up the drops
+      var drops = [];
+      for (var i = 0; i < columns; i++) {
+        drops[i] = 1;
+      }
+
+      // Setting up the draw function
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < drops.length; i++) {
+          var text = letters[Math.floor(Math.random() * letters.length)];
+          ctx.fillStyle = '#0f0';
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          drops[i]++;
+          if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+            drops[i] = 0;
+          }
+        }
+      }
+
+      // Loop the animation
+      setInterval(draw, 70);
+  </script> -->
+
+  <!-- <canvas id="q" onmousemove="color_random()"></canvas>
+    <script>
+      let width = q.width = 1920;
+      let height = q.height = 1200;
+      let letters = Array(256).join(1).split('');
+
+      function draw() {
+        q.getContext('2d').fillStyle = 'rgba(0,0,0,.05)';
+        q.getContext('2d').fillRect(0, 0, width, height);
+        q.getContext('2d').fillStyle = 'rgba(0,255,0,' + ( Math.random() * 5 + 0.80 ) + ')';
+
+          letters.map((y_pos, index) => { 
+            text = String.fromCharCode(65 + Math.random() * 33);
+            x_pos = index * 10;
+            q.getContext('2d').fillText(text, x_pos, y_pos); letters[index] = (y_pos > 758 + Math.random() * 1e4) ? 0 : y_pos + 10;
+          }
+        );
+      }; 
+      
+      setInterval(draw, 70);
+
+      function color_random(){ 
+        q.getContext('2d').fillStyl = 'red';
+      }
+    </script> -->
+
+    <!-- <canvas></canvas>
+
+    <script>
+      const C = document.querySelector("canvas"),
+        $ = C.getContext("2d"),
+        W = C.width = innerWidth,
+        H = C.height = innerHeight
+
+        const str = "А+Б0В-Г1Д=Е2Ё Ж3З И4Й К5Л М6Н О7П Р8С Т9У Ф!Х Ц?Ч Ш.ЩЪ,Ы Ь:ЭЮ;Я";
+        const matrix = str.split('');
+
+        let font = 11,
+        // количество колонок = ширина холста / размер шрифта
+        col = W / font,
+        arr = []
+
+        for(let i = 0; i < col; i++) arr[i] = 1
+
+function draw() {
+  // определяем цвет фона
+  // такой цвет позволяет добиться эффекта постепенного затухания символов
+  $.fillStyle = "rgba(0, 0, 0, .05)"
+
+  // заливаем холст выбранный цветом
+  $.fillRect(0, 0, W, H)
+
+  // меняем цвет для шрифта
+  $.fillStyle = "#0f0"
+
+  // устанавливаем параметры шрифта
+  $.font = font + "px system-ui"
+
+  // рисуем символы
+  for (let i = 0; i < arr.length; i++) {
+    // выбираем случайный набор символов
+    let txt = matrix[Math.floor(Math.random() * matrix.length)]
+
+    // рисуем символы
+    // двигаемся вправо и вниз
+    // fillText(набор символов, координата x = значение i, умноженное на размер шрифта, координата y = значение arr, умноженное на размер шрифта)
+    $.fillText(txt, i * font, arr[i] * font)
+    
+    // если "y" больше высоты холста или Math.random() выдает больше 0.975 (чем это значение меньше, тем больше будет пустот на экране), то поднимаемся наверх (обнуляем "y")
+    // это позволяет обеспечить разницу отрисовки отдельных колонок
+    if (arr[i] * font > H && Math.random() > 0.975) arr[i] = 0
+    
+    // увеличиваем значение y
+    arr[i]++
+    }
+}
+
+setInterval(draw, 123)
+
+window.addEventListener('resize', () => location.reload())
+    </script> -->
   <app-root></app-root>
 </body>
 </html>
