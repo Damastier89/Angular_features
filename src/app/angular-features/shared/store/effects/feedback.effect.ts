@@ -14,7 +14,7 @@ import { feedbackAction, feedbackFailuerAction, feedbackSuccessAction } from "..
 // Exemple: FEEDBACK - это начало, а конец это FEEDBACK_SUCCESS или FEEDBACK_FAILURE
 @Injectable()
 export class FeedbackEffect {
-  
+
   constructor(
     // action$ - это все actions которые есть в нашем приложении
     private action$: Actions,
@@ -33,17 +33,35 @@ export class FeedbackEffect {
       return this.feedbackFormService.createNewDataFromForm(feedbackData).pipe(
         map((feedback: any) => {
           this.openSnackBar(SnackBarTypes.Success, 'Данные успешно отправлены');
-          this.router.navigate(['/angular-features','form-result']);
+          // this.router.navigate(['/angular-features','form-result']);
           return feedbackSuccessAction(feedback);
         }),
         catchError((errorResponse: HttpErrorResponse) => {
           this.openSnackBar(SnackBarTypes.Error, `Ошибка. Не удалось отправить данные`);
-          this.router.navigate(['/angular-features','forms']);
+          // this.router.navigate(['/angular-features','forms']);
           return of(feedbackFailuerAction(errorResponse.error));
         })
       );
     }),
   ));
+
+  public redirectAfterSuccessSubmit$ = createEffect(() => this.action$.pipe(
+    ofType(feedbackSuccessAction),
+    tap(() => {
+      this.router.navigate(['/angular-features','form-result']);
+    })
+  ),
+    {dispatch: false} // Это нужно для того, чтобы не зависла страничка
+  );
+
+  public redirectAfterFailuerSubmit$ = createEffect(() => this.action$.pipe(
+      ofType(feedbackFailuerAction),
+      tap(() => {
+        this.router.navigate(['/angular-features','forms']);
+      })
+    ),
+    {dispatch: false}
+  );
 
   private openSnackBar(actionType: string, message: string): void {
     this.snackBarService.openSnackBar({
