@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { Article } from './../shared/interfaces/article';
+import { ArticleInterface } from '../shared/interfaces/article.interface';
 import { ArticleService } from '../shared/services/article.service';
 import { ArticleDataService } from '../shared/services/articleData.service';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
@@ -13,7 +13,7 @@ import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
   styleUrls: ['./dashboard-article.component.scss']
 })
 export class DashboardArticleComponent implements OnInit, OnDestroy {
-  public articles: Article[] = [];
+  public articles: ArticleInterface[] = [];
   public searchArticleName: any = '';
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
@@ -29,7 +29,7 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
     this.articleDataService.getDataArticleSubscription().pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe({
-      next: (article: Article[]) => {
+      next: (article: ArticleInterface[]) => {
         this.articles = article;
       },
       error: () => {

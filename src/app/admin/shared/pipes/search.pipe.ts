@@ -1,4 +1,4 @@
-import { Article } from '../interfaces/article';
+import { ArticleInterface } from '../interfaces/article.interface';
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
@@ -6,12 +6,12 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(articles: Article[], title: ''): any {
+  transform(articles: ArticleInterface[], title: ''): any {
     if (!title.trim()) {
       return articles;
     }
 
-    return articles.filter((article: Article) => {
+    return articles.filter((article: ArticleInterface) => {
       return article.title.toLowerCase().includes(title.toLowerCase());
     })
   }

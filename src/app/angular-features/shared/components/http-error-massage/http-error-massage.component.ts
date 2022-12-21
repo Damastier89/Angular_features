@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpErrorsInterface } from '../../store/types/httpErrors.interface';
+import { HttpErrorsInterface } from '../../../../shared/interfaces/httpErrors.interface';
 
 @Component({
   selector: 'mc-http-error-massage',
@@ -8,7 +8,7 @@ import { HttpErrorsInterface } from '../../store/types/httpErrors.interface';
 })
 export class HttpErrorMassageComponent implements OnInit {
   /**
-   * httpErrors - это alias для @Input(). 
+   * httpErrors - это alias для @Input().
    * Alias желателен для того чтобы отличить в коде обычную пременную от @Input() свойства.
    */
   @Input('httpErrors') public httpErrorsProps!: HttpErrorsInterface | null;

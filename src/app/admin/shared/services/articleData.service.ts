@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { Article } from "../interfaces/article";
+import { ArticleInterface } from "../interfaces/article.interface";
 import { ArticleService } from "./article.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleDataService {
-  private articleData$: Subject<Article[]> = new Subject<Article[]>();
+  private articleData$: Subject<ArticleInterface[]> = new Subject<ArticleInterface[]>();
 
   constructor(
     private readonly articleService: ArticleService,
@@ -15,7 +15,7 @@ export class ArticleDataService {
 
   public getDataArticle(): void {
     this.articleService.getAllArticles().pipe().subscribe({
-      next: (articles: Article[]) => {
+      next: (articles: ArticleInterface[]) => {
         this.articleData$.next(articles);
       },
       error: (err) => {
@@ -24,7 +24,7 @@ export class ArticleDataService {
     });
   }
 
-  public getDataArticleSubscription(): Observable<Article[]> {
+  public getDataArticleSubscription(): Observable<ArticleInterface[]> {
     return this.articleData$.asObservable();
   }
 

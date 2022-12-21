@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { DataFormInterface } from "../../interfaces/dataForm.interface";
-import { HttpErrorsInterface } from "../types/httpErrors.interface";
+import { HttpErrorsInterface } from "../../../../shared/interfaces/httpErrors.interface";
 import { FeedbackActionsType } from "./feedbackActionsType";
 
 export const feedbackAction = createAction(
@@ -15,5 +15,5 @@ export const feedbackSuccessAction = createAction(
 
 export const feedbackFailuerAction = createAction(
   FeedbackActionsType.FEEDBACK_FAILURE,
-  props<HttpErrorsInterface>()  
+  props<HttpErrorsInterface>()
 );

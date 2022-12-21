@@ -1,4 +1,4 @@
-export interface Admin {
+export interface AdminInterface {
   email: string,
   password: string,
   returnSecureToken: boolean,

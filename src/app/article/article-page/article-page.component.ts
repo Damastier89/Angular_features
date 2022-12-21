@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { Article } from '../../admin/shared/interfaces/article';
+import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
 
 @Component({
   selector: 'app-article-page',
@@ -9,10 +8,7 @@ import { Article } from '../../admin/shared/interfaces/article';
   styleUrls: ['./article-page.component.scss']
 })
 export class ArticlePageComponent implements OnInit {
-  @Input() public article!: Article;
-  public showQueryParams: string = '';
-  public showQueryParamsNavigate: string = '';
-
+  @Input() public article!: ArticleInterface;
   constructor(
     private router: Router,
   ) {}

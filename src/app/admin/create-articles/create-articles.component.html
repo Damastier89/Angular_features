@@ -3,7 +3,7 @@
   <h2 class="form__title">Форма добавления нового раздела</h2>
   <mat-form-field class="form__control" appearance="outline">
     <mat-label>Заголовок раздела</mat-label>
-    <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="Article title">
+    <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="ArticleInterface title">
     <mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
   </mat-form-field>
 
@@ -14,7 +14,7 @@
 
   <mat-form-field class="form__control" appearance="outline">
     <mat-label>Автор добавленного раздела</mat-label>
-    <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="Article author">
+    <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="ArticleInterface author">
     <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
   </mat-form-field>
 

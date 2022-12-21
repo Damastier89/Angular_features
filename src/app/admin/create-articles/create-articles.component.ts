@@ -1,6 +1,6 @@
-import { Article } from './../shared/interfaces/article';
-import { SnackBarService } from './../../shared/services/snack-bar.service';
-import { ConfirmComponent } from './../../shared/_models/confirm/confirm.component';
+import { ArticleInterface } from '../shared/interfaces/article.interface';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -62,7 +62,7 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
         if (this.form.invalid) {
           return;
         }
-        const article: Article = {
+        const article: ArticleInterface = {
           title: this.form.value.title,
           content: this.form.value.content,
           author: this.form.value.author,

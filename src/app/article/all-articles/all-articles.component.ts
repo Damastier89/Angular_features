@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { Article } from '../../admin/shared/interfaces/article';
+import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
 import { ArticleDataService } from '../../admin/shared/services/articleData.service';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 
@@ -12,7 +12,7 @@ import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
   styleUrls: ['./all-articles.component.scss']
 })
 export class AllArticlesComponent implements OnInit, OnDestroy {
-  public allArticles!: Article[];
+  public allArticles!: ArticleInterface[];
   public article: string = 'Cтатьи о возможностях Angular и не только';
   public searchArticleName: any = '';
 
@@ -28,7 +28,7 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
     this.articleDataService.getDataArticleSubscription().pipe(
       takeUntil(this.destroyNotifier)
     ).subscribe({
-      next: (articles: Article[]) => {
+      next: (articles: ArticleInterface[]) => {
         this.allArticles = articles;
       },
       error: () => {

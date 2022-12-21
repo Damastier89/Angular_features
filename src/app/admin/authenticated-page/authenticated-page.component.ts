@@ -3,11 +3,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 
-import { AuthService } from './../shared/services/auth.service';
-import { Admin } from './../shared/interfaces/admin';
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/services/auth.service';
+import { AdminInterface } from '../shared/interfaces/admin.interface';
+import { Component } from '@angular/core';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { SnackBarTypes } from '../../../app/shared/_models/snack-bar-types.enum';
+import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { AbstractDestroySubject } from 'src/app/shared/directives/abstractDestroySubject.directive';
 import { EmployeeDataService } from '../../shared/services/employeeData.service';
 
@@ -49,7 +49,7 @@ export class AuthenticatedPageComponent extends AbstractDestroySubject {
 
     this.submitted = true;
 
-    const admin: Admin = {
+    const admin: AdminInterface = {
       email: this.form.value.email,
       password: this.form.value.password,
       returnSecureToken: true,

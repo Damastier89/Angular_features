@@ -1,7 +1,7 @@
-import { FbCreateResponse } from './../interfaces/fbCreateResponse';
+import { FbCreateResponse } from '../interfaces/fbCreateResponse';
 import { environment } from '../../../../environments/environment';
 import { map, Observable } from 'rxjs';
-import { Article } from '../interfaces/article';
+import { ArticleInterface } from '../interfaces/article.interface';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -18,7 +18,7 @@ export class ArticleService {
 
   constructor(private http: HttpClient) {}
 
-  public createArticle(article: Article): Observable<Article> {
+  public createArticle(article: ArticleInterface): Observable<ArticleInterface> {
     return this.http.post<any>(`${environments}/article.json`, article)
     .pipe(
       map((response: FbCreateResponse) => {
@@ -31,8 +31,8 @@ export class ArticleService {
     );
   }
 
-  public getAllArticles(): Observable<Article[]> {
-    return this.http.get<Article>(`${environments}/article.json`)
+  public getAllArticles(): Observable<ArticleInterface[]> {
+    return this.http.get<ArticleInterface>(`${environments}/article.json`)
     .pipe(
       map((response: {[key: string]: any}) => {
         return Object.keys(response).map( key => ({
@@ -42,12 +42,12 @@ export class ArticleService {
         }))
       })
     );
-  } 
+  }
 
-  public getArticleById(id: string): Observable<Article> {
-    return this.http.get<Article>(`${environments}/article/${id}.json`)
+  public getArticleById(id: string): Observable<ArticleInterface> {
+    return this.http.get<ArticleInterface>(`${environments}/article/${id}.json`)
     .pipe(
-      map((article: Article) => {
+      map((article: ArticleInterface) => {
         return {
           ...article,
           id,
@@ -57,12 +57,12 @@ export class ArticleService {
     );
   }
 
-  public updateArticle(article: Article): Observable<Article> {
-    return this.http.patch<Article>(`${environments}/article/${article.id}.json`, article);
+  public updateArticle(article: ArticleInterface): Observable<ArticleInterface> {
+    return this.http.patch<ArticleInterface>(`${environments}/article/${article.id}.json`, article);
   }
 
   public removeArticle(id: string): Observable<void> {
     return this.http.delete<void>(`${environments}/article/${id}.json`);
   }
-  
+
 }

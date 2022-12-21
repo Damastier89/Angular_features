@@ -7,7 +7,7 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
-import { Article } from '../shared/interfaces/article';
+import { ArticleInterface } from '../shared/interfaces/article.interface';
 import { ArticleService } from '../shared/services/article.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -26,7 +26,7 @@ export class EditArticlesComponent implements OnInit, OnDestroy {
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
   public form!: UntypedFormGroup;
-  public article!: Article;
+  public article!: ArticleInterface;
 
   private confirmRef!: MatDialogRef<ConfirmComponent>
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();

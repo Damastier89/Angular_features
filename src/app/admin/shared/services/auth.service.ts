@@ -2,8 +2,8 @@ import { catchError, Observable, tap, Subject, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from './../../../../environments/environment';
-import { Admin } from './../interfaces/admin';
+import { environment } from '../../../../environments/environment';
+import { AdminInterface } from '../interfaces/admin.interface';
 
 const env = environment.apiKey;
 
@@ -13,7 +13,7 @@ const env = environment.apiKey;
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
 
-  constructor( 
+  constructor(
     private http: HttpClient,
   ) { }
 
@@ -26,7 +26,7 @@ export class AuthService {
     return localStorage.getItem('fb-token');
   }
 
-  public authPassword(admin: Admin): Observable<Admin> {
+  public authPassword(admin: AdminInterface): Observable<AdminInterface> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env}`, admin)
     .pipe(
       tap(this.setToken),

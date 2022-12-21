@@ -10,7 +10,7 @@ import { DataFormInterface } from '../../shared/interfaces/dataForm.interface';
 import { AbstractDestroySubject } from '../../../shared/directives/abstractDestroySubject.directive';
 import { feedbackAction } from '../../shared/store/actions/feedback.action';
 import { isSubmittingSelector, validationErrorsSelector } from '../../shared/store/selections/selectors';
-import { HttpErrorsInterface } from './../../shared/store/types/httpErrors.interface';
+import { HttpErrorsInterface } from '../../../shared/interfaces/httpErrors.interface';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -53,7 +53,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
 
   constructor(
     private store: Store,
-  ) { 
+  ) {
     super();
   }
 
@@ -165,8 +165,8 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   }
 
   /**
-  * Данная констукция выбирает данные из Store по переданному селектору. 
-  */ 
+  * Данная констукция выбирает данные из Store по переданному селектору.
+  */
   private initializeStoreSelectors(): void {
     this.isSubmitting$ = this.store.select(isSubmittingSelector);
     this.validationErrors$ = this.store.select(validationErrorsSelector);

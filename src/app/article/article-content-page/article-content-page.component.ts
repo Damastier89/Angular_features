@@ -1,7 +1,7 @@
 import { ArticleService } from '../../admin/shared/services/article.service';
 import { Observable, switchMap } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../admin/shared/interfaces/article';
+import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./article-content-page.component.scss']
 })
 export class ArticleContentPageComponent implements OnInit {
-  public articles$!: Observable<Article>;
+  public articles$!: Observable<ArticleInterface>;
 
   constructor(
     private articleService: ArticleService,
