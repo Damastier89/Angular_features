@@ -17,6 +17,7 @@ import { DashboardArticleComponent } from './dashboard-article/dashboard-article
 import { SearchPipe } from './shared/pipes/search.pipe';
 import { EditArticlesComponent } from './edit-articles/edit-articles.component';
 import { adminReducer } from "./shared/store/reducers/reducers";
+import { AdminEffect } from "./shared/store/effects/admin.effect";
 
 const routes: Routes = [
   {
@@ -47,7 +48,7 @@ const routes: Routes = [
     QuillModule.forRoot(),
     RouterModule.forChild(routes),
     StoreModule.forFeature('admin', adminReducer),
-    EffectsModule.forFeature(),
+    EffectsModule.forFeature([AdminEffect]),
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

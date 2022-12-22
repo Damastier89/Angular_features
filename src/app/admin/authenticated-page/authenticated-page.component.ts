@@ -3,6 +3,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 
+import { Store } from "@ngrx/store";
+
 import { AuthService } from '../shared/services/auth.service';
 import { AdminInterface } from '../shared/interfaces/admin.interface';
 import { Component } from '@angular/core';
@@ -10,6 +12,7 @@ import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { AbstractDestroySubject } from 'src/app/shared/directives/abstractDestroySubject.directive';
 import { EmployeeDataService } from '../../shared/services/employeeData.service';
+import {adminAction} from "../shared/store/actions/admin.action";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -38,6 +41,7 @@ export class AuthenticatedPageComponent extends AbstractDestroySubject {
     private router: Router,
     private snackBarService: SnackBarService,
     private employeeDataService: EmployeeDataService,
+    private store: Store,
   ) {
     super()
   }
@@ -73,7 +77,8 @@ export class AuthenticatedPageComponent extends AbstractDestroySubject {
         this.submitted = false;
       }
     })
-
+    // Так же возможен вариант с Store
+    // this.store.dispatch(adminAction(admin));
   }
 
   private openSnackBar(actionType: string, message: string): void {

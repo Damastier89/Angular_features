@@ -9,7 +9,7 @@ import { HttpErrorsInterface } from '../../../../shared/interfaces/httpErrors.in
 export class HttpErrorMassageComponent implements OnInit {
   /**
    * httpErrors - это alias для @Input().
-   * Alias желателен для того чтобы отличить в коде обычную пременную от @Input() свойства.
+   * Alias желателен, для того чтобы отличить в коде обычную переменную от @Input() свойства.
    */
   @Input('httpErrors') public httpErrorsProps!: HttpErrorsInterface | null;
   public httpErrorMassage: HttpErrorsInterface | null = null;

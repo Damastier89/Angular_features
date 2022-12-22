@@ -19,7 +19,7 @@ export const validationErrorsSelector = createSelector(
   (state: AdminStateInterface) => state.validationErrors,
 )
 
-export const allAdminState = createSelector(
+export const isAdminLogged = createSelector(
   adminFeatureSelector,
-  (state: AdminStateInterface) => state,
+  (state: AdminStateInterface) => state.isLogged,
 )

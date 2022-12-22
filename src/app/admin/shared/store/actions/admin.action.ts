@@ -6,7 +6,7 @@ import { HttpErrorsInterface } from "../../../../shared/interfaces/httpErrors.in
 
 export const adminAction = createAction(
   AdminActionType.ADMIN,
-  props<AdminInterface>() // В props храниться информация которая будет передаваться в action
+  props<AdminInterface>() // В props храниться информация, которая будет передаваться в action
 );
 
 export const adminSuccessAction = createAction(

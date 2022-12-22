@@ -25,7 +25,6 @@ export const adminReducer = createReducer(
       ...state,
       isLogged: true,
       adminData: action,
-      token: action.returnSecureToken,
       validationErrors: null,
     })
   ),
