@@ -1,7 +1,7 @@
-<mc-http-error-massage
+<custom-http-error-massage
   *ngIf="validationErrors$ | async"
   [httpErrors]="validationErrors$ | async"
-></mc-http-error-massage>
+></custom-http-error-massage>
 <div class="forms">
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">
 

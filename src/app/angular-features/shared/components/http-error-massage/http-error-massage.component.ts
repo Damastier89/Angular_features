@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpErrorsInterface } from '../../../../shared/interfaces/httpErrors.interface';
 
 @Component({
-  selector: 'mc-http-error-massage',
+  selector: 'custom-http-error-massage',
   templateUrl: './http-error-massage.component.html',
   styleUrls: ['./http-error-massage.component.scss']
 })
