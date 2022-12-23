@@ -3,7 +3,6 @@ import { HttpErrorsInterface } from "../../../../shared/interfaces/httpErrors.in
 
 export interface FeedbackStateInterface {
   isSubmitting: boolean;
-  isLoggedIn: boolean | null;
   dataFromForm: DataFormInterface | null;
   validationErrors: HttpErrorsInterface | null;
 }

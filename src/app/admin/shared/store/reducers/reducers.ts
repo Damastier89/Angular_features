@@ -6,7 +6,6 @@ import { adminAction, adminFailuerAction, adminSuccessAction } from "../actions/
 const initialState: AdminStateInterface = {
   isLogged: false,
   adminData: null,
-  token: null,
   validationErrors: null,
 };
 
@@ -17,7 +16,8 @@ export const adminReducer = createReducer(
   // Передаем в on() первым аргументом action для выполнения,
   // а вторым параметром передаем функцию, которая будет менять состояние приложения.
   on(adminAction, (state): AdminStateInterface => ({
-      ...state
+      ...state,
+      isLogged: true,
     })
   ),
 

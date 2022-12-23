@@ -5,7 +5,6 @@ import { FeedbackStateInterface } from "../types/feedbackState.interface";
 
 const initialState: FeedbackStateInterface = {
   isSubmitting: false,
-  isLoggedIn: null,
   dataFromForm: null,
   validationErrors: null,
 }
@@ -25,8 +24,7 @@ export const feedbackReducer = createReducer(
 
   on(feedbackSuccessAction, (state, action): FeedbackStateInterface => ({
       ...state,
-      isSubmitting: false,
-      isLoggedIn: true,
+      isSubmitting: true,
       dataFromForm: action,
       validationErrors: null,
     })
@@ -34,7 +32,7 @@ export const feedbackReducer = createReducer(
 
   on(feedbackFailuerAction, (state, action): FeedbackStateInterface => ({
       ...state,
-      isLoggedIn: false,
+      isSubmitting: false,
       validationErrors: action,
     })
   )

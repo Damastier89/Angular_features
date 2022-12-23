@@ -40,12 +40,11 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
   public isAbout: boolean = false;
-
   public browserName: string = '';
   public browserVersion: string = '';
 
-  public isSubmitting$!: Observable<boolean>; // Пока не используется
   public validationErrors$!: Observable<HttpErrorsInterface | null>;
+  private isSubmitted$!: Observable<boolean>;
 
   public get aboutControl(): UntypedFormArray {
     return this.form.get('skills') as UntypedFormArray;
@@ -70,6 +69,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     console.log(this.browserVersion)
 
     this.initializeStoreSelectors();
+    this.checkSendForm();
   }
 
   public submit(): void {
@@ -97,7 +97,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     this.store.dispatch(feedbackAction(dataFromForm))
 
     this.submitted = true;
-    this.form.reset();
+
     // Перенесено в feedback.effects.ts
     // this.feedbackFormService.createNewDataFromForm(dataFromForm).pipe(
     //   takeUntil(this.onDestroy$)
@@ -128,7 +128,24 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
     (this.form.get('skills') as UntypedFormArray).push(skill);
   }
 
-  public detectBrowserName() {
+  /**
+  * Данная конструкция выбирает данные из Store по переданному селектору.
+  */
+  private initializeStoreSelectors(): void {
+    this.isSubmitted$ = this.store.select(isSubmittingSelector);
+    this.validationErrors$ = this.store.select(validationErrorsSelector);
+  }
+
+  private checkSendForm(): void {
+    this.isSubmitted$.subscribe((isSubmitting: boolean) => {
+      this.submitted = isSubmitting;
+      if (isSubmitting) {
+        this.form.reset();
+      }
+    })
+  }
+
+  private detectBrowserName() {
     const agent = window.navigator.userAgent.toLowerCase()
     switch (true) {
       case agent.indexOf('edge') > -1:
@@ -147,28 +164,20 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
         return 'other';
     }
   }
-  public detectBrowserVersion(){
-      let userAgent = navigator.userAgent, tem,
+  private detectBrowserVersion(){
+    let userAgent = navigator.userAgent, tem,
       matchTest = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 
-      if (/trident/i.test(matchTest[1])) {
-          tem =  /\brv[ :]+(\d+)/g.exec(userAgent) || [];
-          return 'IE '+(tem[1] || '');
-      }
-      if (matchTest[1]=== 'Chrome') {
-          tem = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
-          if (tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-      }
-      matchTest= matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
-      if ((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
-      return matchTest.join(' ');
-  }
-
-  /**
-  * Данная констукция выбирает данные из Store по переданному селектору.
-  */
-  private initializeStoreSelectors(): void {
-    this.isSubmitting$ = this.store.select(isSubmittingSelector);
-    this.validationErrors$ = this.store.select(validationErrorsSelector);
+    if (/trident/i.test(matchTest[1])) {
+      tem =  /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+      return 'IE '+(tem[1] || '');
+    }
+    if (matchTest[1]=== 'Chrome') {
+      tem = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
+      if (tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    matchTest= matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    if ((tem= userAgent.match(/version\/(\d+)/i))!= null) matchTest.splice(1, 1, tem[1]);
+    return matchTest.join(' ');
   }
 }
