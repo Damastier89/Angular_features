@@ -10,12 +10,24 @@
 
   <div class="categories" *ngIf="allArticles; else loading">
       <div class="categories-items">
-        <div *ngFor="let article of allArticles | searchArticles : searchArticleName">
+        <div *ngFor="let article of allArticles | searchArticles : searchArticleName | paginate: {
+          itemsPerPage: 9,
+          currentPage: currentPage,
+          totalItems: this.allArticles.length
+        }">
           <app-article-page  class="categories-item"  [article]="article"></app-article-page>
         </div>
       </div>
   </div>
+<!--  <mat-paginator-->
+<!--    [length]="this.allArticles.length"-->
+<!--    [pageSize]="5"-->
+<!--    [pageSizeOptions]="[5, 10, 15]"-->
+<!--    aria-label="Select page"-->
+<!--  ></mat-paginator>-->
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>
+
 
 <ng-template #loading>
   <mat-spinner></mat-spinner>

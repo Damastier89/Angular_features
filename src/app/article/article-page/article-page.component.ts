@@ -8,7 +8,7 @@ import { ArticleInterface } from '../../admin/shared/interfaces/article.interfac
   styleUrls: ['./article-page.component.scss']
 })
 export class ArticlePageComponent implements OnInit {
-  @Input() public article!: ArticleInterface;
+  @Input(`article`) public articleProps!: ArticleInterface;
   constructor(
     private router: Router,
   ) {}
@@ -16,9 +16,9 @@ export class ArticlePageComponent implements OnInit {
   ngOnInit(): void {}
 
   public openArticle() {
-    this.router.navigate(['/all_articles','article', this.article.id], {
+    this.router.navigate(['/all_articles','article', this.articleProps.id], {
       queryParams: {
-        showQueryParamsNavigate: `name_author:${this.article.author}`,
+        showQueryParamsNavigate: `name_author:${this.articleProps.author}`,
       },
       fragment: 'program-fragment',
     });

@@ -1,28 +1,28 @@
 <div class="card">
   <div class="card__header">
-    <h2>{{ article.title }}</h2>
-    <small>{{ article.date | date:"d.MM.y H:mm" }}</small>
+    <h2>{{ articleProps.title }}</h2>
+    <small>{{ articleProps.date | date:"d.MM.y H:mm" }}</small>
   </div>
 
   <div>
-    <small>{{ article.author }}</small>
+    <small>{{ articleProps.author }}</small>
   </div>
 
   <div class="card__button">
       <!-- Передаем при переходе по роуту queryParams and fragment(#)-->
   <button
     class="btn click"
-    [routerLink]="['article', article.id]"
-    [queryParams]="{showQueryParams: article.id}"
-    [fragment]="article.id"
+    [routerLink]="['article', articleProps.id]"
+    [queryParams]="{showQueryParams: articleProps.id}"
+    [fragment]="articleProps.id"
   >
-    Открыть через routerLink
+    Подробнее routerLink
   </button>
   <button
     class="btn click"
     (click)="openArticle()"
   >
-    Открыть через navigate
+    Подробнее navigate
   </button>
   </div>
 </div>

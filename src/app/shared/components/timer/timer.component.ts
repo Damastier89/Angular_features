@@ -17,11 +17,11 @@ export class TimerComponent implements OnInit {
 
     function getTimeRemaining(endtime: any) {
       const t: any = Date.parse(endtime) - Date.parse(new Date().toString()),
-        days = Math.floor(t / (1000 * 60 * 60 * 24)), // кол-во милисекунд в дне
+        days = Math.floor(t / (1000 * 60 * 60 * 24)), // кол-во миллисекунд в дне
         hours = Math.floor((t / (1000 * 60 * 60) % 24)),
         minutes = Math.floor((t / 1000 / 60) % 60),
         seconds = Math.floor((t / 1000) % 60);
-  
+
       return {
           'total': t,
           'days': days,
@@ -30,7 +30,7 @@ export class TimerComponent implements OnInit {
           'seconds': seconds
       };
     }
-  
+
     function getZero(num: any) {
       if (num >= 0 && num < 10) {
         return `0${num}`;
@@ -38,7 +38,7 @@ export class TimerComponent implements OnInit {
         return num;
       }
     }
-  
+
     function setClock(selector: any, endtime: any) {
       const timer = document.querySelector(selector),
             days = timer.querySelector('#days'),
@@ -46,26 +46,26 @@ export class TimerComponent implements OnInit {
             minutes = timer.querySelector('#minutes'),
             seconds = timer.querySelector('#seconds'),
             timeInterval = setInterval(updateClock, 1000);
-  
+
       updateClock();
-  
+
       function updateClock() {
         const t = getTimeRemaining(endtime);
-  
+
         days.textContent = getZero(t.days);
         hours.textContent = getZero(t.hours);
         minutes.textContent = getZero(t.minutes);
         seconds.textContent = getZero(t.seconds);
-  
+
         if (t.total <= 0) {
           clearInterval(timeInterval);
-        };
+        }
       }
-    };
-  
+    }
+
     setClock(id, deadLine);
-  
+
   };
-  
+
 
 }
