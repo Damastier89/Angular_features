@@ -12,13 +12,13 @@
       margin-bottom: 32px;
     }
 
-    &-items {
+    &__items {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 48px;
     }
 
-    &-item {
+    &__item {
       width: 413px;
       position: relative;
       display: flex;
@@ -33,6 +33,21 @@
 
       &:nth-child(3n) {
         margin-right: 0;
+      }
+    }
+
+    &__pagination {
+      display: flex;
+      height: 31px;
+
+      &__controls {
+        display: block;
+        padding-top: 1px;
+      }
+
+      &__select {
+        display: block;
+        padding: 5px;
       }
     }
   }
