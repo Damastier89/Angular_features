@@ -10,34 +10,28 @@
 
   <div class="categories" *ngIf="allArticles; else loading">
     <div class="categories__items">
-      <div *ngFor="let article of allArticles | searchArticles : searchArticleName | paginate: {
-        itemsPerPage: this.pageSize,
-        currentPage: page,
-        totalItems: this.allArticles.length
-      }">
-        <app-article-page  class="categorie__item"  [article]="article"></app-article-page>
+      <div *ngFor="let article of articles$ | async | searchArticles : searchArticleName">
+        <app-article-page  class="categories__item"  [article]="article"></app-article-page>
       </div>
     </div>
-    <div class="categories__pagination">
-      <pagination-controls
-        class="categories__pagination__controls"
-        (pageChange)="handlePageChange($event)"
-        previousLabel="Prev"
-        nextLabel="Next"
-      ></pagination-controls>
-
-      <select class="categories__pagination__select" (change)="handlePageSizeChange($event)">
-        <option *ngFor="let size of pageSizes" [ngValue]="size">
-          {{ size }}
-        </option>
-      </select>
-    </div>
   </div>
+ <div class="categories__pagination">
+   <mat-paginator
+     #paginator
+     [pageSizeOptions]="pageSizes"
+     [showFirstLastButtons]="true"
+   ></mat-paginator>
+ </div>
+
+
 <!--  <mat-paginator-->
-<!--    [length]="this.allArticles.length"-->
-<!--    [pageSize]="5"-->
-<!--    [pageSizeOptions]="[5, 10, 15]"-->
-<!--    aria-label="Select page"-->
+<!--    #paginator-->
+<!--    (page)="pageChangeEvent($event)"-->
+<!--    [pageIndex]="currentPage"-->
+<!--    [pageSize]="pageSize"-->
+<!--    [length]="totalPage"-->
+<!--    [pageSizeOptions]="pageSizes"-->
+<!--    [showFirstLastButtons]="true"-->
 <!--  ></mat-paginator>-->
 </div>
 
