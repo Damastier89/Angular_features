@@ -1,8 +1,15 @@
 .dashboard {
 
   &__container {
-    width: 1200px;
+    width: 1300px;
     margin: 0 auto;
+
+    &-table {
+      width: 1300px;
+      margin: 0 auto;
+      max-height: 650px;
+      overflow-y: scroll;
+    }
   }
 
   &__title {
@@ -10,9 +17,9 @@
   }
 
   &__control {
-  display: block;
-  color: #888;
-  margin-bottom: .8rem;
+    display: block;
+    color: #888;
+    margin-bottom: .8rem;
   }
 }
 

@@ -10,7 +10,7 @@ export class TimerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.timer('.timer', '2022-12-31')
+    this.timer('.timer', '2023-12-31')
   }
 
   public timer(id: string, deadLine: string) {

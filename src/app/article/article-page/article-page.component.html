@@ -4,8 +4,9 @@
     <small>{{ articleProps.date | date:"d.MM.y H:mm" }}</small>
   </div>
 
-  <div>
+  <div class="card__tags">
     <small>{{ articleProps.author }}</small>
+    <small><b>Теги</b> : {{ articleProps.tags ? articleProps.tags : 'нет тегов' }}</small>
   </div>
 
   <div class="card__button">

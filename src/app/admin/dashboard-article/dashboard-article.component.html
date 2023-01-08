@@ -5,12 +5,14 @@
     <div class="dashboard__container">
       <mat-form-field class="dashboard__control" appearance="outline">
         <mat-label>Найти раздел</mat-label>
-          <input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName">
-          <button matSuffix mat-icon-button aria-label="search">
-            <mat-icon>search</mat-icon>
-          </button>
+        <input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName">
+        <button matSuffix mat-icon-button aria-label="search">
+          <mat-icon>search</mat-icon>
+        </button>
       </mat-form-field>
+    </div>
 
+    <div class="dashboard__container-table">
       <table>
         <thead>
           <tr>

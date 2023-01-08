@@ -12,6 +12,11 @@
     font-size: 1.1rem;
   }
 
+  &__tags {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__button {
     display: flex
   }

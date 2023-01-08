@@ -49,8 +49,7 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyNotifier.next(true);
     this.destroyNotifier.complete();
-
-    this.queryParamsSubscription.unsubscribe();
+    // this.queryParamsSubscription.unsubscribe();
   }
 
   public getArticles(): void {

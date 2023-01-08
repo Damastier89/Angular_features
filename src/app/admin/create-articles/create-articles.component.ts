@@ -26,6 +26,7 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
     title: new UntypedFormControl(null, Validators.required),
     content: new UntypedFormControl(null, Validators.required),
     author: new UntypedFormControl(null, Validators.required),
+    tags: new UntypedFormControl(null, Validators.required),
   });
   public matcher = new MyErrorStateMatcher();
   public submitted: boolean = false;
@@ -35,7 +36,7 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private snackBarServive: SnackBarService,
+    private snackBarService: SnackBarService,
     private articleService: ArticleService,
   ) { }
 
@@ -62,10 +63,15 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
         if (this.form.invalid) {
           return;
         }
+
+        const tags = this.form.value.tags;
+        const tagsArr = tags.replace(/ /g,'').split(',');
+
         const article: ArticleInterface = {
           title: this.form.value.title,
           content: this.form.value.content,
           author: this.form.value.author,
+          tags: tagsArr,
           date: new Date(),
         }
         this.submitted = true;
@@ -89,7 +95,7 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
   }
 
   private openSnackBar(actionType: string, message: string): void {
-    this.snackBarServive.openSnackBar({
+    this.snackBarService.openSnackBar({
       actionType,
       message,
     })
