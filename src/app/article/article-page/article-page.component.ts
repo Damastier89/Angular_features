@@ -9,11 +9,18 @@ import { ArticleInterface } from '../../admin/shared/interfaces/article.interfac
 })
 export class ArticlePageComponent implements OnInit {
   @Input(`article`) public articleProps!: ArticleInterface;
+  public articlesTag!: string | null;
   constructor(
     private router: Router,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    try {
+      this.articlesTag = this.articleProps.tags.join(' ');
+    } catch (error) {
+      // console.log(error);
+    }
+  }
 
   public openArticle() {
     this.router.navigate(['/all_articles','article', this.articleProps.id], {

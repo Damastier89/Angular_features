@@ -59,7 +59,7 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (articles: ArticleInterface[]) => {
         this.allArticles = articles;
-        this.dataSource = new MatTableDataSource<ArticleInterface>(this.allArticles);
+        this.dataSource = new MatTableDataSource<ArticleInterface>(articles);
         this.changeDetectorRef.detectChanges();
         this.dataSource.paginator = this.paginator;
         this.articles$ = this.dataSource.connect();

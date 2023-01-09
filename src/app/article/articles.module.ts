@@ -11,6 +11,7 @@ import { MaterialModule } from '../shared/material.module';
 import { SearchArticlesPipe } from '../shared/pipe/searchArticles.pipe';
 import { TitleModule } from '../shared/components/title/title.module';
 import { SharedModule } from '../shared/shared.module';
+import { ArticleTagsComponent } from './article-tags/article-tags.component';
 
 const routes: Routes = [
   { path: '', component: AllArticlesComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     ArticlePageComponent,
     ArticleContentPageComponent,
     SearchArticlesPipe,
+    ArticleTagsComponent,
   ],
   imports: [
     CommonModule,
