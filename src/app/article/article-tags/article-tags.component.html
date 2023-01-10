@@ -1,6 +1,6 @@
 <div class="article-tags">
-  <div *ngFor="let article of tagsProps">
-    <p>{{ article.tags ? article.tags : ' нет тега'}}</p>
+  <div [style.margin-right.px]="7" *ngFor="let article of tagsProps">
+    <p class="tag">{{ article.tag ? article.tag: 'нет тега'}} </p>
   </div>
 </div>
 

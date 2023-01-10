@@ -64,14 +64,14 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
           return;
         }
 
-        const tags = this.form.value.tags;
-        const tagsArr = tags.replace(/ /g,'').split(',');
+        // const tags = this.form.value.tags;
+        // const tagsArr = tags.replace(/ /g,'').split(','); // Удаляем все пробелы из строки и формируем массив строк
 
         const article: ArticleInterface = {
           title: this.form.value.title,
           content: this.form.value.content,
           author: this.form.value.author,
-          tags: tagsArr,
+          tag: this.form.value.tags,
           date: new Date(),
         }
         this.submitted = true;

@@ -1,3 +1,15 @@
 .article-tags {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag {
+  background-color: var(--border-buttom);
+  color: var(--sidebar-color);
+  font-weight: 500;
+  margin: 3px 1px 7px 2px;
+  padding: 3px 11px;
+  border: 2px solid var(--border-buttom);
+  border-radius: 14px;
 }

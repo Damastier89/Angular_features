@@ -14,8 +14,19 @@
   </mat-form-field>
 
   <mat-form-field class="form__control" appearance="outline">
-    <mat-label>Введите теги для поиска</mat-label>
-    <input type="tags" matInput formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">
+    <mat-label>Выберите тег из списка</mat-label>
+<!--    <input type="tags" matInput formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">-->
+<!--    <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>-->
+    <mat-select formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">
+      <mat-option value="Common technology">Сommon technology</mat-option>
+      <mat-option value="Angular">Angular</mat-option>
+      <mat-option value="JavaScript">JavaScript</mat-option>
+      <mat-option value="TypeScript">TypeScript</mat-option>
+      <mat-option value="RxJs">RxJs</mat-option>
+      <mat-option value="Css">Css</mat-option>
+      <mat-option value="HTML">Html</mat-option>
+      <mat-option>Clear...</mat-option>
+    </mat-select>
     <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>
   </mat-form-field>
 

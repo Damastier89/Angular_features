@@ -3,6 +3,6 @@ export interface ArticleInterface {
   title: string;
   content: string;
   author: string;
-  tags: string[];
+  tag: string;
   date: Date;
 }

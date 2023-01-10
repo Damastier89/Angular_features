@@ -8,9 +8,9 @@
       </button>
   </mat-form-field>
 
-  <div class="categories" *ngIf="articles$; else loading">
+  <div class="categories" *ngIf="articles$; else loadingTag">
     <div class="categories__items">
-        <app-article-tags [tags]="allArticles"></app-article-tags>
+        <app-article-tags [allArticles]="allArticles"></app-article-tags>
     </div>
   </div>
 
@@ -43,4 +43,8 @@
 
 <ng-template #loading>
   <mat-spinner></mat-spinner>
+</ng-template>
+
+<ng-template #loadingTag>
+  <p>LOADING...</p>
 </ng-template>
