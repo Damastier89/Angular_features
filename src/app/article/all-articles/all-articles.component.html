@@ -9,6 +9,7 @@
   </mat-form-field>
 
   <div class="categories" *ngIf="articles$; else loadingTag">
+    <h4>Популярные теги</h4>
     <div class="categories__items">
         <app-article-tags [allArticles]="allArticles"></app-article-tags>
     </div>
