@@ -87,6 +87,9 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
   //     console.info(`params`, params);
   //     this.page = Number(params || '1')
   //   });
+  //  this.route.params.subscribe((params: Params) => {
+  //    console.info(`params`, params);
+  //  });
   // }
 
   private openSnackBar(actionType: string, message: string): void {

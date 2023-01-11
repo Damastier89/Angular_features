@@ -9,8 +9,6 @@ export class ArticleTagsComponent implements OnInit {
   @Input(`allArticles`) public tagsProps!: any;
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(`tagsProps`, this.tagsProps);
-  }
+  ngOnInit(): void {}
 
 }

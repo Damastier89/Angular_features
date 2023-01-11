@@ -29,7 +29,6 @@ export class AdminEffect {
     switchMap( (adminData: AdminInterface) => {
       return this.authService.authPassword(adminData).pipe(
         map((adminInfo: any) => {
-          console.log(`admin`, adminInfo);
           this.openSnackBar(SnackBarTypes.Success, `Вы вошли как ${adminInfo.displayName ? adminInfo.displayName : 'unknown user'}`);
           return adminSuccessAction(adminInfo);
         }),

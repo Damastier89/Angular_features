@@ -7,7 +7,7 @@
   </h2>
 
   <ul class="navbar__menu" *ngIf="auth.isAuthenticated()">
-<!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совподает -->
+<!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совпадает -->
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a [routerLink]="['/main-page']">На главную</a>
     </li>
