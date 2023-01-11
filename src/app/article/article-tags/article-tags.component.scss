@@ -12,4 +12,9 @@
   padding: 3px 11px;
   border: 2px solid var(--border-buttom);
   border-radius: 14px;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--dark-color);
+  }
 }

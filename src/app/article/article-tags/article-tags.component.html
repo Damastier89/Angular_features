@@ -1,6 +1,13 @@
 <div class="article-tags">
   <div [style.margin-right.px]="7" *ngFor="let article of tagsProps">
-    <p class="tag">{{ article.tag ? article.tag: 'нет тега'}} </p>
+    <p
+      [matTooltip]="article.title"
+      matTooltipPosition='above'
+      class="tag"
+      [routerLink]="['article', article.id]"
+    >
+      {{ article.tag ? article.tag: 'нет тега'}}
+    </p>
   </div>
 </div>
 

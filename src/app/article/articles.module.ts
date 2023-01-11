@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
     TitleModule,
     SharedModule,
     MatPaginatorModule,
+    MatTooltipModule,
   ],
 
 })
