@@ -10,6 +10,7 @@
 @import './assets/styles/variables.scss';
 @import './assets/styles/spinner.scss';
 @import './assets/styles/scrollbar.scss';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,8 +22,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--sidebar-color);
+  //color: #333;
   margin: 0;
   padding: 0;
   overflow: auto;

@@ -5,16 +5,17 @@ $success: 'success';
 .navbar {
   display: flex;
   justify-content: space-between;
+  height: var(--height);
   align-items: center;
   padding: 0.7rem 2rem;
   z-index: 1;
   width: 100%;
-  opacity: 0.9;
+  //opacity: 0.9;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--sidebar-color);
 
   &--#{$default} {
-    background: var(--dark-color);
+    background: var(--card-color);
   }
 
   &--#{$danger} {
@@ -59,6 +60,12 @@ $success: 'success';
   &__username {
     padding-left: 10px;
   }
+
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+  }
 }
 
 .wrapper {
@@ -92,7 +99,7 @@ $success: 'success';
 
       &.face1 {
         position: relative;
-        background: #333;
+        background: var(--card-color);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -103,7 +110,7 @@ $success: 'success';
         &--#{$danger} {
           background: var(--danger-color);
         }
-      
+
         &--#{$success} {
           background: var(--success-color);
         }

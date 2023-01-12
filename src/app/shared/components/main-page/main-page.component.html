@@ -2,7 +2,6 @@
   class="navbar"
   [ngClass]="'navbar--' + currentThemes"
 >
-  <h2 [style.paddingTop.px]="3">Angular features {{ emoj }}</h2>
 
   <div mat-icon-button>
     <mat-icon>
@@ -41,11 +40,6 @@
       <span>Success themes</span>
     </button>
   </mat-menu>
-    <ul class="navbar__menu">
-      <li >
-        <h3>{{ actualDate | async | date: "d MMMM y , EE H.mm:ss" }}</h3>
-      </li>
-    </ul>
 </nav>
 
 <div class="wrapper wrapper-top">
@@ -146,3 +140,8 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+
+<footer class="navbar navbar-footer" [ngClass]="'navbar--' + currentThemes">
+  <h3>Angular features {{ emoj }}</h3>
+  <h3>{{ actualDate | async | date: "d MMMM y , EE H.mm:ss" }}</h3>
+</footer>
