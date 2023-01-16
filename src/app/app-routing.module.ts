@@ -45,6 +45,11 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard]
   },
   {
+    path: 'canvas',
+    loadChildren: () => import('./canvas/canvas.module').then(module => module.CanvasModule),
+    canActivate: [AuthenticationGuard]
+  },
+  {
     path: '**',
     component: ErrorPageComponeent
   },

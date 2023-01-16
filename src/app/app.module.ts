@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { AppComponent } from './app.component';
@@ -26,8 +27,8 @@ import { GraphicsModule } from './graphics/graphics.module';
 import { AngularFeaturesModule } from './angular-features/angular-features.module';
 import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
+import {CanvasModule} from "./canvas/canvas.module";
 registerLocaleData(ru);
 
 @NgModule({
@@ -52,9 +53,10 @@ registerLocaleData(ru);
     MatIconModule,
     AngularFeaturesModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     Model3DModule,
     AuthenticationModule,
+    CanvasModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
