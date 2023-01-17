@@ -14,7 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ConfirmComponent } from './shared/_models/confirm/confirm.component';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './shared/components/main-page/main-page.component';
-import { ErrorPageComponeent } from './shared/components/error/error-page';
+import { ErrorPageComponent } from './shared/components/error/error-page';
 import { TimerComponent } from './shared/components/timer/timer.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { MaterialModule } from './shared/material.module';
@@ -28,7 +28,7 @@ import { AngularFeaturesModule } from './angular-features/angular-features.modul
 import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { environment } from '../environments/environment.prod';
-import {CanvasModule} from "./canvas/canvas.module";
+import { CanvasModule } from "./canvas/canvas.module";
 registerLocaleData(ru);
 
 @NgModule({
@@ -37,7 +37,7 @@ registerLocaleData(ru);
     MainPageComponent,
     TimerComponent,
     ConfirmComponent,
-    ErrorPageComponeent,
+    ErrorPageComponent,
   ],
   imports: [
     FormsModule,

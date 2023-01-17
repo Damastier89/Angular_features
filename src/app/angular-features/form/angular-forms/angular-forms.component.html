@@ -1,7 +1,7 @@
-<custom-http-error-massage
+<app-custom-http-error-massage
   *ngIf="validationErrors$ | async"
-  [httpErrors]="validationErrors$ | async"
-></custom-http-error-massage>
+  [httpErrorsProps]="validationErrors$ | async"
+></app-custom-http-error-massage>
 <div class="forms">
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">
 
@@ -14,9 +14,9 @@
           formControlName="name"
           [errorStateMatcher]="matcher"
           placeholder="Имя"
-          checkNumbers
-          checkSpecialCharacters
-          autocompleteOff
+          appCheckNumbers
+          appCheckSpecialCharacters
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['name'].hasError('required')">Введите имя</mat-error>
       </mat-form-field>
@@ -28,9 +28,9 @@
           formControlName="surname"
           [errorStateMatcher]="matcher"
           placeholder="Фамилия"
-          checkNumbers
-          checkSpecialCharacters
-          autocompleteOff
+          appCheckNumbers
+          appCheckSpecialCharacters
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['surname'].hasError('required')">Введите фамилию</mat-error>
       </mat-form-field>
@@ -43,10 +43,10 @@
           matInput
           formControlName="age"
           placeholder="Возраст"
-          checkNegativeNumber
-          checkAllLetters
-          checkSpecialCharacters
-          autocompleteOff
+          appCheckNegativeNumber
+          appCheckAllLetters
+          appCheckSpecialCharacters
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['age'].hasError('required')">Введите возраст</mat-error>
         <mat-error *ngIf="form.controls['age'].hasError('min')">Ограничение по возрасту 18</mat-error>
@@ -59,9 +59,9 @@
           matInput
           formControlName="dateOfBirth"
           [matDatepicker]="picker"
-          autocompleteOff
-          checkSpecialCharacters
-          checkAllLetters
+          appAutoCompleteOff
+          appCheckSpecialCharacters
+          appCheckAllLetters
         >
         <mat-hint></mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -85,8 +85,8 @@
           formControlName="address"
           [errorStateMatcher]="matcher"
           placeholder="Укажите ваш город"
-          checkSpecialCharacters
-          autocompleteOff
+          appCheckSpecialCharacters
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['address'].hasError('required')">Введите адрес</mat-error>
       </mat-form-field>
@@ -98,7 +98,7 @@
           formControlName="email"
           [errorStateMatcher]="matcher"
           placeholder="Почта"
-          autocompleteOff
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['email'].hasError('required')">Введите почту</mat-error>
         <mat-error *ngIf="form.controls['email'].hasError('email')">Не корректный email</mat-error>
@@ -113,7 +113,7 @@
           placeholder="Телефон"
           prefix="+7"
           mask="(000) 000 00 00"
-          autocompleteOff
+          appAutoCompleteOff
         >
         <mat-error *ngIf="form.controls['phone'].hasError('required')">Введите телефон</mat-error>
       </mat-form-field>
@@ -138,7 +138,7 @@
           #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="1"
           cdkAutosizeMaxRows="5"
-          autocompleteOff
+          appAutoCompleteOff
         >
         </textarea>
       </mat-form-field>
@@ -156,7 +156,7 @@
     <div
       class="form__groupcontrol form__groupcontrol_skills"
       formArrayName="skills"
-      *ngIf="form.controls['skills'].value != ''"
+      *ngIf="form.controls['skills'].value !== ''"
     >
       <div  *ngFor="let skill of aboutControl.controls; let i = index"  [formGroupName]="i">
         <mat-form-field class="form__control form__control_skill" appearance="outline">
@@ -164,7 +164,7 @@
             <input
               formControlName="skill"
               matInput
-              autocompleteOff
+              appAutoCompleteOff
             >
         </mat-form-field>
       </div>

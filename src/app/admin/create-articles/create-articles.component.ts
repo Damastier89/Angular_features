@@ -2,7 +2,7 @@ import { ArticleInterface } from '../shared/interfaces/article.interface';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ArticleService } from 'src/app/admin/shared/services/article.service';
@@ -21,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './create-articles.component.html',
   styleUrls: ['./create-articles.component.scss']
 })
-export class CreateArticlesComponent implements OnInit, OnDestroy {
+export class CreateArticlesComponent implements OnDestroy {
   public form = new UntypedFormGroup({
     title: new UntypedFormControl(null, Validators.required),
     content: new UntypedFormControl(null, Validators.required),
@@ -39,8 +39,6 @@ export class CreateArticlesComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService,
     private articleService: ArticleService,
   ) { }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroyNotifier.next(true);

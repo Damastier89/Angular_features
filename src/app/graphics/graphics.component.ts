@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-graphics',
   templateUrl: './graphics.component.html',
   styleUrls: ['./graphics.component.scss']
 })
-export class GraphicsComponent implements OnInit {
+export class GraphicsComponent {
   public graphic: string = 'Графики'
   public data: any;
 
-  constructor() { 
+  constructor() {
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
@@ -25,11 +25,8 @@ export class GraphicsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
-
   public update(event: Event) {
-    this.data
+    this.data = '';
   }
 
 }

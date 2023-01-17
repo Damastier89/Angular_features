@@ -1,9 +1,9 @@
 import { Directive, HostListener } from "@angular/core";
 
 @Directive({
-  selector: '[checkNegativeNumber]'
+  selector: '[appCheckNegativeNumber]'
 })
-export class CheckNegativeNumber {
+export class CheckNegativeNumberDirective {
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

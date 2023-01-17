@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { takeUntil, takeWhile, tap } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { takeWhile } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 
 export interface DialogData {
@@ -13,15 +13,13 @@ export interface DialogData {
   templateUrl: './angular-modals.component.html',
   styleUrls: ['./angular-modals.component.scss']
 })
-export class AngularModalsComponent implements OnInit, OnDestroy {
+export class AngularModalsComponent implements OnDestroy {
   public thing: string = '';
   public name: string = '';
 
   constructor(
     public dialog: MatDialog
   ) { }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.dialog.closeAll();

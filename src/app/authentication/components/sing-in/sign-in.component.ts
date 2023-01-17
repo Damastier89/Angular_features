@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -17,7 +17,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   public form = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.minLength(7)]),
@@ -28,8 +28,6 @@ export class SignInComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
   ) { }
-
-  ngOnInit() { }
 
   public log() {
     const mail: any = this.form.value.email;

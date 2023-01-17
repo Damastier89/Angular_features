@@ -36,7 +36,7 @@
     class="coordinates__form"
     [formGroup]="form"
     (ngSubmit)="sendCoordinates()"
-    *ngIf="form.controls.coordinates.value.length != 0"
+    *ngIf="form.controls.coordinates.value.length !== 0"
   >
     <div formArrayName="coordinates">
       <div class="coordinates__coord"  *ngFor="let coord of form.controls.coordinates.controls; let i = index"  [formGroupName]="i">
@@ -73,7 +73,7 @@
   </form>
 
   <div *ngIf="isCoordinates">
-    <div *ngIf="form.controls['coordinates'].value.length != 0">
+    <div *ngIf="form.controls['coordinates'].value.length !== 0">
       <h3>Кликните по карте</h3>
         <form [formGroup]="coordinatesform">
           <div class="coordinates__coord">

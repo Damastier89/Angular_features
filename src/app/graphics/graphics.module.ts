@@ -1,4 +1,4 @@
-import { TitleModule } from './../shared/components/title/title.module';
+import { TitleModule } from '../shared/components/title/title.module';
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { GraphicsComponent } from "./graphics.component";

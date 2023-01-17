@@ -1,18 +1,18 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import * as THREE from 'three';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 @Component({
-  selector: 'app-model3D',
+  selector: 'app-model-3d',
   templateUrl: './model3D.component.html',
   styleUrls: ['./model3D.component.scss'],
 })
-export class Model3dComponent implements OnInit, AfterViewInit, OnDestroy {
+export class Model3dComponent implements AfterViewInit, OnDestroy {
   public model3D: string = '3D модели';
 
   public modelUrl: string = 'assets/models3D/model3D.glb';
-  public cameraFOV: number = 75; // поле зрения, Field of view, тут градусыы
+  public cameraFOV: number = 75; // поле зрения, Field of view, тут градусы
   public cameraNear: number = 0.9;
   public cameraFar: number = 1000;
   public cameraDistance: number = 400;
@@ -29,8 +29,6 @@ export class Model3dComponent implements OnInit, AfterViewInit, OnDestroy {
   private get canvas(): HTMLCanvasElement {
     return this.canvasRef.nativeElement;
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.createScene();

@@ -1,9 +1,9 @@
 import { Directive, HostListener } from "@angular/core";
 
 @Directive({
-  selector: '[checkSpecialCharacters]'
+  selector: '[appCheckSpecialCharacters]'
 })
-export class CheckSpecialCharacters {
+export class CheckSpecialCharactersDirective {
 
   public numbers = [
     '!', '@', '#', '$', '%', '&', '?', '-', '+', '=',

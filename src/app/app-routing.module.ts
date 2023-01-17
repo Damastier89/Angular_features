@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainPageComponent } from './shared/components/main-page/main-page.component';
 import { AuthenticationGuard } from './shared/guard/authentication.guard';
-import { ErrorPageComponeent } from './shared/components/error/error-page';
+import { ErrorPageComponent } from './shared/components/error/error-page';
 
 // Router для компонентов, лучше объявлять в модулях этих компонентов.
 const routes: Routes = [
@@ -51,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: ErrorPageComponeent
+    component: ErrorPageComponent
   },
   // {path: '**', redirectTo: '/error-page',  pathMatch: 'full'}
 ];

@@ -1,9 +1,9 @@
 import { Directive, HostListener } from "@angular/core";
 
 @Directive({
-  selector: '[checkAllLetters]'
+  selector: '[appCheckAllLetters]'
 })
-export class CheckAllLetters {
+export class CheckAllLettersDirective {
 
   public letters = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',

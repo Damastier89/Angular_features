@@ -7,16 +7,14 @@ import { ArticleInterface } from '../../admin/shared/interfaces/article.interfac
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss']
 })
-export class ArticlePageComponent implements OnInit, OnChanges {
-  @Input(`article`) public articleProps!: ArticleInterface;
+export class ArticlePageComponent implements OnChanges {
+  @Input() public articleProps!: ArticleInterface;
   constructor(
     private router: Router,
   ) {}
 
-  ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(`SimpleChanges`, changes);
+    console.log(`SimpleChanges`, changes);
   }
 
   public openArticle() {

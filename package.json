@@ -7,7 +7,9 @@
     "front": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +44,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.0",
+    "@angular-eslint/builder": "14.4.0",
+    "@angular-eslint/eslint-plugin": "14.4.0",
+    "@angular-eslint/eslint-plugin-template": "14.4.0",
+    "@angular-eslint/schematics": "14.4.0",
+    "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "^14.1.0",
     "@angular/compiler-cli": "^14.1.0",
     "@types/geojson": "^7946.0.10",
@@ -49,13 +56,33 @@
     "@types/jquery": "^3.5.13",
     "@types/node": "^12.11.1",
     "@types/three": "^0.144.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "compass-mixins": "^0.12.12",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.3",
     "typescript": "~4.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --relative"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix"
+    ]
   }
 }

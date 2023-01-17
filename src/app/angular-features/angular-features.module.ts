@@ -30,10 +30,10 @@ import { AngularFeaturesComponent } from './angular-features.component';
 import { AngularFormsComponent } from './form/angular-forms/angular-forms.component';
 import { AngularModalsComponent } from './modals/angular-modals.component';
 import { DialogComponent } from './modals/dialog/dialog.component';
-import { CheckNegativeNumber } from './shared/directives/checkNegatineNumber.directive';
-import { CheckAllLetters } from './shared/directives/checkAllLetters.directive';
-import { CheckNumbers } from './shared/directives/checkNumbers.directive';
-import { CheckSpecialCharacters } from './shared/directives/chekcSpecialСharacters.directive';
+import { CheckNegativeNumberDirective } from './shared/directives/checkNegatineNumber.directive';
+import { CheckAllLettersDirective } from './shared/directives/checkAllLetters.directive';
+import { CheckNumbersDirective } from './shared/directives/checkNumbers.directive';
+import { CheckSpecialCharactersDirective } from './shared/directives/chekcSpecialСharacters.directive';
 import { NgxMaskModule } from 'ngx-mask';
 import { FeedbackFormService } from './shared/services/feedbackForm.service';
 import { AutocompleteOffDirective } from './directives/autocompliteOff.directive';
@@ -66,10 +66,10 @@ const routes: Routes = [
     AngularFormsComponent,
     AngularModalsComponent,
     DialogComponent,
-    CheckNegativeNumber,
-    CheckAllLetters,
-    CheckNumbers,
-    CheckSpecialCharacters,
+    CheckNegativeNumberDirective,
+    CheckAllLettersDirective,
+    CheckNumbersDirective,
+    CheckSpecialCharactersDirective,
     AutocompleteOffDirective,
     FormResultComponent,
     LoadingDataComponent,
