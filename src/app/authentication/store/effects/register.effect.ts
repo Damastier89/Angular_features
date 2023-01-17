@@ -1,7 +1,7 @@
 import { switchMap } from 'rxjs';
-import { Injectable } from "@angular/core";
-import { createEffect, Actions, ofType } from "@ngrx/effects";
-import { registerAction } from "../actions/register.action";
+import { Injectable } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { registerAction } from '../actions/register.action';
 import { AuthenticationService } from '../../services/authentication.service';
 
 // Эффекты - идея эффектов следующая. Внутри эффекта мы обращаемся к API и в начале обращаения мы тригерим один Action а конце другой.
@@ -18,7 +18,7 @@ export class RegisterEffect {
   //     )
   //   }),
   // ));
-  
+
   constructor(
     // action$ - это все actions которые есть в нашем приложении
     private action$: Actions,

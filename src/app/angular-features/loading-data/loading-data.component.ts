@@ -9,12 +9,15 @@ import { FBStorageService, FileUpload } from '../shared/storage/fb-storage.servi
 @Component({
   selector: 'app-loading-data',
   templateUrl: './loading-data.component.html',
-  styleUrls: ['./loading-data.component.scss']
+  styleUrls: ['./loading-data.component.scss'],
 })
 export class LoadingDataComponent implements OnInit, OnDestroy {
   public selectedFiles?: FileList;
+
   public currentFileUpload?: FileUpload;
+
   public percentage = 0;
+
   public fileUploads?: any[];
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
@@ -22,17 +25,21 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
   constructor(
     private fbStorageService: FBStorageService,
     private snackBarService: SnackBarService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.fbStorageService.getFiles(6).snapshotChanges().pipe(
-      map(changes =>
-        // store the key
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+    this.fbStorageService
+      .getFiles(6)
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          // store the key
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() })),
+        ),
       )
-    ).subscribe(fileUploads => {
-      this.fileUploads = fileUploads;
-    });
+      .subscribe((fileUploads) => {
+        this.fileUploads = fileUploads;
+      });
   }
 
   ngOnDestroy(): void {
@@ -52,16 +59,16 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
 
       if (file) {
         const date = new Date();
-        const now = moment(date).format("DD.MM.YYYY HH:mm");
+        const now = moment(date).format('DD.MM.YYYY HH:mm');
 
         this.currentFileUpload = new FileUpload(file, now);
         this.fbStorageService.pushFileToStorage(this.currentFileUpload).subscribe({
-          next: percentage => {
+          next: (percentage) => {
             this.percentage = Math.round(percentage ? percentage : 0);
           },
-          error: error => {
+          error: (error) => {
             console.log(error);
-          }
+          },
         });
       }
     }
@@ -77,7 +84,6 @@ export class LoadingDataComponent implements OnInit, OnDestroy {
     this.snackBarService.openSnackBar({
       actionType,
       message,
-    })
+    });
   }
-
 }

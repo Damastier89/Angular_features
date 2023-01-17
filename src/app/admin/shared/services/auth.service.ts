@@ -8,14 +8,12 @@ import { AdminInterface } from '../interfaces/admin.interface';
 const env = environment.apiKey;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   public get token(): any {
     const expDate = new Date(localStorage.getItem('fb-token-exp') as string);
@@ -27,11 +25,12 @@ export class AuthService {
   }
 
   public authPassword(admin: AdminInterface): Observable<AdminInterface> {
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env}`, admin)
-    .pipe(
-      tap(this.setToken),
-      catchError(this.hendelError.bind(this))
-    );
+    return this.http
+      .post(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env}`,
+        admin,
+      )
+      .pipe(tap(this.setToken), catchError(this.hendelError.bind(this)));
   }
 
   public isAuthenticated(): boolean {
@@ -54,16 +53,16 @@ export class AuthService {
   }
 
   private hendelError(error: HttpErrorResponse) {
-    const {message} = error.error.error;
-    switch(message) {
+    const { message } = error.error.error;
+    switch (message) {
       case 'EMAIL_NOT_FOUND':
-        this.error$.next('Данный email не найден')
+        this.error$.next('Данный email не найден');
         break;
       case 'INVALID_PASSWORD':
-        this.error$.next('Неверный пароль')
+        this.error$.next('Неверный пароль');
         break;
       case 'INVALID_EMAIL':
-        this.error$.next('Неверный email')
+        this.error$.next('Неверный email');
         break;
     }
     return throwError(() => new Error(message));

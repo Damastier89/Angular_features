@@ -8,9 +8,8 @@ describe('AngularTabsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AngularTabsComponent ]
-    })
-    .compileComponents();
+      declarations: [AngularTabsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AngularTabsComponent);
     component = fixture.componentInstance;

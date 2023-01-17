@@ -1,4 +1,4 @@
-import { MatSnackBarConfig } from "@angular/material/snack-bar";
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
 export interface openConfig {
   matSnackBarCfg?: MatSnackBarConfig;

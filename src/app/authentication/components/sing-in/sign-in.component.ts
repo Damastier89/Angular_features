@@ -15,19 +15,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
   public form = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [Validators.required, Validators.minLength(7)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(7)]),
   });
+
   public submitted: boolean = false;
+
   public matcher = new MyErrorStateMatcher();
 
-  constructor(
-    public authService: AuthenticationService,
-  ) { }
+  constructor(public authService: AuthenticationService) {}
 
   public log() {
     const mail: any = this.form.value.email;

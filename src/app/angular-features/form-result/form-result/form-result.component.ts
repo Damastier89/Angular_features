@@ -8,32 +8,35 @@ import { FeedbackFormService } from '../../shared/services/feedbackForm.service'
 @Component({
   selector: 'app-form-result',
   templateUrl: './form-result.component.html',
-  styleUrls: ['./form-result.component.scss']
+  styleUrls: ['./form-result.component.scss'],
 })
 export class FormResultComponent implements OnInit, OnDestroy {
   public dataFromForm!: any;
+
   public agePerson!: string;
+
   public skillPerson!: any[];
-  
+
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private feedbackFormService: FeedbackFormService,
     private snackBarService: SnackBarService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.feedbackFormService.getAllDataForm().pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe((data: any) => {
-      if (data) {
-        this.dataFromForm = data.pop();
-        this.checkAgePerson(Number(this.dataFromForm.age));
-        this.skillPerson = this.dataFromForm.skills;
-      } else {
-        this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить данные формы')
-      }
-    })
+    this.feedbackFormService
+      .getAllDataForm()
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe((data: any) => {
+        if (data) {
+          this.dataFromForm = data.pop();
+          this.checkAgePerson(Number(this.dataFromForm.age));
+          this.skillPerson = this.dataFromForm.skills;
+        } else {
+          this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить данные формы');
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -55,7 +58,6 @@ export class FormResultComponent implements OnInit, OnDestroy {
     this.snackBarService.openSnackBar({
       actionType,
       message,
-    })
+    });
   }
-
 }

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeeDataService {
-
   public getNameCurrentUser(): any {
     try {
       const user: any = localStorage.getItem('user');
       const employee = JSON.parse(user);
       return employee;
-    } catch(error) {
+    } catch (error) {
       console.log(`Error getting current user name`, error);
       return error;
     }

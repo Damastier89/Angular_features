@@ -1,10 +1,10 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable } from "rxjs";
-import { FbCreateResponse } from "src/app/admin/shared/interfaces/fbCreateResponse";
-import { environment } from "../../../../environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { FbCreateResponse } from 'src/app/admin/shared/interfaces/fbCreateResponse';
+import { environment } from '../../../../environments/environment';
 
-const environments = environment.fbDbUrl
+const environments = environment.fbDbUrl;
 @Injectable()
 export class CoordinatesService {
   // В BehaviorSubject нет необходимости, так как есть mapRefService
@@ -15,36 +15,32 @@ export class CoordinatesService {
 
   // -NBWrnpT2Ktx_tlL--Q-
 
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   public sendGeometryPolygon(coordinates: any): Observable<any> {
     return this.http.post<any>(`${environments}/coordinates.json`, coordinates);
   }
 
   public getGeometryPolygon(): Observable<any> {
-    return this.http.get<any>(`${environments}/coordinates.json`)
-    .pipe(
-      map((response: {[key: string]: any}) => {
-        return Object.keys(response).map(key => ({
+    return this.http.get<any>(`${environments}/coordinates.json`).pipe(
+      map((response: { [key: string]: any }) => {
+        return Object.keys(response).map((key) => ({
           ...response[key],
-          id: key
-        }))
-      })
-    );;
+          id: key,
+        }));
+      }),
+    );
   }
 
   public getPolygonById(id: string): Observable<any> {
-    return this.http.get<any>(`${environments}/coordinates/${id}.json`)
-    .pipe(
+    return this.http.get<any>(`${environments}/coordinates/${id}.json`).pipe(
       map((polygon: any) => {
         return {
           ...polygon,
           id,
-        }
-      })
-    )
+        };
+      }),
+    );
   }
 
   public removePolygon(id: string): Observable<void> {

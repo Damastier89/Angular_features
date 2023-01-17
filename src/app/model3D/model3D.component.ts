@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -12,18 +12,27 @@ export class Model3dComponent implements AfterViewInit, OnDestroy {
   public model3D: string = '3D модели';
 
   public modelUrl: string = 'assets/models3D/model3D.glb';
+
   public cameraFOV: number = 75; // поле зрения, Field of view, тут градусы
+
   public cameraNear: number = 0.9;
+
   public cameraFar: number = 1000;
+
   public cameraDistance: number = 400;
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
+
   @ViewChild('cube') private canvasRefCube!: ElementRef;
 
   private scene!: THREE.Scene;
+
   private camera!: THREE.PerspectiveCamera;
+
   private renderer!: THREE.WebGLRenderer;
+
   private model!: THREE.Object3D;
+
   private requestAnimationId?: number;
 
   private get canvas(): HTMLCanvasElement {
@@ -120,7 +129,7 @@ export class Model3dComponent implements AfterViewInit, OnDestroy {
     controls.enableZoom = true;
     controls.enablePan = false;
     controls.update();
-  };
+  }
 
   // private createCube(): void {
   //   const geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -150,8 +159,6 @@ export class Model3dComponent implements AfterViewInit, OnDestroy {
   //   camera.position.z = 5;
   // }
 
-
-
   // private animateCube() {
   //   requestAnimationFrame( animateCube );
 
@@ -162,5 +169,4 @@ export class Model3dComponent implements AfterViewInit, OnDestroy {
   // };
 
   // animate();
-
 }

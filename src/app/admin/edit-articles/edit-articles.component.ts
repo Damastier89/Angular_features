@@ -11,7 +11,10 @@ import { ArticleInterface } from '../shared/interfaces/article.interface';
 import { ArticleService } from '../shared/services/article.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: UntypedFormControl | null,
+    form: FormGroupDirective | NgForm | null,
+  ): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -20,15 +23,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-edit-articles',
   templateUrl: './edit-articles.component.html',
-  styleUrls: ['./edit-articles.component.scss']
+  styleUrls: ['./edit-articles.component.scss'],
 })
 export class EditArticlesComponent implements OnInit, OnDestroy {
   public matcher = new MyErrorStateMatcher();
+
   public submitted: boolean = false;
+
   public form!: UntypedFormGroup;
+
   public article!: ArticleInterface;
 
-  private confirmRef!: MatDialogRef<ConfirmComponent>
+  private confirmRef!: MatDialogRef<ConfirmComponent>;
+
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -37,21 +44,24 @@ export class EditArticlesComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private dialog: MatDialog,
     private sneckBarService: SnackBarService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.pipe(
-      switchMap(params => {
-        return this.articleService.getArticleById(params['id']);
-      })
-    ).pipe(takeUntil(this.destroyNotifier)).subscribe(article => {
-      this.article = article;
-      this.form = new UntypedFormGroup({
-        title: new UntypedFormControl(this.article.title),
-        content: new UntypedFormControl(this.article.content),
-        author: new UntypedFormControl(this.article.author),
+    this.route.params
+      .pipe(
+        switchMap((params) => {
+          return this.articleService.getArticleById(params['id']);
+        }),
+      )
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe((article) => {
+        this.article = article;
+        this.form = new UntypedFormGroup({
+          title: new UntypedFormControl(this.article.title),
+          content: new UntypedFormControl(this.article.content),
+          author: new UntypedFormControl(this.article.author),
+        });
       });
-    });
   }
 
   ngOnDestroy(): void {
@@ -65,40 +75,46 @@ export class EditArticlesComponent implements OnInit, OnDestroy {
         text: 'Закончить редактирование?',
         buttons: {
           confirm: 'Да',
-          cancel: 'Нет'
-        }
-      }
+          cancel: 'Нет',
+        },
+      },
     });
 
-    this.confirmRef.afterClosed().pipe(takeUntil(this.destroyNotifier)).subscribe((result: boolean) => {
-      if (result) {
-        if (this.form.invalid) {
-          return;
-        }
-
-        this.submitted = true;
-        this.articleService.updateArticle({
-          ...this.article,
-          title: this.form.value.title,
-          content: this.form.value.content,
-          author: this.form.value.author,
-          date: new Date(),
-        }).pipe(takeUntil(this.destroyNotifier)).subscribe({
-          next: () => {
-            this.submitted = false;
-            this.router.navigate(['/admin', 'dashboard']);
-            this.openSnackBar(SnackBarTypes.Success, 'Раздел отредактирован');
-          },
-          error: () => {
-            this.submitted = false;
-            this.router.navigate(['/admin', 'edit']);
-            this.openSnackBar(SnackBarTypes.Error, 'Не удалось отредактировать раздел');
+    this.confirmRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe((result: boolean) => {
+        if (result) {
+          if (this.form.invalid) {
+            return;
           }
-        });
-      } else {
-        this.openSnackBar(SnackBarTypes.Warning, 'Редактирование раздела прервано');
-      }
-    });
+
+          this.submitted = true;
+          this.articleService
+            .updateArticle({
+              ...this.article,
+              title: this.form.value.title,
+              content: this.form.value.content,
+              author: this.form.value.author,
+              date: new Date(),
+            })
+            .pipe(takeUntil(this.destroyNotifier))
+            .subscribe({
+              next: () => {
+                this.submitted = false;
+                this.router.navigate(['/admin', 'dashboard']);
+                this.openSnackBar(SnackBarTypes.Success, 'Раздел отредактирован');
+              },
+              error: () => {
+                this.submitted = false;
+                this.router.navigate(['/admin', 'edit']);
+                this.openSnackBar(SnackBarTypes.Error, 'Не удалось отредактировать раздел');
+              },
+            });
+        } else {
+          this.openSnackBar(SnackBarTypes.Warning, 'Редактирование раздела прервано');
+        }
+      });
   }
 
   private openSnackBar(actionType: string, message: string): void {
@@ -107,5 +123,4 @@ export class EditArticlesComponent implements OnInit, OnDestroy {
       message,
     });
   }
-
 }

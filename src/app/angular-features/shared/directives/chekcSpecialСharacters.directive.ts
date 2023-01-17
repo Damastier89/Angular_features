@@ -1,23 +1,42 @@
-import { Directive, HostListener } from "@angular/core";
+import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appCheckSpecialCharacters]'
+  selector: '[appCheckSpecialCharacters]',
 })
 export class CheckSpecialCharactersDirective {
-
   public numbers = [
-    '!', '@', '#', '$', '%', '&', '?', '-', '+', '=',
-    '~', '>', '<', '/', '|', '\\', '[', ']', '{', '}',
-    ',', '.', '_',
+    '!',
+    '@',
+    '#',
+    '$',
+    '%',
+    '&',
+    '?',
+    '-',
+    '+',
+    '=',
+    '~',
+    '>',
+    '<',
+    '/',
+    '|',
+    '\\',
+    '[',
+    ']',
+    '{',
+    '}',
+    ',',
+    '.',
+    '_',
   ];
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     // console.log(`CheckNumbers `, event);
-    this.numbers.forEach(num => {
+    this.numbers.forEach((num) => {
       if (event.key === num) {
         event.preventDefault();
       }
-    })
+    });
   }
 }

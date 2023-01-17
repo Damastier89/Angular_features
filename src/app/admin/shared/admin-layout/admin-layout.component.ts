@@ -8,10 +8,11 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
-  styleUrls: ['./admin-layout.component.scss']
+  styleUrls: ['./admin-layout.component.scss'],
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
   public currentThemes: string | null = '';
+
   public theme = localStorage.getItem('nameThemes');
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
@@ -20,7 +21,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private router: Router,
     private changeThemesService: ChangeThemesService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setDefaultThemes();
@@ -40,11 +41,9 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   public getCurrentThemes(): void {
-    this.changeThemesService.changeThemes.pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe(res => {
+    this.changeThemesService.changeThemes.pipe(takeUntil(this.destroyNotifier)).subscribe((res) => {
       this.currentThemes = res;
-    })
+    });
   }
 
   private setDefaultThemes(): void {

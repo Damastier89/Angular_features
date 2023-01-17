@@ -1,19 +1,22 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-matrix',
-  template: `
-    <canvas #canvas></canvas>
-  `,
+  template: ` <canvas #canvas></canvas> `,
   styleUrls: ['./matrix.component.scss'],
-  styles: ['canvas { border-style: solid }']
+  styles: ['canvas { border-style: solid }'],
 })
 export class MatrixComponent implements OnInit {
   @ViewChild('canvas', { static: true }) public canvas!: ElementRef<HTMLCanvasElement>;
+
   private context!: CanvasRenderingContext2D;
+
   private width!: number;
+
   private height!: number;
+
   private cols!: number;
+
   private ypos!: number[];
 
   ngOnInit(): void {
@@ -51,7 +54,7 @@ export class MatrixComponent implements OnInit {
     // чтобы в следующем кадре новый символ появился ниже текущего.
   }
 
-  private renderMatrix () {
+  private renderMatrix() {
     // Нарисуйте полупрозрачный черный прямоугольник поверх предыдущего рисунка.
     this.context.fillStyle = '#0001';
     this.context.fillRect(0, 0, this.width, this.height);
@@ -77,5 +80,4 @@ export class MatrixComponent implements OnInit {
       else this.ypos[ind] = y + 20;
     });
   }
-
 }

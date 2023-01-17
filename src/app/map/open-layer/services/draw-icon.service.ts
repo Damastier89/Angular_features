@@ -11,13 +11,13 @@ import VectorSource from 'ol/source/Vector';
 @Injectable()
 export class DrawIconService {
   public map!: Map | null;
+
   public layers: VectorLayer<VectorSource>[] = [];
+
   public draws: Draw[] = [];
 
-  constructor(
-    @Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>,
-  ) {
-    this.mapRefService.reference$.subscribe(map => {
+  constructor(@Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>) {
+    this.mapRefService.reference$.subscribe((map) => {
       if (map) {
         this.map = map;
         this.init();
@@ -27,9 +27,9 @@ export class DrawIconService {
   }
 
   public activate(type: string) {
-    this.draws.forEach(draw => {
+    this.draws.forEach((draw) => {
       if (draw.get('iconType') === type) {
-        console.log(`type `, type)
+        console.log(`type `, type);
         draw.setActive(true);
       } else {
         draw.setActive(false);
@@ -37,28 +37,26 @@ export class DrawIconService {
     });
   }
 
-/**
- * В компоненет который будет использовать данный сервис,
- * можно вызвать данный метод, для возврата карты в исходное состояние.
- */
+  /**
+   * В компоненет который будет использовать данный сервис,
+   * можно вызвать данный метод, для возврата карты в исходное состояние.
+   */
   public destroy() {
-    this.layers.forEach(item => this.map?.removeLayer(item));
+    this.layers.forEach((item) => this.map?.removeLayer(item));
     this.layers = [];
 
-    this.draws.forEach(item => this.map?.removeInteraction(item));
+    this.draws.forEach((item) => this.map?.removeInteraction(item));
     this.draws = [];
   }
 
   public deactivate() {
-    this.draws.forEach(draw => draw.setActive(false));
+    this.draws.forEach((draw) => draw.setActive(false));
   }
 
   private init() {
-
-
-    icons.forEach(icon => {
+    icons.forEach((icon) => {
       const map = this.map;
-      const style = this.createStyle(icon.source)
+      const style = this.createStyle(icon.source);
       // 1 создаем векторный источник (источник векторных обьектов(фичи))
       const source = this.createSource();
       // 2 создаем векторный слой и указываем ему путь на источник слоя и стиль
@@ -72,20 +70,19 @@ export class DrawIconService {
 
       map!.addInteraction(draw);
       this.draws.push(draw);
-
     });
   }
 
-/**
- * Методы для источника векторных данных
-*/
+  /**
+   * Методы для источника векторных данных
+   */
   private createSource(): VectorSource {
     return new VectorSource({ wrapX: true });
   }
 
-/**
- * Методы для создания слоев векторных данных
-*/
+  /**
+   * Методы для создания слоев векторных данных
+   */
   private createLayer(source: VectorSource, style: Style): VectorLayer<VectorSource> {
     return new VectorLayer({
       source: source,
@@ -94,15 +91,15 @@ export class DrawIconService {
     });
   }
 
-/**
- * Методы для отрисовки слоев
-*/
+  /**
+   * Методы для отрисовки слоев
+   */
   private createDraw(iconType: string, source: VectorSource, style: Style): Draw {
     const draw = new Draw({
       type: 'Point',
       style: style,
       source: source,
-    })
+    });
     draw.set('iconType', iconType);
 
     return draw;
@@ -120,6 +117,6 @@ export class DrawIconService {
         // opacity: 0.5,
         // scale: 1.0,
       }),
-    })
+    });
   }
 }

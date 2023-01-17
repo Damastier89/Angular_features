@@ -9,55 +9,64 @@ import { ErrorPageComponent } from './shared/components/error/error-page';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./authentication/authentication.module').then(module => module.AuthenticationModule),
+    loadChildren: () =>
+      import('./authentication/authentication.module').then(
+        (module) => module.AuthenticationModule,
+      ),
   },
   {
     path: 'main-page',
     component: MainPageComponent,
-    canActivate: [AuthenticationGuard]},
+    canActivate: [AuthenticationGuard],
+  },
   {
     path: 'all_articles',
-    loadChildren: () => import('./article/articles.module').then(module => module.ArticlesModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () => import('./article/articles.module').then((module) => module.ArticlesModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'map',
-    loadChildren: () => import('./map/map.module').then(module => module.MapModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () => import('./map/map.module').then((module) => module.MapModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule),
-    canActivate: [AuthenticationGuard]},
+    loadChildren: () => import('./admin/admin.module').then((module) => module.AdminModule),
+    canActivate: [AuthenticationGuard],
+  },
   {
     path: 'graphics',
-    loadChildren: () => import('./graphics/graphics.module').then(module => module.GraphicsModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () =>
+      import('./graphics/graphics.module').then((module) => module.GraphicsModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'angular-features',
-    loadChildren: () => import('./angular-features/angular-features.module').then(module => module.AngularFeaturesModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () =>
+      import('./angular-features/angular-features.module').then(
+        (module) => module.AngularFeaturesModule,
+      ),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'model3D',
-    loadChildren: () => import('./model3D/model3D.module').then(module => module.Model3DModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () => import('./model3D/model3D.module').then((module) => module.Model3DModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'canvas',
-    loadChildren: () => import('./canvas/canvas.module').then(module => module.CanvasModule),
-    canActivate: [AuthenticationGuard]
+    loadChildren: () => import('./canvas/canvas.module').then((module) => module.CanvasModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: '**',
-    component: ErrorPageComponent
+    component: ErrorPageComponent,
   },
   // {path: '**', redirectTo: '/error-page',  pathMatch: 'full'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

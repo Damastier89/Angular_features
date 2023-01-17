@@ -7,19 +7,22 @@ import { EmployeeDataService } from '../../services/employeeData.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  public emoj: string = "☣"
-  public employeeName: string = "Ehooooo";
+  public emoj: string = '☣';
+
+  public employeeName: string = 'Ehooooo';
+
   public currentThemes: string | null = '';
+
   public theme = localStorage.getItem('nameThemes');
 
   constructor(
     private changeThemesService: ChangeThemesService,
     private authService: AuthenticationService,
     private employeeDataService: EmployeeDataService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setNameCurrentUser();
@@ -28,10 +31,9 @@ export class MainPageComponent implements OnInit {
     this.getThemesFromStorage();
   }
 
-  public actualDate: Observable<string> = interval(1000)
-    .pipe(
-      startWith(new Date()),
-      map(() => new Date().toString())
+  public actualDate: Observable<string> = interval(1000).pipe(
+    startWith(new Date()),
+    map(() => new Date().toString()),
   );
 
   public logout() {
@@ -39,14 +41,14 @@ export class MainPageComponent implements OnInit {
   }
 
   public getCurrentThemes(): void {
-    this.changeThemesService.changeThemes.subscribe(res => {
+    this.changeThemesService.changeThemes.subscribe((res) => {
       this.currentThemes = res;
-    })
+    });
   }
 
   public changeThemes(nameThemes: string): void {
     this.changeThemesService.changeThemes.next(nameThemes);
-    localStorage.setItem('nameThemes', nameThemes)
+    localStorage.setItem('nameThemes', nameThemes);
   }
 
   private setDefaultThemes(): void {
@@ -66,5 +68,4 @@ export class MainPageComponent implements OnInit {
   private setNameCurrentUser(): void {
     this.employeeName = this.employeeDataService.getNameCurrentUser();
   }
-
 }

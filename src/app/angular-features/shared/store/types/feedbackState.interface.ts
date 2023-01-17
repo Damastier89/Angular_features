@@ -1,5 +1,5 @@
-import { DataFormInterface } from "../../interfaces/dataForm.interface";
-import { HttpErrorsInterface } from "../../../../shared/interfaces/httpErrors.interface";
+import { DataFormInterface } from '../../interfaces/dataForm.interface';
+import { HttpErrorsInterface } from '../../../../shared/interfaces/httpErrors.interface';
 
 export interface FeedbackStateInterface {
   isSubmitting: boolean;

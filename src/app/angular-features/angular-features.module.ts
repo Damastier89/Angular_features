@@ -50,14 +50,16 @@ import { HttpErrorMassageComponent } from './shared/components/http-error-massag
 
 const routes: Routes = [
   {
-    path: '', component: AngularFeaturesComponent, children: [
-      { path: '', redirectTo: 'forms', pathMatch: 'full'},
+    path: '',
+    component: AngularFeaturesComponent,
+    children: [
+      { path: '', redirectTo: 'forms', pathMatch: 'full' },
       { path: 'forms', component: AngularFormsComponent },
-      { path: 'form-result', component: FormResultComponent},
+      { path: 'form-result', component: FormResultComponent },
       { path: 'modals', component: AngularModalsComponent },
       { path: 'loading-data', component: LoadingDataComponent },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
@@ -103,18 +105,11 @@ const routes: Routes = [
     AngularFireAuthModule,
     AngularFirestoreModule,
     StoreModule.forFeature('feedback', feedbackReducer),
-    EffectsModule.forFeature([FeedbackEffect])
+    EffectsModule.forFeature([FeedbackEffect]),
   ],
-  exports: [
-    HttpErrorMassageComponent,
-  ],
-  providers: [
-    FeedbackFormService,
-    FileManagerService,
-    FBStorageService,
-  ]
+  exports: [HttpErrorMassageComponent],
+  providers: [FeedbackFormService, FileManagerService, FBStorageService],
 })
-
 export class AngularFeaturesModule {}
 
 // https://www.positronx.io/full-angular-firebase-authentication-system/

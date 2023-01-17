@@ -8,10 +8,11 @@ import { MINI_MAP } from '../tokens/reference.token';
 import { ReferenceMiniMapService } from './referenceMiniMap.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapControlService {
   public map!: Map;
+
   public isCliked: boolean = false;
 
   constructor(
@@ -21,20 +22,20 @@ export class MapControlService {
 
   public createMap(target: string, coordinate: number[]): Map {
     return new Map({
-        layers: [
-          new TileLayer({
-            source: new OSM(),
-          }),
-        ],
-        view: new View({
-          center: coordinate,
-          zoom: 10,
-          maxZoom: 30,
-          minZoom: 1,
+      layers: [
+        new TileLayer({
+          source: new OSM(),
         }),
-        target: target,
-        keyboardEventTarget: document
-      });
+      ],
+      view: new View({
+        center: coordinate,
+        zoom: 10,
+        maxZoom: 30,
+        minZoom: 1,
+      }),
+      target: target,
+      keyboardEventTarget: document,
+    });
   }
 
   public initNewCityOnMap(artibut: string, cordinates: number[], flag: boolean): void {
@@ -44,7 +45,7 @@ export class MapControlService {
       this.mapRefMiniMapService.snapshot?.on('click', (event) => {
         this.openSnackBar(SnackBarTypes.Success, `${event.coordinate[0]}, ${event.coordinate[1]}`);
       });
-    }, 100)
+    }, 100);
     this.isCliked = flag;
   }
 
@@ -52,6 +53,6 @@ export class MapControlService {
     this.snackBarServive.openSnackBar({
       actionType,
       message,
-    })
+    });
   }
 }

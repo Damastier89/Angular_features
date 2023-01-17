@@ -1,5 +1,5 @@
-import { Directive, OnDestroy } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Directive, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Предоставляет Observable при уничтожении компонента

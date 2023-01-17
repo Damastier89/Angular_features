@@ -4,16 +4,16 @@ import { ChangeThemesService } from '../../services/change-themes.service';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.scss']
+  styleUrls: ['./title.component.scss'],
 })
 export class TitleComponent implements OnInit {
   @Input() public title!: string;
+
   public currentThemes: string | null = '';
+
   public theme = localStorage.getItem('nameThemes');
 
-  constructor(
-    private changeThemesService: ChangeThemesService,
-  ) { }
+  constructor(private changeThemesService: ChangeThemesService) {}
 
   ngOnInit(): void {
     this.setDefaultThemes();
@@ -22,9 +22,9 @@ export class TitleComponent implements OnInit {
   }
 
   public getCurrentThemes(): void {
-    this.changeThemesService.changeThemes.subscribe(res => {
+    this.changeThemesService.changeThemes.subscribe((res) => {
       this.currentThemes = res;
-    })
+    });
   }
 
   private setDefaultThemes(): void {
@@ -40,5 +40,4 @@ export class TitleComponent implements OnInit {
       this.currentThemes = this.theme;
     }
   }
-
 }

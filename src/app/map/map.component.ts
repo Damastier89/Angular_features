@@ -1,5 +1,14 @@
 // import 'ol/ol.css';
-import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 
 import { defaults, FullScreen, OverviewMap, ScaleLine, ZoomToExtent } from 'ol/control';
@@ -37,11 +46,16 @@ import { EventsKey } from 'ol/events';
 })
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
-  @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
+
+  @ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger })
+  contextMenuMarcer!: MatMenuTrigger;
+
   @ViewChild('coordinates') coordinates?: any;
 
   public name: string = 'Map Viewer - Openlayers & Angular';
+
   public panelOpenState: boolean = false;
+
   public isMap: boolean = false;
 
   public map!: Map;
@@ -55,20 +69,25 @@ export class MapComponent implements OnInit, OnDestroy {
   public isOpenProperties: boolean = false;
 
   // Layers and Source
-  private tileLayer = new TileLayer({source: new OSM()});
-  private vectorSource = new VectorSource({wrapX: false});
-  private vectorLayer = new VectorLayer({source: this.vectorSource});
+  private tileLayer = new TileLayer({ source: new OSM() });
+
+  private vectorSource = new VectorSource({ wrapX: false });
+
+  private vectorLayer = new VectorLayer({ source: this.vectorSource });
+
   private jsonVectorSource = new VectorSource({
     features: new GeoJSON({
-      featureProjection: 'EPSG:3857'
-    }).readFeatures(GEO_JSON_FEATURE_COLLECTION)
+      featureProjection: 'EPSG:3857',
+    }).readFeatures(GEO_JSON_FEATURE_COLLECTION),
   });
+
   private jsonLayer = new VectorLayer({
     source: this.jsonVectorSource,
   });
 
   // Select
   private selectInteraction!: Select;
+
   private selectStyle = new Style({
     stroke: new Stroke({
       color: '#64ff00',
@@ -80,19 +99,26 @@ export class MapComponent implements OnInit, OnDestroy {
   });
 
   // Popup
-  @ViewChild('popup', {read: ElementRef, static: true}) public container!: ElementRef;
+  @ViewChild('popup', { read: ElementRef, static: true }) public container!: ElementRef;
+
   public hdms!: string;
+
   private overlay!: Overlay;
+
   private singleClickEvent!: EventsKey;
 
   // LayerGroup
   private baseLayers!: LayerGroup;
+
   private rasterLayers!: LayerGroup;
 
   // Controls
   private zoomToExtentControls = new ZoomToExtent();
+
   private scaleLineControls = new ScaleLine();
+
   private fullScreenControl = new FullScreen();
+
   private overviewMapControl = new OverviewMap({
     layers: [
       new TileLayer({
@@ -154,9 +180,9 @@ export class MapComponent implements OnInit, OnDestroy {
     this.contextMenuMarcer.openMenu();
   }
 
-/**
- * Анимация правой панели
- */
+  /**
+   * Анимация правой панели
+   */
   public toggelPanel(): any {
     this.isOpenProperties = !this.isOpenProperties;
   }
@@ -177,46 +203,47 @@ export class MapComponent implements OnInit, OnDestroy {
         // this.overviewMapControl,
         this.scaleLineControls,
         this.zoomToExtentControls,
-      ])
+      ]),
     });
 
     this.mapRefService.set(this.map);
   }
 
   public initMoscow() {
-    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.MOSCOW, true)
+    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.MOSCOW, true);
     this.closeMap();
-    this.isMap = this.mapControl.isCliked
+    this.isMap = this.mapControl.isCliked;
   }
 
   public initKaluga() {
-    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.KALUGA, true)
+    this.mapControl.initNewCityOnMap('msc', CoordinatesСity.KALUGA, true);
     this.closeMap();
-    this.isMap = this.mapControl.isCliked
+    this.isMap = this.mapControl.isCliked;
   }
 
   public closeMap() {
-      if (this.isMap) {
-        setTimeout(() => {
-          this.isMap = false;
-        }, 0)
-      }
+    if (this.isMap) {
+      setTimeout(() => {
+        this.isMap = false;
+      }, 0);
+    }
   }
-/**
- * Метод для отображения координат положения мыши на карте
- */
+
+  /**
+   * Метод для отображения координат положения мыши на карте
+   */
   private getCoordinateMouseOnMap(): void {
     this.map.on('pointermove', (event) => {
       const hdms = this.convertToRussianHDMS(toStringHDMS(toLonLat(event.coordinate)));
       // this.coordinatesX = `${event.coordinate[0]}`;
       // this.coordinatesY= `${event.coordinate[1]}`;
       this.lonLat = `${hdms}`;
-    })
+    });
   }
 
-/**
- * Метод для получения координат по клику мыши на карту
- */
+  /**
+   * Метод для получения координат по клику мыши на карту
+   */
   private getCoordinateOnMapToClick(): void {
     this.map.on('click', (event) => {
       const clickedCoordinate = event.coordinate.join(', ');
@@ -224,22 +251,22 @@ export class MapComponent implements OnInit, OnDestroy {
       // В BehaviorSubject нет необходимости, так как есть mapRefService
       // в котором хранится ссылка на карту
       // this.coordinatesService.coordinates$.next(event.coordinate);
-    })
+    });
   }
 
-/**
- * DragRotate Interaction
- */
+  /**
+   * DragRotate Interaction
+   */
   public dragRotateInteraction(): void {
     const dragRotate = new DragRotate({
       condition: altKeyOnly,
-    })
+    });
     this.map.addInteraction(dragRotate);
   }
 
-/**
- * Метод для добавления изображения
- */
+  /**
+   * Метод для добавления изображения
+   */
   public drawImage(iconType: string) {
     this.drawIcon.activate(iconType);
   }
@@ -248,27 +275,27 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.getViewport().addEventListener('contextmenu', () => {
       this.drawIcon.deactivate();
       this.map.removeInteraction(this.drawGeometryService.drawGeometry);
-    })
+    });
   }
 
-/**
- * Метод для отрисовки геометрических фигур
- */
+  /**
+   * Метод для отрисовки геометрических фигур
+   */
   public drawPolygon(type: any): any {
     this.drawGeometryService.createPolygon(type, this.map, this.vectorSource);
   }
 
-/**
- * Метод для добавления geojson на карту
- */
+  /**
+   * Метод для добавления geojson на карту
+   */
   public addGeoJsonToMap(): any {
     this.map.addLayer(this.jsonLayer);
     this.selectFeatures();
   }
 
-/**
- * Метод для выделения Features
- */
+  /**
+   * Метод для выделения Features
+   */
   private selectFeatures() {
     this.selectInteraction = this.select();
     this.map.addInteraction(this.selectInteraction);
@@ -281,19 +308,19 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-/**
- * Метод для добавления и удаления popup
- */
+  /**
+   * Метод для добавления и удаления popup
+   */
   public addPopUp() {
     this.renderer.setStyle(this.container.nativeElement, 'display', 'block');
     this.overlay = new Overlay({
       element: this.container.nativeElement,
       autoPan: {
         animation: {
-          duration: 200
-        }
-      }
-    })
+          duration: 200,
+        },
+      },
+    });
 
     this.singleClickEvent = this.map.on('singleclick', (event) => {
       const coordinate = event.coordinate;
@@ -304,10 +331,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public convertToRussianHDMS(hdms: string): string {
-    return  hdms.replace('N', 'С')
-                .replace('S', 'Ю')
-                .replace('W', 'З')
-                .replace('E', 'В');
+    return hdms.replace('N', 'С').replace('S', 'Ю').replace('W', 'З').replace('E', 'В');
   }
 
   public removePopup(): any {
@@ -316,14 +340,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.removeOverlay(this.overlay);
   }
 
-/**
- * Методы для переключения слоёв
- */
+  /**
+   * Методы для переключения слоёв
+   */
 
-/**
- * Установка конкретного слоя
- * @param event - выбранный чек-бокс
- */
+  /**
+   * Установка конкретного слоя
+   * @param event - выбранный чек-бокс
+   */
   public switchBaseLayer(event: any): void {
     this.checkTileLayers(this.baseLayers, event);
   }
@@ -333,15 +357,15 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private checkTileLayers(groupLayers: LayerGroup, event: any) {
-    groupLayers.getLayersArray().forEach( layer => {
-      layer.setVisible(layer.get('title') === event.value)
-    })
+    groupLayers.getLayersArray().forEach((layer) => {
+      layer.setVisible(layer.get('title') === event.value);
+    });
   }
 
-/**
- * Записываем созданные слои в глобальную переменную(для сохранения ссылки)
- * Добавляем полученные слои на карту
- */
+  /**
+   * Записываем созданные слои в глобальную переменную(для сохранения ссылки)
+   * Добавляем полученные слои на карту
+   */
   private initLayersToMap(): void {
     this.baseLayers = this.createBaseTileLayersGroup();
     this.rasterLayers = this.createRasterTileLayersGroup();
@@ -360,7 +384,7 @@ export class MapComponent implements OnInit, OnDestroy {
         LAYERS.Green_Map,
         LAYERS.Bing_Map,
         LAYERS.CartoDB_Map,
-      ]
+      ],
     });
 
     return baseLayerGroup;
@@ -368,18 +392,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private createRasterTileLayersGroup(): LayerGroup {
     const rasterLayerGroup = new LayerGroup({
-      layers: [
-        LAYERS.Tile_Debug_Layer,
-        LAYERS.Tile_ArcGIS_REST_API_Layer,
-        LAYERS.NOAA_WMS_Layer,
-      ]
-    })
+      layers: [LAYERS.Tile_Debug_Layer, LAYERS.Tile_ArcGIS_REST_API_Layer, LAYERS.NOAA_WMS_Layer],
+    });
 
     return rasterLayerGroup;
   }
-
 }
-
-
-
-

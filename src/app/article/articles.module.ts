@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AllArticlesComponent } from './all-articles/all-articles.component';
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', component: AllArticlesComponent },
   { path: 'article_page', component: ArticlePageComponent },
   { path: 'article/:id', component: ArticleContentPageComponent },
-]
+];
 
 @NgModule({
   declarations: [
@@ -38,6 +38,5 @@ const routes: Routes = [
     MatPaginatorModule,
     MatTooltipModule,
   ],
-
 })
-export class ArticlesModule { }
+export class ArticlesModule {}

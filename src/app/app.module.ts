@@ -28,7 +28,7 @@ import { AngularFeaturesModule } from './angular-features/angular-features.modul
 import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { environment } from '../environments/environment.prod';
-import { CanvasModule } from "./canvas/canvas.module";
+import { CanvasModule } from './canvas/canvas.module';
 registerLocaleData(ru);
 
 @NgModule({
@@ -74,7 +74,7 @@ registerLocaleData(ru);
     },
     {
       provide: LOCALE_ID,
-      useValue: "ru-RU",
+      useValue: 'ru-RU',
     },
     // В моем случае APP_INITIALIZER и DataService дают двойную подписку
     // {
@@ -84,6 +84,6 @@ registerLocaleData(ru);
     //   multi: true
     // }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

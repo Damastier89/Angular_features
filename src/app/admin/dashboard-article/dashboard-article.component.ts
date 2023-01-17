@@ -10,10 +10,11 @@ import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 @Component({
   selector: 'app-dashboard-article',
   templateUrl: './dashboard-article.component.html',
-  styleUrls: ['./dashboard-article.component.scss']
+  styleUrls: ['./dashboard-article.component.scss'],
 })
 export class DashboardArticleComponent implements OnInit, OnDestroy {
   public articles: ArticleInterface[] = [];
+
   public searchArticleName: any = '';
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
@@ -22,20 +23,21 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private articleDataService: ArticleDataService,
     private snackBarServive: SnackBarService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.articleDataService.getDataArticle();
-    this.articleDataService.getDataArticleSubscription().pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe({
-      next: (article: ArticleInterface[]) => {
-        this.articles = article;
-      },
-      error: () => {
-        this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы')
-      }
-    });
+    this.articleDataService
+      .getDataArticleSubscription()
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe({
+        next: (article: ArticleInterface[]) => {
+          this.articles = article;
+        },
+        error: () => {
+          this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы');
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -44,17 +46,18 @@ export class DashboardArticleComponent implements OnInit, OnDestroy {
   }
 
   public removeArticle(id: any): void {
-    this.articleService.removeArticle(id).pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe(() => {
-      this.articles = this.articles.filter(article => article.id !== id);
-    })
+    this.articleService
+      .removeArticle(id)
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe(() => {
+        this.articles = this.articles.filter((article) => article.id !== id);
+      });
   }
 
   private openSnackBar(actionType: string, message: string): void {
     this.snackBarServive.openSnackBar({
       actionType,
       message,
-    })
+    });
   }
 }

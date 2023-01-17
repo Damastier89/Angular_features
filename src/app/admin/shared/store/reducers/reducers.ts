@@ -1,7 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, on } from '@ngrx/store';
 
-import { AdminStateInterface } from "../types/adminState.interface";
-import { adminAction, adminFailuerAction, adminSuccessAction } from "../actions/admin.action";
+import { AdminStateInterface } from '../types/adminState.interface';
+import { adminAction, adminFailuerAction, adminSuccessAction } from '../actions/admin.action';
 
 const initialState: AdminStateInterface = {
   isLogged: false,
@@ -15,25 +15,30 @@ export const adminReducer = createReducer(
   initialState,
   // Передаем в on() первым аргументом action для выполнения,
   // а вторым параметром передаем функцию, которая будет менять состояние приложения.
-  on(adminAction, (state): AdminStateInterface => ({
+  on(
+    adminAction,
+    (state): AdminStateInterface => ({
       ...state,
       isLogged: true,
-    })
+    }),
   ),
 
-  on(adminSuccessAction, (state, action): AdminStateInterface => ({
+  on(
+    adminSuccessAction,
+    (state, action): AdminStateInterface => ({
       ...state,
       isLogged: true,
       adminData: action,
       validationErrors: null,
-    })
+    }),
   ),
 
-  on(adminFailuerAction, (state, action): AdminStateInterface => ({
+  on(
+    adminFailuerAction,
+    (state, action): AdminStateInterface => ({
       ...state,
       isLogged: false,
       validationErrors: action,
-    })
+    }),
   ),
-
-)
+);

@@ -14,11 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  declarations: [
-    MapComponent,
-    PropertiesComponent,
-    CoordinatesComponent,
-  ],
+  declarations: [MapComponent, PropertiesComponent, CoordinatesComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -27,17 +23,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    RouterModule.forChild([
-      { path: '', component: MapComponent }
-    ]),
+    RouterModule.forChild([{ path: '', component: MapComponent }]),
   ],
-  exports: [
-    RouterModule,
-  ],
-  providers: [
-    DrawIconService,
-    referenceProviders,
-    CoordinatesService,
-  ]
+  exports: [RouterModule],
+  providers: [DrawIconService, referenceProviders, CoordinatesService],
 })
-export class MapModule { }
+export class MapModule {}

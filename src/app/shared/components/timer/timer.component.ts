@@ -3,31 +3,31 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.scss']
+  styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent implements OnInit {
   public year: any = new Date().getFullYear();
-  constructor() { }
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.timer('.timer', '2023-12-31')
+    this.timer('.timer', '2023-12-31');
   }
 
   public timer(id: string, deadLine: string) {
-
     function getTimeRemaining(endtime: any) {
       const t: any = Date.parse(endtime) - Date.parse(new Date().toString()),
         days = Math.floor(t / (1000 * 60 * 60 * 24)), // кол-во миллисекунд в дне
-        hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+        hours = Math.floor((t / (1000 * 60 * 60)) % 24),
         minutes = Math.floor((t / 1000 / 60) % 60),
         seconds = Math.floor((t / 1000) % 60);
 
       return {
-          'total': t,
-          'days': days,
-          'hours': hours,
-          'minutes': minutes,
-          'seconds': seconds
+        total: t,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
       };
     }
 
@@ -41,11 +41,11 @@ export class TimerComponent implements OnInit {
 
     function setClock(selector: any, endtime: any) {
       const timer = document.querySelector(selector),
-            days = timer.querySelector('#days'),
-            hours = timer.querySelector('#hours'),
-            minutes = timer.querySelector('#minutes'),
-            seconds = timer.querySelector('#seconds'),
-            timeInterval = setInterval(updateClock, 1000);
+        days = timer.querySelector('#days'),
+        hours = timer.querySelector('#hours'),
+        minutes = timer.querySelector('#minutes'),
+        seconds = timer.querySelector('#seconds'),
+        timeInterval = setInterval(updateClock, 1000);
 
       updateClock();
 
@@ -64,8 +64,5 @@ export class TimerComponent implements OnInit {
     }
 
     setClock(id, deadLine);
-
-  };
-
-
+  }
 }

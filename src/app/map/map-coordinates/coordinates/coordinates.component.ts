@@ -19,36 +19,46 @@ import { Select } from 'ol/interaction';
 type CoordinatesFormGroup = FormGroup<{
   coordinateX: FormControl<string | null>;
   coordinateY: FormControl<string | null>;
-}>
+}>;
 
 interface PolygonCoordinates {
   coordinates: number;
-  id: string
+  id: string;
 }
 
 @Component({
   selector: 'app-coordinates',
   templateUrl: './coordinates.component.html',
-  styleUrls: ['./coordinates.component.scss']
+  styleUrls: ['./coordinates.component.scss'],
 })
 export class CoordinatesComponent implements OnInit, OnDestroy {
   public form = new FormGroup({
     coordinates: new FormArray<CoordinatesFormGroup>([], [Validators.required]),
   });
+
   public coordinatesform = new FormGroup({
-    clickCoordinateX: new FormControl({ value : '0', disabled: true}, [Validators.required]),
-    clickCoordinateY: new FormControl({ value : '0', disabled: true}, [Validators.required]),
-  })
+    clickCoordinateX: new FormControl({ value: '0', disabled: true }, [Validators.required]),
+    clickCoordinateY: new FormControl({ value: '0', disabled: true }, [Validators.required]),
+  });
+
   public submitted: boolean = false;
+
   public enabled: boolean = false;
-  public tests:  boolean = false;
+
+  public tests: boolean = false;
+
   public isPolygons: boolean = false;
+
   public isCoordinates!: number[];
+
   public isSelectedPolygon: boolean = true;
+
   public currentMap!: any;
 
   private layerPolygon!: VectorLayer<any>;
+
   private featuresPolygon!: Feature;
+
   private selectInteraction!: Select;
 
   private destroyNotifier: Subject<boolean> = new Subject<boolean>();
@@ -61,7 +71,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     private coordinatesService: CoordinatesService,
     private snackBarService: SnackBarService,
     @Inject(MAIN_MAP) private mapRefService: ReferenceService<Map>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initReceivedCoordinates();
@@ -72,7 +82,6 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     });
 
     // this.mapRefService.snapshot?.getAllLayers();
-
   }
 
   ngOnDestroy(): void {
@@ -85,37 +94,38 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   public initReceivedCoordinates(): void {
     this.currentMap = this.getMap();
     this.currentMap.on('click', (event: any) => {
-        this.isCoordinates = event.coordinate;
-        this.coordinatesform.controls['clickCoordinateX'].setValue(event.coordinate[0].toString());
-        this.coordinatesform.controls['clickCoordinateY'].setValue(event.coordinate[1].toString());
-    })
+      this.isCoordinates = event.coordinate;
+      this.coordinatesform.controls.clickCoordinateX.setValue(event.coordinate[0].toString());
+      this.coordinatesform.controls.clickCoordinateY.setValue(event.coordinate[1].toString());
+    });
   }
 
   public sendCoordinates(): void {
     const polygonCoordinates: any[] = [];
     this.form.controls.coordinates.value.forEach((coordinate: any) => {
-      polygonCoordinates.push([coordinate.coordinateX, coordinate.coordinateY])
-    })
+      polygonCoordinates.push([coordinate.coordinateX, coordinate.coordinateY]);
+    });
 
     const coordinatesAreaPolygon = {
       coordinates: polygonCoordinates,
-    }
+    };
 
-    this.coordinatesService.sendGeometryPolygon(coordinatesAreaPolygon).pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe({
-      next: () => {
-        this.openSnackBar(SnackBarTypes.Success, `Полигон добавлен`)
-      },
-      error: () => {
-        this.openSnackBar(SnackBarTypes.Error, `Не удалось добавить полигон`)
-      }
-    });
+    this.coordinatesService
+      .sendGeometryPolygon(coordinatesAreaPolygon)
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe({
+        next: () => {
+          this.openSnackBar(SnackBarTypes.Success, `Полигон добавлен`);
+        },
+        error: () => {
+          this.openSnackBar(SnackBarTypes.Error, `Не удалось добавить полигон`);
+        },
+      });
   }
 
   public addCoordinates(): void {
     const coordinatesGroup = new FormGroup({
-      coordinateX: new FormControl( '', [Validators.required]),
+      coordinateX: new FormControl('', [Validators.required]),
       coordinateY: new FormControl('', [Validators.required]),
     });
     this.form.controls.coordinates.push(coordinatesGroup);
@@ -127,22 +137,32 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
 
   public copyCoordinates(): void {
     for (let i = 0; i < this.form.controls.coordinates.value.length; i++) {
-      if (this.form.controls.coordinates.value[i].coordinateX && this.form.controls.coordinates.value[i].coordinateY) continue;
+      if (
+        this.form.controls.coordinates.value[i].coordinateX &&
+        this.form.controls.coordinates.value[i].coordinateY
+      )
+        continue;
 
-      this.form.controls.coordinates.value[i].coordinateX = this.coordinatesform.get('clickCoordinateX')?.value;
-      this.form.controls.coordinates.controls[i].patchValue({coordinateX: this.coordinatesform.get('clickCoordinateX')?.value});
+      this.form.controls.coordinates.value[i].coordinateX =
+        this.coordinatesform.get('clickCoordinateX')?.value;
+      this.form.controls.coordinates.controls[i].patchValue({
+        coordinateX: this.coordinatesform.get('clickCoordinateX')?.value,
+      });
 
-      this.form.controls.coordinates.value[i].coordinateY = this.coordinatesform.get('clickCoordinateY')?.value;
-      this.form.controls.coordinates.controls[i].patchValue({coordinateY: this.coordinatesform.get('clickCoordinateY')?.value});
+      this.form.controls.coordinates.value[i].coordinateY =
+        this.coordinatesform.get('clickCoordinateY')?.value;
+      this.form.controls.coordinates.controls[i].patchValue({
+        coordinateY: this.coordinatesform.get('clickCoordinateY')?.value,
+      });
     }
   }
 
   public checkValueCoordinatesGroup(): void {
-    this.form.controls.coordinates.valueChanges.pipe(
-        takeUntil(this.destroyNotifier)
-      ).subscribe(value => {
-      this.enabled = !value.every(control => control.coordinateX && control.coordinateY);
-    })
+    this.form.controls.coordinates.valueChanges
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe((value) => {
+        this.enabled = !value.every((control) => control.coordinateX && control.coordinateY);
+      });
   }
 
   /**
@@ -159,23 +179,24 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     selectedCollection.forEach((feature) => {
       this.layerPolygon.getSource().removeFeature(feature);
       this.openSnackBar(SnackBarTypes.Success, `Выбранный полигон удален`);
-    })
+    });
     selectedCollection.clear();
   }
 
   public getAllPolygonsCoordinates(): void {
-    this.coordinatesService.getGeometryPolygon().pipe(
-      takeUntil(this.destroyNotifier)
-    ).subscribe({
-      next: (polygonsCoordinates: PolygonCoordinates[]) => {
-        this.selectedPolygon();
-        this.coordinatesService.isPolygons.next(true);
-        this.drawAllPolygons(polygonsCoordinates);
-      },
-      error: (err) => {
-        console.log(`err`, err);
-      }
-    })
+    this.coordinatesService
+      .getGeometryPolygon()
+      .pipe(takeUntil(this.destroyNotifier))
+      .subscribe({
+        next: (polygonsCoordinates: PolygonCoordinates[]) => {
+          this.selectedPolygon();
+          this.coordinatesService.isPolygons.next(true);
+          this.drawAllPolygons(polygonsCoordinates);
+        },
+        error: (err) => {
+          console.log(`err`, err);
+        },
+      });
   }
 
   private getMap() {
@@ -186,7 +207,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     const map = this.getMap();
     const features = [];
 
-    for (let i = 0; i < polygons.length; i ++) {
+    for (let i = 0; i < polygons.length; i++) {
       const feature = this.createFeature([polygons[i].coordinates]);
       features.push(feature);
     }
@@ -208,9 +229,11 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
   }
 
   private createPolygonLayer(): any {
-    return new VectorLayer({ // создание слоя для передачи объекту карты и отрисовки на карте
+    return new VectorLayer({
+      // создание слоя для передачи объекту карты и отрисовки на карте
       source: new VectorSource(), // объект содержащий все Feature отрисовываемые в данном слое
-      style: new Style({ // стили которые будут применены ко всем Feature в данном слое
+      style: new Style({
+        // стили которые будут применены ко всем Feature в данном слое
         stroke: new Stroke({
           color: '#64ff00', // Цвет линии обводки
           width: 2, // Толщина линии обводки
@@ -218,7 +241,7 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
         fill: new Fill({
           color: 'rgba(131,157,62, 0.5)', // Заливка полигона
         }),
-      })
+      }),
     });
   }
 
@@ -241,7 +264,6 @@ export class CoordinatesComponent implements OnInit, OnDestroy {
     this.snackBarService.openSnackBar({
       actionType,
       message,
-    })
+    });
   }
-
 }
