@@ -8,8 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix --color"
+		"lint": "ng lint",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -45,8 +45,8 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.0",
     "@angular/cli": "^14.1.0",
-		"@commitlint/cli": "14.1.0",
-		"@commitlint/config-conventional": "14.1.0",
+    "@commitlint/cli": "14.1.0",
+    "@commitlint/config-conventional": "14.1.0",
     "@angular/compiler-cli": "^14.1.0",
     "@types/geojson": "^7946.0.10",
     "@types/jasmine": "~3.10.0",
@@ -54,17 +54,17 @@
     "@types/three": "^0.144.0",
     "@typescript-eslint/eslint-plugin": "5.43.0",
     "@typescript-eslint/parser": "5.43.0",
-		"autoprefixer": "10.0.2",
-    "husky": "^8.0.3",
-		"lint-staged": "^13.1.0",
-		"rxjs-tslint": "0.1.8",
+    "autoprefixer": "10.0.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "rxjs-tslint": "0.1.8",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
-		"stylelint": "^13.6.1",
-		"stylelint-config-standard": "^20.0.0",
-		"ts-node": "7.0.1",
-		"tslint": "~6.1.0",
-		"tslint-angular": "3.0.3",
+    "stylelint": "^13.6.1",
+    "stylelint-config-standard": "^20.0.0",
+    "ts-node": "7.0.1",
+    "tslint": "~6.1.0",
+    "tslint-angular": "3.0.3",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
@@ -74,13 +74,13 @@
   },
   "husky": {
     "hooks": {
-			"pre-commit": "lint-staged",
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
     "*.{html,js,scss,css}": [
-      "npm run lint:fix",
+			"prettier --write --config .prettierrc",
       "git add"
     ],
     "*.ts": [
