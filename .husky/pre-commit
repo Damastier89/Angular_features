@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "pre-commit: Проверяем текущий коммит..."
+  echo "pre-commit: Проверяем текущий коммит..."
+  npm run prettier:fix
+  git add
