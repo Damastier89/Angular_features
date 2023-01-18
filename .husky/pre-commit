@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
   echo "pre-commit: Проверяем текущий коммит..."
-  npm run prettier
+#  npm run prettier
   npm run prettier:fix

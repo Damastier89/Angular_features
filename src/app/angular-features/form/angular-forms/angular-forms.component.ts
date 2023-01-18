@@ -58,6 +58,7 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
 
     constructor(private store: Store) {
         super();
+
     }
 
     ngOnInit() {
