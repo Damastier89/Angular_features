@@ -5,8 +5,8 @@ import { MaterialModule } from '../../material.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [TitleComponent],
-  imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [TitleComponent],
+	declarations: [TitleComponent],
+	imports: [CommonModule, MaterialModule, RouterModule],
+	exports: [TitleComponent],
 })
 export class TitleModule {}

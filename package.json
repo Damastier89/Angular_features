@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix --color"
   },
   "private": true,
   "dependencies": {
@@ -78,7 +78,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
-
     }
   },
   "lint-staged": {

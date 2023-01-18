@@ -32,58 +32,52 @@ import { CanvasModule } from './canvas/canvas.module';
 registerLocaleData(ru);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainPageComponent,
-    TimerComponent,
-    ConfirmComponent,
-    ErrorPageComponent,
-  ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    CommonModule,
-    AppRoutingModule,
-    SharedModule,
-    MaterialModule,
-    MapModule,
-    TitleModule,
-    ArticlesModule,
-    GraphicsModule,
-    MatIconModule,
-    AngularFeaturesModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    Model3DModule,
-    AuthenticationModule,
-    CanvasModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Сохраняет последние 25 состояний
-      logOnly: environment.production,
-      autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
-    }),
-  ],
-  exports: [],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'ru-RU',
-    },
-    // В моем случае APP_INITIALIZER и DataService дают двойную подписку
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (configService: ArticleService) => () => configService.load(),
-    //   deps:[ArticleService],
-    //   multi: true
-    // }
-  ],
-  bootstrap: [AppComponent],
+	declarations: [AppComponent, MainPageComponent, TimerComponent, ConfirmComponent, ErrorPageComponent],
+	imports: [
+		FormsModule,
+		BrowserModule,
+		CommonModule,
+		AppRoutingModule,
+		SharedModule,
+		MaterialModule,
+		MapModule,
+		TitleModule,
+		ArticlesModule,
+		GraphicsModule,
+		MatIconModule,
+		AngularFeaturesModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		Model3DModule,
+		AuthenticationModule,
+		CanvasModule,
+		StoreModule.forRoot({}),
+		EffectsModule.forRoot([]),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25, // Сохраняет последние 25 состояний
+			logOnly: environment.production,
+			autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
+		}),
+	],
+	exports: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true,
+		},
+		{
+			provide: LOCALE_ID,
+			useValue: 'ru-RU',
+		},
+		// В моем случае APP_INITIALIZER и DataService дают двойную подписку
+		// {
+		//   provide: APP_INITIALIZER,
+		//   useFactory: (configService: ArticleService) => () => configService.load(),
+		//   deps:[ArticleService],
+		//   multi: true
+		// }
+	],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

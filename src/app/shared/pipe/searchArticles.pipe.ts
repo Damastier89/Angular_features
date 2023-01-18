@@ -2,15 +2,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
 
 @Pipe({
-  name: 'searchArticles',
+	name: 'searchArticles',
 })
 export class SearchArticlesPipe implements PipeTransform {
-  transform(articles: ArticleInterface[], articleName: ''): any {
-    if (!articleName.trim()) {
-      return articles;
-    }
-    return articles.filter((article: ArticleInterface) => {
-      return article.title.toLowerCase().includes(articleName.toLowerCase());
-    });
-  }
+	transform(articles: ArticleInterface[], articleName: ''): any {
+		if (!articleName.trim()) {
+			return articles;
+		}
+		return articles.filter((article: ArticleInterface) => {
+			return article.title.toLowerCase().includes(articleName.toLowerCase());
+		});
+	}
 }

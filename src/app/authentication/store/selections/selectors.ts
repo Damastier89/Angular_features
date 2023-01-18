@@ -8,7 +8,4 @@ import { AuthStateInterface } from '../../types/authState.interface';
 export const authFeatureSelector = createFeatureSelector<AuthStateInterface>('authentication');
 
 // isSubmittingSelector можно вызывать в любом месте приложения и получить доступ к полу isSubmitting
-export const isSubmittingSelector = createSelector(
-  authFeatureSelector,
-  (authState: AuthStateInterface) => authState.isSubmitting,
-);
+export const isSubmittingSelector = createSelector(authFeatureSelector, (authState: AuthStateInterface) => authState.isSubmitting);

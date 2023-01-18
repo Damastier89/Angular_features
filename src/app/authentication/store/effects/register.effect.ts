@@ -9,19 +9,19 @@ import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable()
 export class RegisterEffect {
-  // TODO Доделать, когда пойму как работает NgRx Store
-  // public register$ = createEffect(() => this.action$.pipe(
-  //   // Указываем тип actions
-  //   ofType(registerAction),
-  //   switchMap(action => {
-  //     return this.authService.signUp(action).then(
-  //     )
-  //   }),
-  // ));
+	// TODO Доделать, когда пойму как работает NgRx Store
+	// public register$ = createEffect(() => this.action$.pipe(
+	//   // Указываем тип actions
+	//   ofType(registerAction),
+	//   switchMap(action => {
+	//     return this.authService.signUp(action).then(
+	//     )
+	//   }),
+	// ));
 
-  constructor(
-    // action$ - это все actions которые есть в нашем приложении
-    private action$: Actions,
-    private authService: AuthenticationService,
-  ) {}
+	constructor(
+		// action$ - это все actions которые есть в нашем приложении
+		private action$: Actions,
+		private authService: AuthenticationService,
+	) {}
 }

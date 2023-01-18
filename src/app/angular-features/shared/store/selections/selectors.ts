@@ -11,12 +11,6 @@ export const feedbackFeatureSelector = createFeatureSelector<FeedbackStateInterf
 /**
  * isSubmittingSelector данный селектор можно вызывать в любом месте приложения и получить доступ к state и полю isSubmitting
  */
-export const isSubmittingSelector = createSelector(
-  feedbackFeatureSelector,
-  (state: FeedbackStateInterface) => state.isSubmitting,
-);
+export const isSubmittingSelector = createSelector(feedbackFeatureSelector, (state: FeedbackStateInterface) => state.isSubmitting);
 
-export const validationErrorsSelector = createSelector(
-  feedbackFeatureSelector,
-  (state: FeedbackStateInterface) => state.validationErrors,
-);
+export const validationErrorsSelector = createSelector(feedbackFeatureSelector, (state: FeedbackStateInterface) => state.validationErrors);

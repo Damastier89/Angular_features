@@ -1,3 +1,3 @@
 export interface HttpErrorsInterface {
-  [key: string]: string;
+	[key: string]: string;
 }

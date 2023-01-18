@@ -8,51 +8,48 @@ import { MINI_MAP } from '../tokens/reference.token';
 import { ReferenceMiniMapService } from './referenceMiniMap.service';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class MapControlService {
-  public map!: Map;
+	public map!: Map;
 
-  public isCliked: boolean = false;
+	public isCliked: boolean = false;
 
-  constructor(
-    @Inject(MINI_MAP) private mapRefMiniMapService: ReferenceMiniMapService<Map>,
-    private snackBarServive: SnackBarService,
-  ) {}
+	constructor(@Inject(MINI_MAP) private mapRefMiniMapService: ReferenceMiniMapService<Map>, private snackBarServive: SnackBarService) {}
 
-  public createMap(target: string, coordinate: number[]): Map {
-    return new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      view: new View({
-        center: coordinate,
-        zoom: 10,
-        maxZoom: 30,
-        minZoom: 1,
-      }),
-      target: target,
-      keyboardEventTarget: document,
-    });
-  }
+	public createMap(target: string, coordinate: number[]): Map {
+		return new Map({
+			layers: [
+				new TileLayer({
+					source: new OSM(),
+				}),
+			],
+			view: new View({
+				center: coordinate,
+				zoom: 10,
+				maxZoom: 30,
+				minZoom: 1,
+			}),
+			target: target,
+			keyboardEventTarget: document,
+		});
+	}
 
-  public initNewCityOnMap(artibut: string, cordinates: number[], flag: boolean): void {
-    setTimeout(() => {
-      this.map = this.createMap(artibut, cordinates);
-      this.mapRefMiniMapService.set(this.map);
-      this.mapRefMiniMapService.snapshot?.on('click', (event) => {
-        this.openSnackBar(SnackBarTypes.Success, `${event.coordinate[0]}, ${event.coordinate[1]}`);
-      });
-    }, 100);
-    this.isCliked = flag;
-  }
+	public initNewCityOnMap(artibut: string, cordinates: number[], flag: boolean): void {
+		setTimeout(() => {
+			this.map = this.createMap(artibut, cordinates);
+			this.mapRefMiniMapService.set(this.map);
+			this.mapRefMiniMapService.snapshot?.on('click', (event) => {
+				this.openSnackBar(SnackBarTypes.Success, `${event.coordinate[0]}, ${event.coordinate[1]}`);
+			});
+		}, 100);
+		this.isCliked = flag;
+	}
 
-  private openSnackBar(actionType: string, message: string): void {
-    this.snackBarServive.openSnackBar({
-      actionType,
-      message,
-    });
-  }
+	private openSnackBar(actionType: string, message: string): void {
+		this.snackBarServive.openSnackBar({
+			actionType,
+			message,
+		});
+	}
 }

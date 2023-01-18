@@ -12,12 +12,6 @@ export const adminFeatureSelector = createFeatureSelector<AdminStateInterface>('
  * validationErrorsSelector - данный селектор можно вызывать в любом месте приложения и получить доступ к state
  */
 
-export const validationErrorsSelector = createSelector(
-  adminFeatureSelector,
-  (state: AdminStateInterface) => state.validationErrors,
-);
+export const validationErrorsSelector = createSelector(adminFeatureSelector, (state: AdminStateInterface) => state.validationErrors);
 
-export const isAdminLogged = createSelector(
-  adminFeatureSelector,
-  (state: AdminStateInterface) => state.isLogged,
-);
+export const isAdminLogged = createSelector(adminFeatureSelector, (state: AdminStateInterface) => state.isLogged);

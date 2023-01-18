@@ -7,6 +7,6 @@ export const MAIN_MAP = new InjectionToken<string>('MainMap');
 export const MINI_MAP = new InjectionToken<string>('MiniMap');
 
 export const referenceProviders = [
-  { provide: MAIN_MAP, useClass: ReferenceService },
-  { provide: MINI_MAP, useClass: ReferenceMiniMapService },
+	{ provide: MAIN_MAP, useClass: ReferenceService },
+	{ provide: MINI_MAP, useClass: ReferenceMiniMapService },
 ];
