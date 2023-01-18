@@ -82,7 +82,7 @@
   },
   "lint-staged": {
     "*.{html,js,scss,css,ts}": [
-      "prettier --write --config .prettierrc",
+      "npm run lint:fix",
       "git add"
     ],
     "*.ts": [
