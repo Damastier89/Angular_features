@@ -10,96 +10,96 @@ import { SnackBarTypes } from 'src/app/shared/_models/snack-bar-types.enum';
 import { Subject, takeUntil } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        const isSubmitted = form && form.submitted;
-        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-    }
+	isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		const isSubmitted = form && form.submitted;
+		return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+	}
 }
 
 @Component({
-    selector: 'app-create-articles',
-    templateUrl: './create-articles.component.html',
-    styleUrls: ['./create-articles.component.scss'],
+	selector: 'app-create-articles',
+	templateUrl: './create-articles.component.html',
+	styleUrls: ['./create-articles.component.scss'],
 })
 export class CreateArticlesComponent implements OnDestroy {
-    public form = new UntypedFormGroup({
-        title: new UntypedFormControl(null, Validators.required),
-        content: new UntypedFormControl(null, Validators.required),
-        author: new UntypedFormControl(null, Validators.required),
-        tags: new UntypedFormControl(null, Validators.required),
-    });
+	public form = new UntypedFormGroup({
+		title: new UntypedFormControl(null, Validators.required),
+		content: new UntypedFormControl(null, Validators.required),
+		author: new UntypedFormControl(null, Validators.required),
+		tags: new UntypedFormControl(null, Validators.required),
+	});
 
-    public matcher = new MyErrorStateMatcher();
+	public matcher = new MyErrorStateMatcher();
 
-    public submitted: boolean = false;
+	public submitted: boolean = false;
 
-    private confirmRef!: MatDialogRef<ConfirmComponent>;
+	private confirmRef!: MatDialogRef<ConfirmComponent>;
 
-    private destroyNotifier: Subject<boolean> = new Subject<boolean>();
+	private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private dialog: MatDialog, private snackBarService: SnackBarService, private articleService: ArticleService) {}
+	constructor(private dialog: MatDialog, private snackBarService: SnackBarService, private articleService: ArticleService) {}
 
-    ngOnDestroy(): void {
-        this.destroyNotifier.next(true);
-        this.destroyNotifier.complete();
-    }
+	ngOnDestroy(): void {
+		this.destroyNotifier.next(true);
+		this.destroyNotifier.complete();
+	}
 
-    public submitArticle(): void {
-        this.confirmRef = this.dialog.open(ConfirmComponent, {
-            data: {
-                text: 'Закончить добавление раздела?',
-                buttons: {
-                    confirm: 'Да',
-                    cancel: 'Нет',
-                },
-            },
-        });
+	public submitArticle(): void {
+		this.confirmRef = this.dialog.open(ConfirmComponent, {
+			data: {
+				text: 'Закончить добавление раздела?',
+				buttons: {
+					confirm: 'Да',
+					cancel: 'Нет',
+				},
+			},
+		});
 
-        this.confirmRef
-            .afterClosed()
-            .pipe(takeUntil(this.destroyNotifier))
-            .subscribe((result: boolean) => {
-                if (result) {
-                    if (this.form.invalid) {
-                        return;
-                    }
+		this.confirmRef
+			.afterClosed()
+			.pipe(takeUntil(this.destroyNotifier))
+			.subscribe((result: boolean) => {
+				if (result) {
+					if (this.form.invalid) {
+						return;
+					}
 
-                    // const tags = this.form.value.tags;
-                    // const tagsArr = tags.replace(/ /g,'').split(','); // Удаляем все пробелы из строки и формируем массив строк
+					// const tags = this.form.value.tags;
+					// const tagsArr = tags.replace(/ /g,'').split(','); // Удаляем все пробелы из строки и формируем массив строк
 
-                    const article: ArticleInterface = {
-                        title: this.form.value.title,
-                        content: this.form.value.content,
-                        author: this.form.value.author,
-                        tag: this.form.value.tags,
-                        date: new Date(),
-                    };
-                    this.submitted = true;
-                    this.articleService
-                        .createArticle(article)
-                        .pipe(takeUntil(this.destroyNotifier))
-                        .subscribe({
-                            next: () => {
-                                this.form.reset();
-                                this.submitted = false;
-                                this.openSnackBar(SnackBarTypes.Success, 'Раздел добавлен успешно');
-                            },
-                            error: () => {
-                                this.form.reset();
-                                this.submitted = false;
-                                this.openSnackBar(SnackBarTypes.Error, 'Не удалось добавить раздел');
-                            },
-                        });
-                } else {
-                    this.openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!');
-                }
-            });
-    }
+					const article: ArticleInterface = {
+						title: this.form.value.title,
+						content: this.form.value.content,
+						author: this.form.value.author,
+						tag: this.form.value.tags,
+						date: new Date(),
+					};
+					this.submitted = true;
+					this.articleService
+						.createArticle(article)
+						.pipe(takeUntil(this.destroyNotifier))
+						.subscribe({
+							next: () => {
+								this.form.reset();
+								this.submitted = false;
+								this.openSnackBar(SnackBarTypes.Success, 'Раздел добавлен успешно');
+							},
+							error: () => {
+								this.form.reset();
+								this.submitted = false;
+								this.openSnackBar(SnackBarTypes.Error, 'Не удалось добавить раздел');
+							},
+						});
+				} else {
+					this.openSnackBar(SnackBarTypes.Warning, 'Добавление раздела прервано!');
+				}
+			});
+	}
 
-    private openSnackBar(actionType: string, message: string): void {
-        this.snackBarService.openSnackBar({
-            actionType,
-            message,
-        });
-    }
+	private openSnackBar(actionType: string, message: string): void {
+		this.snackBarService.openSnackBar({
+			actionType,
+			message,
+		});
+	}
 }

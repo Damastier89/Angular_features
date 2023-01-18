@@ -1,13 +1,13 @@
 <div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragBoundary=".cdk-overlay-container">
-    <h1 mat-dialog-title>Привет {{ data.name }}</h1>
-    <div mat-dialog-content>
-        <mat-form-field appearance="outline">
-            <mat-label>Что вы больше всего любите?</mat-label>
-            <input matInput [(ngModel)]="data.thing" />
-        </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-        <button mat-button [mat-dialog-close]="false">Закрыть</button>
-        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Отправить</button>
-    </div>
+	<h1 mat-dialog-title>Привет {{ data.name }}</h1>
+	<div mat-dialog-content>
+		<mat-form-field appearance="outline">
+			<mat-label>Что вы больше всего любите?</mat-label>
+			<input matInput [(ngModel)]="data.thing" />
+		</mat-form-field>
+	</div>
+	<div mat-dialog-actions>
+		<button mat-button [mat-dialog-close]="false">Закрыть</button>
+		<button mat-button [mat-dialog-close]="data" cdkFocusInitial>Отправить</button>
+	</div>
 </div>

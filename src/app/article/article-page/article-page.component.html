@@ -1,24 +1,24 @@
 <div class="card">
-    <div class="card__header">
-        <h2>{{ articleProps.title }}</h2>
-        <small>{{ articleProps.date | date : 'd.MM.y H:mm' }}</small>
-    </div>
+	<div class="card__header">
+		<h2>{{ articleProps.title }}</h2>
+		<small>{{ articleProps.date | date : 'd.MM.y H:mm' }}</small>
+	</div>
 
-    <div class="card__tags">
-        <small>{{ articleProps.author }}</small>
-        <small><b>Тег</b> : {{ articleProps.tag ? articleProps.tag : 'нет тегов' }}</small>
-    </div>
+	<div class="card__tags">
+		<small>{{ articleProps.author }}</small>
+		<small><b>Тег</b> : {{ articleProps.tag ? articleProps.tag : 'нет тегов' }}</small>
+	</div>
 
-    <div class="card__button">
-        <!-- Передаем при переходе по роуту queryParams and fragment(#)-->
-        <button
-            class="btn click"
-            [routerLink]="['article', articleProps.id]"
-            [queryParams]="{ showQueryParams: articleProps.id }"
-            [fragment]="articleProps.id"
-        >
-            Подробнее routerLink
-        </button>
-        <button class="btn click" (click)="openArticle()">Подробнее navigate</button>
-    </div>
+	<div class="card__button">
+		<!-- Передаем при переходе по роуту queryParams and fragment(#)-->
+		<button
+			class="btn click"
+			[routerLink]="['article', articleProps.id]"
+			[queryParams]="{ showQueryParams: articleProps.id }"
+			[fragment]="articleProps.id"
+		>
+			Подробнее routerLink
+		</button>
+		<button class="btn click" (click)="openArticle()">Подробнее navigate</button>
+	</div>
 </div>

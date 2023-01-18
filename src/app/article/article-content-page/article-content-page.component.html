@@ -1,26 +1,26 @@
 <div class="container">
-    <div *ngIf="articles$ | async as article; else loading">
-        <div class="post">
-            <div class="header">
-                <h1>{{ article.title }}</h1>
-                <div class="header__button">
-                    <button class="btn click" [routerLink]="['/all_articles']">Вернуть к разделам</button>
-                    <button class="btn click" [routerLink]="['/admin', 'dashboard']">Вернуть к управлению разделам</button>
-                </div>
-            </div>
+	<div *ngIf="articles$ | async as article; else loading">
+		<div class="post">
+			<div class="header">
+				<h1>{{ article.title }}</h1>
+				<div class="header__button">
+					<button class="btn click" [routerLink]="['/all_articles']">Вернуть к разделам</button>
+					<button class="btn click" [routerLink]="['/admin', 'dashboard']">Вернуть к управлению разделам</button>
+				</div>
+			</div>
 
-            <div class="info">
-                <strong>{{ article.author }}</strong>
-                <small>{{ article.date | date : 'd.MM.y H:mm' }}</small>
-            </div>
+			<div class="info">
+				<strong>{{ article.author }}</strong>
+				<small>{{ article.date | date : 'd.MM.y H:mm' }}</small>
+			</div>
 
-            <div class="post__content">
-                <quill-view-html [content]="article.content"></quill-view-html>
-            </div>
-        </div>
-    </div>
+			<div class="post__content">
+				<quill-view-html [content]="article.content"></quill-view-html>
+			</div>
+		</div>
+	</div>
 
-    <ng-template #loading>
-        <mat-spinner></mat-spinner>
-    </ng-template>
+	<ng-template #loading>
+		<mat-spinner></mat-spinner>
+	</ng-template>
 </div>

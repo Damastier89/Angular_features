@@ -1,12 +1,12 @@
 <div class="confirm__title">
-    {{ data.text }}
+	{{ data.text }}
 </div>
 
 <div class="confirm__list">
-    <button class="btn click" (click)="ref.close(true)">
-        {{ data.buttons.confirm }}
-    </button>
-    <button class="btn delete" (click)="ref.close(false)">
-        {{ data.buttons.cancel }}
-    </button>
+	<button class="btn click" (click)="ref.close(true)">
+		{{ data.buttons.confirm }}
+	</button>
+	<button class="btn delete" (click)="ref.close(false)">
+		{{ data.buttons.cancel }}
+	</button>
 </div>

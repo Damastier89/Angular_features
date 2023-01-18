@@ -5,7 +5,7 @@ import { GraphicsComponent } from './graphics.component';
 import { ChartModule } from 'primeng/chart';
 
 @NgModule({
-    declarations: [GraphicsComponent],
-    imports: [TitleModule, ChartModule, RouterModule.forChild([{ path: '', component: GraphicsComponent }])],
+	declarations: [GraphicsComponent],
+	imports: [TitleModule, ChartModule, RouterModule.forChild([{ path: '', component: GraphicsComponent }])],
 })
 export class GraphicsModule {}

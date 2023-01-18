@@ -1,60 +1,60 @@
 <div class="dashboard">
-    <div *ngIf="articles.length; else loading">
-        <h2 class="dashboard__title">Панель управления разделами</h2>
+	<div *ngIf="articles.length; else loading">
+		<h2 class="dashboard__title">Панель управления разделами</h2>
 
-        <div class="dashboard__container">
-            <mat-form-field class="dashboard__control" appearance="outline">
-                <mat-label>Найти раздел</mat-label>
-                <input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName" />
-                <button matSuffix mat-icon-button aria-label="search">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
+		<div class="dashboard__container">
+			<mat-form-field class="dashboard__control" appearance="outline">
+				<mat-label>Найти раздел</mat-label>
+				<input type="text" matInput placeholder="введите название раздела" [(ngModel)]="searchArticleName" />
+				<button matSuffix mat-icon-button aria-label="search">
+					<mat-icon>search</mat-icon>
+				</button>
+			</mat-form-field>
+		</div>
 
-        <div class="dashboard__container-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Автор раздела</th>
-                        <th>Название раздела</th>
-                        <th>Дата создания раздела</th>
-                        <th>Открыть раздел</th>
-                        <th>Редактировать раздел</th>
-                        <th>Удалить раздел</th>
-                    </tr>
-                </thead>
+		<div class="dashboard__container-table">
+			<table>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Автор раздела</th>
+						<th>Название раздела</th>
+						<th>Дата создания раздела</th>
+						<th>Открыть раздел</th>
+						<th>Редактировать раздел</th>
+						<th>Удалить раздел</th>
+					</tr>
+				</thead>
 
-                <tbody>
-                    <tr *ngFor="let article of articles | search : searchArticleName; let idx = index">
-                        <td>{{ idx + 1 }}</td>
-                        <td>{{ article.author }}</td>
-                        <td>{{ article.title }}</td>
-                        <td>{{ article.date | date : 'd.MM.y H:mm' }}</td>
-                        <td>
-                            <button class="btn click" [routerLink]="['/all_articles', 'article', article.id]">
-                                <mat-icon>file_open</mat-icon>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn click" [routerLink]="['/admin', 'article', article.id, 'edit']">
-                                <mat-icon>edit_note</mat-icon>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn delete" (click)="removeArticle(article.id)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+				<tbody>
+					<tr *ngFor="let article of articles | search : searchArticleName; let idx = index">
+						<td>{{ idx + 1 }}</td>
+						<td>{{ article.author }}</td>
+						<td>{{ article.title }}</td>
+						<td>{{ article.date | date : 'd.MM.y H:mm' }}</td>
+						<td>
+							<button class="btn click" [routerLink]="['/all_articles', 'article', article.id]">
+								<mat-icon>file_open</mat-icon>
+							</button>
+						</td>
+						<td>
+							<button class="btn click" [routerLink]="['/admin', 'article', article.id, 'edit']">
+								<mat-icon>edit_note</mat-icon>
+							</button>
+						</td>
+						<td>
+							<button class="btn delete" (click)="removeArticle(article.id)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-    <ng-template #loading>
-        <!-- <p class="text-centor">Loading...</p> -->
-        <mat-spinner></mat-spinner>
-    </ng-template>
+	<ng-template #loading>
+		<!-- <p class="text-centor">Loading...</p> -->
+		<mat-spinner></mat-spinner>
+	</ng-template>
 </div>

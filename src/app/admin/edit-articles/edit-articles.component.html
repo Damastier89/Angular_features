@@ -1,21 +1,21 @@
 <form class="form" [formGroup]="form" (ngSubmit)="editArticle()">
-    <h2 class="form__title">Форма редактирования раздела</h2>
-    <mat-form-field class="form__control" appearance="outline">
-        <mat-label>Заголовок раздела</mat-label>
-        <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="ArticleInterface title" />
-        <mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
-    </mat-form-field>
+	<h2 class="form__title">Форма редактирования раздела</h2>
+	<mat-form-field class="form__control" appearance="outline">
+		<mat-label>Заголовок раздела</mat-label>
+		<input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="ArticleInterface title" />
+		<mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
+	</mat-form-field>
 
-    <div class="form__control">
-        <label>Содержание раздела</label>
-        <quill-editor formControlName="content"></quill-editor>
-    </div>
+	<div class="form__control">
+		<label>Содержание раздела</label>
+		<quill-editor formControlName="content"></quill-editor>
+	</div>
 
-    <mat-form-field class="form__control" appearance="outline">
-        <mat-label>Автор добавленного раздела</mat-label>
-        <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="ArticleInterface author" />
-        <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
-    </mat-form-field>
+	<mat-form-field class="form__control" appearance="outline">
+		<mat-label>Автор добавленного раздела</mat-label>
+		<input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="ArticleInterface author" />
+		<mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
+	</mat-form-field>
 
-    <button type="submit" class="btn click" [disabled]="form.invalid || submitted">Редактировать</button>
+	<button type="submit" class="btn click" [disabled]="form.invalid || submitted">Редактировать</button>
 </form>

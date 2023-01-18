@@ -13,24 +13,24 @@ import { RegisterEffect } from './store/effects/register.effect';
 import { authReducer } from './store/reducers/redusers';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-    { path: 'sign-in', component: SignInComponent },
-    { path: 'sing-up', component: SignUpComponent },
-    // { path: 'verify-email-address', component: VerifyEmailComponent },
+	{ path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+	{ path: 'sign-in', component: SignInComponent },
+	{ path: 'sing-up', component: SignUpComponent },
+	// { path: 'verify-email-address', component: VerifyEmailComponent },
 ];
 
 @NgModule({
-    declarations: [SignUpComponent, SignInComponent],
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(routes),
-        // StoreModule.forFeature('authentication', authReducer)
-        MatrixModule,
-    ],
-    providers: [AuthenticationService, RegisterEffect],
+	declarations: [SignUpComponent, SignInComponent],
+	imports: [
+		CommonModule,
+		FormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		ReactiveFormsModule,
+		RouterModule.forChild(routes),
+		// StoreModule.forFeature('authentication', authReducer)
+		MatrixModule,
+	],
+	providers: [AuthenticationService, RegisterEffect],
 })
 export class AuthenticationModule {}

@@ -20,39 +20,39 @@ import { adminReducer } from './shared/store/reducers/reducers';
 import { AdminEffect } from './shared/store/effects/admin.effect';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: AdminLayoutComponent,
-        children: [
-            { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
-            { path: 'authenticated-page', component: AuthenticatedPageComponent },
-            { path: 'create-article', component: CreateArticlesComponent, canActivate: [AuthGuard] },
-            { path: 'dashboard', component: DashboardArticleComponent, canActivate: [AuthGuard] },
-            { path: 'article/:id/edit', component: EditArticlesComponent, canActivate: [AuthGuard] },
-        ],
-    },
+	{
+		path: '',
+		component: AdminLayoutComponent,
+		children: [
+			{ path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
+			{ path: 'authenticated-page', component: AuthenticatedPageComponent },
+			{ path: 'create-article', component: CreateArticlesComponent, canActivate: [AuthGuard] },
+			{ path: 'dashboard', component: DashboardArticleComponent, canActivate: [AuthGuard] },
+			{ path: 'article/:id/edit', component: EditArticlesComponent, canActivate: [AuthGuard] },
+		],
+	},
 ];
 @NgModule({
-    declarations: [
-        CreateArticlesComponent,
-        EditArticlesComponent,
-        AdminLayoutComponent,
-        AuthenticatedPageComponent,
-        DashboardArticleComponent,
-        SearchPipe,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        SharedModule,
-        QuillModule.forRoot(),
-        RouterModule.forChild(routes),
-        StoreModule.forFeature('admin', adminReducer),
-        EffectsModule.forFeature([AdminEffect]),
-    ],
-    exports: [RouterModule],
-    providers: [AuthGuard],
+	declarations: [
+		CreateArticlesComponent,
+		EditArticlesComponent,
+		AdminLayoutComponent,
+		AuthenticatedPageComponent,
+		DashboardArticleComponent,
+		SearchPipe,
+	],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MaterialModule,
+		SharedModule,
+		QuillModule.forRoot(),
+		RouterModule.forChild(routes),
+		StoreModule.forFeature('admin', adminReducer),
+		EffectsModule.forFeature([AdminEffect]),
+	],
+	exports: [RouterModule],
+	providers: [AuthGuard],
 })
 export class AdminModule {}

@@ -6,14 +6,14 @@ import { Observable, Subject } from 'rxjs';
  */
 @Directive()
 export abstract class AbstractDestroySubject implements OnDestroy {
-    private onDestroy: Subject<void | null> = new Subject<void | null>();
+	private onDestroy: Subject<void | null> = new Subject<void | null>();
 
-    public get onDestroy$(): Observable<void | null> {
-        return this.onDestroy.asObservable();
-    }
+	public get onDestroy$(): Observable<void | null> {
+		return this.onDestroy.asObservable();
+	}
 
-    ngOnDestroy(): void {
-        this.onDestroy.next(null);
-        this.onDestroy.complete();
-    }
+	ngOnDestroy(): void {
+		this.onDestroy.next(null);
+		this.onDestroy.complete();
+	}
 }

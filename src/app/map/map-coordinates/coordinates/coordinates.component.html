@@ -1,77 +1,77 @@
 <div class="coordinates">
-    <div class="coordinates__title">
-        <h2>Панель управления</h2>
-        <div class="coordinates__add">
-            <button
-                class="addCoordinates"
-                mat-icon-button
-                [matTooltip]="'Добавить поле для координат'"
-                (click)="addCoordinates()"
-                [disabled]="enabled"
-            >
-                <mat-icon>add_box</mat-icon>
-            </button>
-            <button
-                class="addCoordinates"
-                mat-icon-button
-                [matTooltip]="'Получить все полигоны'"
-                (click)="getAllPolygonsCoordinates()"
-                [disabled]="isPolygons"
-            >
-                <mat-icon>map</mat-icon>
-            </button>
-            <button
-                class="addCoordinates"
-                mat-icon-button
-                [matTooltip]="'Удалить выбранный полигон'"
-                (click)="removeSelectedPolygon()"
-                [disabled]="isSelectedPolygon"
-            >
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
-    </div>
+	<div class="coordinates__title">
+		<h2>Панель управления</h2>
+		<div class="coordinates__add">
+			<button
+				class="addCoordinates"
+				mat-icon-button
+				[matTooltip]="'Добавить поле для координат'"
+				(click)="addCoordinates()"
+				[disabled]="enabled"
+			>
+				<mat-icon>add_box</mat-icon>
+			</button>
+			<button
+				class="addCoordinates"
+				mat-icon-button
+				[matTooltip]="'Получить все полигоны'"
+				(click)="getAllPolygonsCoordinates()"
+				[disabled]="isPolygons"
+			>
+				<mat-icon>map</mat-icon>
+			</button>
+			<button
+				class="addCoordinates"
+				mat-icon-button
+				[matTooltip]="'Удалить выбранный полигон'"
+				(click)="removeSelectedPolygon()"
+				[disabled]="isSelectedPolygon"
+			>
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
+	</div>
 
-    <form class="coordinates__form" [formGroup]="form" (ngSubmit)="sendCoordinates()" *ngIf="form.controls.coordinates.value.length !== 0">
-        <div formArrayName="coordinates">
-            <div class="coordinates__coord" *ngFor="let coord of form.controls.coordinates.controls; let i = index" [formGroupName]="i">
-                <mat-form-field appearance="outline">
-                    <mat-label>Координата Х</mat-label>
-                    <input formControlName="coordinateX" matInput />
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Координата Y</mat-label>
-                    <input formControlName="coordinateY" matInput />
-                </mat-form-field>
+	<form class="coordinates__form" [formGroup]="form" (ngSubmit)="sendCoordinates()" *ngIf="form.controls.coordinates.value.length !== 0">
+		<div formArrayName="coordinates">
+			<div class="coordinates__coord" *ngFor="let coord of form.controls.coordinates.controls; let i = index" [formGroupName]="i">
+				<mat-form-field appearance="outline">
+					<mat-label>Координата Х</mat-label>
+					<input formControlName="coordinateX" matInput />
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>Координата Y</mat-label>
+					<input formControlName="coordinateY" matInput />
+				</mat-form-field>
 
-                <button class="coordinates__btn btn delete" (click)="removeSelectedCoordinates(i)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-        </div>
-        <button class="border-button" type="submit" [disabled]="enabled">Отправить координаты</button>
-    </form>
+				<button class="coordinates__btn btn delete" (click)="removeSelectedCoordinates(i)">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</div>
+		</div>
+		<button class="border-button" type="submit" [disabled]="enabled">Отправить координаты</button>
+	</form>
 
-    <div *ngIf="isCoordinates">
-        <div *ngIf="form.controls['coordinates'].value.length !== 0">
-            <h3>Кликните по карте</h3>
-            <form [formGroup]="coordinatesform">
-                <div class="coordinates__coord">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Координата Х</mat-label>
-                        <input formControlName="clickCoordinateX" matInput />
-                    </mat-form-field>
+	<div *ngIf="isCoordinates">
+		<div *ngIf="form.controls['coordinates'].value.length !== 0">
+			<h3>Кликните по карте</h3>
+			<form [formGroup]="coordinatesform">
+				<div class="coordinates__coord">
+					<mat-form-field appearance="outline">
+						<mat-label>Координата Х</mat-label>
+						<input formControlName="clickCoordinateX" matInput />
+					</mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Координата Y</mat-label>
-                        <input formControlName="clickCoordinateY" matInput />
-                    </mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Координата Y</mat-label>
+						<input formControlName="clickCoordinateY" matInput />
+					</mat-form-field>
 
-                    <button class="coordinates__btn btn click" [matTooltip]="'Копировать координаты в полигон'" (click)="copyCoordinates()">
-                        <mat-icon>content_copy</mat-icon>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+					<button class="coordinates__btn btn click" [matTooltip]="'Копировать координаты в полигон'" (click)="copyCoordinates()">
+						<mat-icon>content_copy</mat-icon>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
