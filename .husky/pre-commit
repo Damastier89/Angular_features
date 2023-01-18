@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "pre-commit: About to create a new commit..."
+echo "pre-commit: Проверяем текущий коммит..."
