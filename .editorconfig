@@ -3,7 +3,7 @@ root = true
 
 [*]
 charset = utf-8
-indent_style = space
+indent_style = tab
 indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
@@ -14,3 +14,16 @@ quote_type = single
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+
+[{.babelrc,.prettierrc,.eslintrc,jest.config,.stylelintrc,*.json,*.jsb3,*.jsb2,*.bowerrc}]
+ij_json_keep_blank_lines_in_code = 0
+ij_json_keep_indents_on_empty_lines = false
+ij_json_keep_line_breaks = true
+ij_json_space_after_colon = true
+ij_json_space_after_comma = true
+ij_json_space_before_colon = true
+ij_json_space_before_comma = false
+ij_json_spaces_within_braces = false
+ij_json_spaces_within_brackets = false
+ij_json_wrap_long_lines = false
