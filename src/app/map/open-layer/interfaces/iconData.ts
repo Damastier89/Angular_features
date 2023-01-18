@@ -1,4 +1,4 @@
 export interface IconData {
-	type: string;
-	source: string;
+    type: string;
+    source: string;
 }

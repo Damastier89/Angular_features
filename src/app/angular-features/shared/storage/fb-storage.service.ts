@@ -7,72 +7,72 @@ import { Data } from '@angular/router';
 
 @Injectable()
 export class FBStorageService {
-	private basePath: string = '/uploads';
+    private basePath: string = '/uploads';
 
-	constructor(private storage: AngularFireStorage, private dataBase: AngularFireDatabase) {}
+    constructor(private storage: AngularFireStorage, private dataBase: AngularFireDatabase) {}
 
-	public pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
-		const filePath = `${this.basePath}/${fileUpload.file.name}`;
-		const storageRef = this.storage.ref(filePath);
-		const uploadTask = this.storage.upload(filePath, fileUpload.file);
+    public pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
+        const filePath = `${this.basePath}/${fileUpload.file.name}`;
+        const storageRef = this.storage.ref(filePath);
+        const uploadTask = this.storage.upload(filePath, fileUpload.file);
 
-		uploadTask
-			.snapshotChanges()
-			.pipe(
-				finalize(() => {
-					storageRef.getDownloadURL().subscribe((downloadURL: any) => {
-						fileUpload.url = downloadURL;
-						fileUpload.name = fileUpload.file.name;
-						this.saveFileData(fileUpload);
-					});
-				}),
-			)
-			.subscribe();
+        uploadTask
+            .snapshotChanges()
+            .pipe(
+                finalize(() => {
+                    storageRef.getDownloadURL().subscribe((downloadURL: any) => {
+                        fileUpload.url = downloadURL;
+                        fileUpload.name = fileUpload.file.name;
+                        this.saveFileData(fileUpload);
+                    });
+                }),
+            )
+            .subscribe();
 
-		return uploadTask.percentageChanges();
-	}
+        return uploadTask.percentageChanges();
+    }
 
-	public getFiles(numberItems: number): AngularFireList<FileUpload> {
-		return this.dataBase.list(this.basePath, (ref) => ref.limitToLast(numberItems));
-	}
+    public getFiles(numberItems: number): AngularFireList<FileUpload> {
+        return this.dataBase.list(this.basePath, (ref) => ref.limitToLast(numberItems));
+    }
 
-	public deleteFile(fileUpload: FileUpload): void {
-		this.deleteFileDatabase(fileUpload.key)
-			.then(() => {
-				this.deleteFileStorage(fileUpload.name);
-			})
-			.catch((error) => console.log(error));
-	}
+    public deleteFile(fileUpload: FileUpload): void {
+        this.deleteFileDatabase(fileUpload.key)
+            .then(() => {
+                this.deleteFileStorage(fileUpload.name);
+            })
+            .catch((error) => console.log(error));
+    }
 
-	private saveFileData(fileUpload: FileUpload): void {
-		this.dataBase.list(this.basePath).push(fileUpload);
-	}
+    private saveFileData(fileUpload: FileUpload): void {
+        this.dataBase.list(this.basePath).push(fileUpload);
+    }
 
-	private deleteFileDatabase(key: string): Promise<void> {
-		return this.dataBase.list(this.basePath).remove(key);
-	}
+    private deleteFileDatabase(key: string): Promise<void> {
+        return this.dataBase.list(this.basePath).remove(key);
+    }
 
-	private deleteFileStorage(name: string): void {
-		const storageRef = this.storage.ref(this.basePath);
-		storageRef.child(name).delete();
-	}
+    private deleteFileStorage(name: string): void {
+        const storageRef = this.storage.ref(this.basePath);
+        storageRef.child(name).delete();
+    }
 }
 
 export class FileUpload {
-	key!: string;
+    key!: string;
 
-	name!: string;
+    name!: string;
 
-	url!: string;
+    url!: string;
 
-	date!: Data;
+    date!: Data;
 
-	file: File;
+    file: File;
 
-	constructor(file: File, date: any) {
-		this.file = file;
-		this.date = date;
-	}
+    constructor(file: File, date: any) {
+        this.file = file;
+        this.date = date;
+    }
 }
 
 // "auth != null"

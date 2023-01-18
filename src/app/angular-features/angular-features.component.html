@@ -1,29 +1,14 @@
 <app-title [title]="angularFeatures"></app-title>
 
 <div class="features">
-  <div class="features__left-bar">
-    <div class="features__btn">
-      <button
-        class="border-button pointer"
-        [routerLink]="['forms']"
-      >
-        Form
-      </button>
-      <button
-        class="border-button"
-        [routerLink]="['modals']"
-      >
-        Modal
-      </button>
-      <button
-      class="border-button"
-      [routerLink]="['loading-data']"
-    >
-      Load data
-    </button>
+    <div class="features__left-bar">
+        <div class="features__btn">
+            <button class="border-button pointer" [routerLink]="['forms']">Form</button>
+            <button class="border-button" [routerLink]="['modals']">Modal</button>
+            <button class="border-button" [routerLink]="['loading-data']">Load data</button>
+        </div>
     </div>
-  </div>
-  <div class="features__content mat-elevation-z4">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="features__content mat-elevation-z4">
+        <router-outlet></router-outlet>
+    </div>
 </div>

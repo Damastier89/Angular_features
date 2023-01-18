@@ -4,8 +4,8 @@ import { HttpErrorsInterface } from '../../../../shared/interfaces/httpErrors.in
 import { FeedbackActionsType } from './feedbackActionsType';
 
 export const feedbackAction = createAction(
-	FeedbackActionsType.FEEDBACK,
-	props<DataFormInterface>(), // В props храниться информация которая будет передаваться в action
+    FeedbackActionsType.FEEDBACK,
+    props<DataFormInterface>(), // В props храниться информация которая будет передаваться в action
 );
 
 export const feedbackSuccessAction = createAction(FeedbackActionsType.FEEDBACK_SUCCESS, props<DataFormInterface>());

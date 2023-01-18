@@ -15,22 +15,22 @@ import { SharedModule } from '../shared/shared.module';
 import { ArticleTagsComponent } from './article-tags/article-tags.component';
 
 const routes: Routes = [
-	{ path: '', component: AllArticlesComponent },
-	{ path: 'article_page', component: ArticlePageComponent },
-	{ path: 'article/:id', component: ArticleContentPageComponent },
+    { path: '', component: AllArticlesComponent },
+    { path: 'article_page', component: ArticlePageComponent },
+    { path: 'article/:id', component: ArticleContentPageComponent },
 ];
 
 @NgModule({
-	declarations: [AllArticlesComponent, ArticlePageComponent, ArticleContentPageComponent, SearchArticlesPipe, ArticleTagsComponent],
-	imports: [
-		CommonModule,
-		FormsModule,
-		RouterModule.forChild(routes),
-		MaterialModule,
-		TitleModule,
-		SharedModule,
-		MatPaginatorModule,
-		MatTooltipModule,
-	],
+    declarations: [AllArticlesComponent, ArticlePageComponent, ArticleContentPageComponent, SearchArticlesPipe, ArticleTagsComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        TitleModule,
+        SharedModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+    ],
 })
 export class ArticlesModule {}

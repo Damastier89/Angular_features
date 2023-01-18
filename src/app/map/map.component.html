@@ -1,164 +1,142 @@
 <app-title [title]="name"></app-title>
 <div class="map__main">
-  <div class="map__left-bar">
-    <div class="map__container">
-      <!-- <div class="map__coordinates">
+    <div class="map__left-bar">
+        <div class="map__container">
+            <!-- <div class="map__coordinates">
         <h3>Координаты на карте :</h3>
         <div #coordinates></div>
       </div> -->
-      <div class="map__coordinates">
-        <button
-          [matTooltip]="'Открыть панель для добавления координат'"
-          class="map__panel"
-          (click)="toggelPanel()"
-        >
-          <mat-icon>{{isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
-        </button>
+            <div class="map__coordinates">
+                <button [matTooltip]="'Открыть панель для добавления координат'" class="map__panel" (click)="toggelPanel()">
+                    <mat-icon>{{ isOpenProperties ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
+                </button>
 
-        <button
-          [matTooltip]="'Показать координаты по клику на карту'"
-          class="map__panel"
-          (click)="addPopUp()"
-        >
-          <mat-icon>add_location_alt</mat-icon>
-        </button>
-      </div>
-    </div>
-
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Геометрия</mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div class="map__context-menu" (contextmenu)="onContextMenu($event)">Кликните правой кнопкой мыши</div>
-
-        <div
-          #contextMenuGeometryTrigger
-          style="visibility: hidden; position: fixed"
-          [style.left.px]="contextMenuPosition.x"
-          [style.top.px]="contextMenuPosition.y"
-          [matMenuTriggerFor]="contextMenu"
-          >
+                <button [matTooltip]="'Показать координаты по клику на карту'" class="map__panel" (click)="addPopUp()">
+                    <mat-icon>add_location_alt</mat-icon>
+                </button>
+            </div>
         </div>
 
-        <mat-menu #contextMenu="matMenu">
-          <button mat-menu-item (click)="drawPolygon('Polygon')">Добавить полигон</button>
-          <button mat-menu-item (click)="drawPolygon('Circle')">Добавить круг</button>
-          <button mat-menu-item (click)="drawPolygon('Point')">Добавить точку</button>
-          <button mat-menu-item (click)="drawPolygon('LineString')">Добавить линию</button>
-          <button mat-menu-item (click)="addGeoJsonToMap()">Добавить GeoJson</button>
-        </mat-menu>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Геометрия</mat-panel-title>
+                </mat-expansion-panel-header>
 
-      </mat-expansion-panel>
-    </mat-accordion>
+                <div class="map__context-menu" (contextmenu)="onContextMenu($event)">Кликните правой кнопкой мыши</div>
 
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Изображения</mat-panel-title>
-        </mat-expansion-panel-header>
+                <div
+                    #contextMenuGeometryTrigger
+                    style="visibility: hidden; position: fixed"
+                    [style.left.px]="contextMenuPosition.x"
+                    [style.top.px]="contextMenuPosition.y"
+                    [matMenuTriggerFor]="contextMenu"
+                ></div>
 
-        <div class="map__context-menu" (contextmenu)="onContextMenuMarcer($event)">Кликните правой кнопкой мыши</div>
+                <mat-menu #contextMenu="matMenu">
+                    <button mat-menu-item (click)="drawPolygon('Polygon')">Добавить полигон</button>
+                    <button mat-menu-item (click)="drawPolygon('Circle')">Добавить круг</button>
+                    <button mat-menu-item (click)="drawPolygon('Point')">Добавить точку</button>
+                    <button mat-menu-item (click)="drawPolygon('LineString')">Добавить линию</button>
+                    <button mat-menu-item (click)="addGeoJsonToMap()">Добавить GeoJson</button>
+                </mat-menu>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-        <div
-          #contextMenuMarcerTrigger
-          style="visibility: hidden; position: fixed"
-          [style.left.px]="contextMenuPosition.x"
-          [style.top.px]="contextMenuPosition.y"
-          [matMenuTriggerFor]="contextMenuMarcer"
-          >
-        </div>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Изображения</mat-panel-title>
+                </mat-expansion-panel-header>
 
-        <mat-menu #contextMenuMarcer="matMenu">
-          <button mat-menu-item (click)="drawImage('biological-hazard-color-small')">Добавить Biological hazard color</button>
-          <button mat-menu-item (click)="drawImage('biological-hazard-triangles-small')">Добавить Biological hazard triangles</button>
-          <button mat-menu-item (click)="drawImage('radiation-hazard-marcer-small')">Добавить Radiation hazard marcer</button>
-          <button mat-menu-item (click)="drawImage('radiation-hazard-black-small')">Добавить Radiation hazard black</button>
-          <button mat-menu-item (click)="drawImage('radiation-hazard-color-small')">Добавить Radiation hazard color</button>
-          <button mat-menu-item (click)="drawImage('radiation-hazard-orange-small')">Добавить Radiation hazard orange</button>
-          <button mat-menu-item (click)="drawImage('radiation-hazard-trianges-small')">Добавить Radiation hazard trianges</button>
-        </mat-menu>
+                <div class="map__context-menu" (contextmenu)="onContextMenuMarcer($event)">Кликните правой кнопкой мыши</div>
 
-      </mat-expansion-panel>
-    </mat-accordion>
+                <div
+                    #contextMenuMarcerTrigger
+                    style="visibility: hidden; position: fixed"
+                    [style.left.px]="contextMenuPosition.x"
+                    [style.top.px]="contextMenuPosition.y"
+                    [matMenuTriggerFor]="contextMenuMarcer"
+                ></div>
 
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Города</mat-panel-title>
-        </mat-expansion-panel-header>
+                <mat-menu #contextMenuMarcer="matMenu">
+                    <button mat-menu-item (click)="drawImage('biological-hazard-color-small')">Добавить Biological hazard color</button>
+                    <button mat-menu-item (click)="drawImage('biological-hazard-triangles-small')">
+                        Добавить Biological hazard triangles
+                    </button>
+                    <button mat-menu-item (click)="drawImage('radiation-hazard-marcer-small')">Добавить Radiation hazard marcer</button>
+                    <button mat-menu-item (click)="drawImage('radiation-hazard-black-small')">Добавить Radiation hazard black</button>
+                    <button mat-menu-item (click)="drawImage('radiation-hazard-color-small')">Добавить Radiation hazard color</button>
+                    <button mat-menu-item (click)="drawImage('radiation-hazard-orange-small')">Добавить Radiation hazard orange</button>
+                    <button mat-menu-item (click)="drawImage('radiation-hazard-trianges-small')">Добавить Radiation hazard trianges</button>
+                </mat-menu>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-          <button class="map__draw btn click" (click)="initMoscow()">Показать Мск</button>
-          <button class="map__draw btn click" (click)="initKaluga()">Показать Клг</button>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Города</mat-panel-title>
+                </mat-expansion-panel-header>
 
-      </mat-expansion-panel>
-    </mat-accordion>
+                <button class="map__draw btn click" (click)="initMoscow()">Показать Мск</button>
+                <button class="map__draw btn click" (click)="initKaluga()">Показать Клг</button>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>Выбор слоев карты</mat-panel-title>
-        </mat-expansion-panel-header>
-            <h3>Base Layer</h3>
-            <mat-radio-group class="map__layers" (change)="switchBaseLayer($event)">
-              <mat-radio-button class="map__radio" value="OSMStandard" checked="true">OSM Standard</mat-radio-button>
-              <mat-radio-button class="map__radio" value="OSMHumanitarian">OSM Humanitarian</mat-radio-button>
-              <mat-radio-button class="map__radio" value="OSMTransport">OSM Transport(Beta)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="OSMCycle">OSM Cycle(Beta)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="StamenTerrain">Stamen Terrain Map</mat-radio-button>
-              <mat-radio-button class="map__radio" value="GreenMap">Green Map(France)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="BingMap">Bing Map(Beta)</mat-radio-button>
-              <mat-radio-button class="map__radio" value="CartoMap">Carto Map(Beta)</mat-radio-button>
-            </mat-radio-group>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Выбор слоев карты</mat-panel-title>
+                </mat-expansion-panel-header>
+                <h3>Base Layer</h3>
+                <mat-radio-group class="map__layers" (change)="switchBaseLayer($event)">
+                    <mat-radio-button class="map__radio" value="OSMStandard" checked="true">OSM Standard</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="OSMHumanitarian">OSM Humanitarian</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="OSMTransport">OSM Transport(Beta)</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="OSMCycle">OSM Cycle(Beta)</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="StamenTerrain">Stamen Terrain Map</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="GreenMap">Green Map(France)</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="BingMap">Bing Map(Beta)</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="CartoMap">Carto Map(Beta)</mat-radio-button>
+                </mat-radio-group>
 
-            <h3>Raster Layer</h3>
-            <mat-radio-group class="map__layers" (change)="switchRasterLayer($event)">
-              <mat-radio-button class="map__radio" value="none" checked="true">None</mat-radio-button>
-              <mat-radio-button class="map__radio" value="TileDebugLayer">Tile Debug Layer</mat-radio-button>
-              <mat-radio-button class="map__radio" value="TileArcGISRESTAPILayer">ArcGIS Population World</mat-radio-button>
-              <mat-radio-button class="map__radio" value="NOAAWMSLayer">NOAA WMS Layer</mat-radio-button>
-              <mat-radio-button class="map__radio" value="fragmentStatic">fragmentStatic</mat-radio-button>
-            </mat-radio-group>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
-
-  <div class="map__properties"
-    [@toggleSidebar]="isOpenProperties ? 'open' : 'close'"
-  >
-    <app-properties  *ngIf="isOpenProperties"></app-properties>
-  </div>
-
-  <div id="map" class="map-container"></div>
-
-  <div class="map-container__coordinate">
-    <p>{{ lonLat }}</p>
-  </div>
-
-  <div
-    cdkDrag
-    cdkDragRootElement=".cdk-overlay-pane"
-    cdkDragBoundary=".map__main"
-    *ngIf="isMap"
-    class="map-container__wrapper-mini"
-  >
-  <div cdkDragHandle class="map-container__drag"></div>
-    <div id="msc" class="map-container__msc" tabindex="0">
-      <span>
-        <p class="map-container__close" (click)="closeMap()">X</p>
-      </span>
+                <h3>Raster Layer</h3>
+                <mat-radio-group class="map__layers" (change)="switchRasterLayer($event)">
+                    <mat-radio-button class="map__radio" value="none" checked="true">None</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="TileDebugLayer">Tile Debug Layer</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="TileArcGISRESTAPILayer">ArcGIS Population World</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="NOAAWMSLayer">NOAA WMS Layer</mat-radio-button>
+                    <mat-radio-button class="map__radio" value="fragmentStatic">fragmentStatic</mat-radio-button>
+                </mat-radio-group>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
-  </div>
 
-  <div #popup class="ol-popup">
-    <button (click)="removePopup()" class=" popup-closer ol-popup-closer"></button>
-    <div class="popup-content"><p>Вы кликнули тут:</p><code>{{hdms}}</code></div>
-  </div>
+    <div class="map__properties" [@toggleSidebar]="isOpenProperties ? 'open' : 'close'">
+        <app-properties *ngIf="isOpenProperties"></app-properties>
+    </div>
 
+    <div id="map" class="map-container"></div>
+
+    <div class="map-container__coordinate">
+        <p>{{ lonLat }}</p>
+    </div>
+
+    <div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragBoundary=".map__main" *ngIf="isMap" class="map-container__wrapper-mini">
+        <div cdkDragHandle class="map-container__drag"></div>
+        <div id="msc" class="map-container__msc" tabindex="0">
+            <span>
+                <p class="map-container__close" (click)="closeMap()">X</p>
+            </span>
+        </div>
+    </div>
+
+    <div #popup class="ol-popup">
+        <button (click)="removePopup()" class="popup-closer ol-popup-closer"></button>
+        <div class="popup-content">
+            <p>Вы кликнули тут:</p>
+            <code>{{ hdms }}</code>
+        </div>
+    </div>
 </div>

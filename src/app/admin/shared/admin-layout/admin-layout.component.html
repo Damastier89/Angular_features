@@ -1,29 +1,25 @@
-<nav
-  class="navbar"
-  [ngClass]="'navbar--' + currentThemes"
->
-  <h2>
-    <a [routerLink]="['/main-page']">Angular features</a>
-  </h2>
+<nav class="navbar" [ngClass]="'navbar--' + currentThemes">
+    <h2>
+        <a [routerLink]="['/main-page']">Angular features</a>
+    </h2>
 
-  <ul class="navbar__menu" *ngIf="auth.isAuthenticated()">
-<!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совпадает -->
-    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a [routerLink]="['/main-page']">На главную</a>
-    </li>
-    <li routerLinkActive="active">
-      <a [routerLink]="['/admin', 'create-article']">Создать раздел</a>
-    </li>
-    <li routerLinkActive="active">
-      <a [routerLink]="['/admin', 'dashboard']">К управлению разделами</a>
-    </li>
-    <li routerLinkActive="active">
-      <a href="#" (click)="logout($event)" >Выйти</a>
-    </li>
-  </ul>
-
+    <ul class="navbar__menu" *ngIf="auth.isAuthenticated()">
+        <!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совпадает -->
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a [routerLink]="['/main-page']">На главную</a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/admin', 'create-article']">Создать раздел</a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/admin', 'dashboard']">К управлению разделами</a>
+        </li>
+        <li routerLinkActive="active">
+            <a href="#" (click)="logout($event)">Выйти</a>
+        </li>
+    </ul>
 </nav>
 
 <div class="container">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>

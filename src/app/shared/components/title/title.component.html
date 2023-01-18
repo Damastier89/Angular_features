@@ -1,15 +1,8 @@
 <mat-toolbar class="toolbar">
-  <div
-    class="mode"
-    [ngClass]="'mode--' + currentThemes"
-  >
-    <button
-      class="mode__button"
-      mat-icon-button
-      [routerLink]="['/main-page']"
-    >
-      <mat-icon>home</mat-icon>
-    </button>
-    <h2>{{ title }}</h2>
-  </div>
+    <div class="mode" [ngClass]="'mode--' + currentThemes">
+        <button class="mode__button" mat-icon-button [routerLink]="['/main-page']">
+            <mat-icon>home</mat-icon>
+        </button>
+        <h2>{{ title }}</h2>
+    </div>
 </mat-toolbar>

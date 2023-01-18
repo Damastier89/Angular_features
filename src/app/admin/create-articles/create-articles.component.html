@@ -1,40 +1,38 @@
 <form class="form" [formGroup]="form" (ngSubmit)="submitArticle()">
+    <h2 class="form__title">Форма добавления нового раздела</h2>
+    <mat-form-field class="form__control" appearance="outline">
+        <mat-label>Заголовок раздела</mat-label>
+        <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="название раздела" />
+        <mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
+    </mat-form-field>
 
-  <h2 class="form__title">Форма добавления нового раздела</h2>
-  <mat-form-field class="form__control" appearance="outline">
-    <mat-label>Заголовок раздела</mat-label>
-    <input type="title" matInput formControlName="title" [errorStateMatcher]="matcher" placeholder="название раздела">
-    <mat-error *ngIf="form.controls['title'].hasError('required')">Введите название раздела!</mat-error>
-  </mat-form-field>
+    <mat-form-field class="form__control" appearance="outline">
+        <mat-label>Автор добавленного раздела</mat-label>
+        <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="имя автора" />
+        <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="form__control" appearance="outline">
-    <mat-label>Автор добавленного раздела</mat-label>
-    <input type="author" matInput formControlName="author" [errorStateMatcher]="matcher" placeholder="имя автора">
-    <mat-error *ngIf="form.controls['author'].hasError('required')">Введите имя автора раздела!</mat-error>
-  </mat-form-field>
+    <mat-form-field class="form__control" appearance="outline">
+        <mat-label>Выберите тег из списка</mat-label>
+        <!--    <input type="tags" matInput formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">-->
+        <!--    <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>-->
+        <mat-select formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">
+            <mat-option value="Common technology">Сommon technology</mat-option>
+            <mat-option value="Angular">Angular</mat-option>
+            <mat-option value="JavaScript">JavaScript</mat-option>
+            <mat-option value="TypeScript">TypeScript</mat-option>
+            <mat-option value="RxJs">RxJs</mat-option>
+            <mat-option value="Css">Css</mat-option>
+            <mat-option value="HTML">Html</mat-option>
+            <mat-option>Clear...</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="form__control" appearance="outline">
-    <mat-label>Выберите тег из списка</mat-label>
-<!--    <input type="tags" matInput formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">-->
-<!--    <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>-->
-    <mat-select formControlName="tags" [errorStateMatcher]="matcher" placeholder="теги">
-      <mat-option value="Common technology">Сommon technology</mat-option>
-      <mat-option value="Angular">Angular</mat-option>
-      <mat-option value="JavaScript">JavaScript</mat-option>
-      <mat-option value="TypeScript">TypeScript</mat-option>
-      <mat-option value="RxJs">RxJs</mat-option>
-      <mat-option value="Css">Css</mat-option>
-      <mat-option value="HTML">Html</mat-option>
-      <mat-option>Clear...</mat-option>
-    </mat-select>
-    <mat-error *ngIf="form.controls['tags'].hasError('required')">Добавьте хотя бы один тег!</mat-error>
-  </mat-form-field>
+    <div class="form__control">
+        <label>Содержание раздела</label>
+        <quill-editor formControlName="content"></quill-editor>
+    </div>
 
-  <div class="form__control">
-    <label>Содержание раздела</label>
-    <quill-editor formControlName="content"></quill-editor>
-  </div>
-
-  <button type="submit" class="btn click" [disabled]="form.invalid || submitted">Создать раздел</button>
-
+    <button type="submit" class="btn click" [disabled]="form.invalid || submitted">Создать раздел</button>
 </form>

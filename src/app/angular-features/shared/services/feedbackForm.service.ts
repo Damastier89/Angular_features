@@ -9,29 +9,29 @@ const environments = environment.fbDbUrl;
 
 @Injectable()
 export class FeedbackFormService {
-	constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-	public createNewDataFromForm(data: DataFormInterface): Observable<DataFormInterface> {
-		return this.http.post<any>(`${environments}/data-form.json`, data).pipe(
-			map((response: FbCreateResponse) => {
-				return {
-					...data,
-					id: response.name,
-					date: new Date(data.date),
-				};
-			}),
-		);
-	}
+    public createNewDataFromForm(data: DataFormInterface): Observable<DataFormInterface> {
+        return this.http.post<any>(`${environments}/data-form.json`, data).pipe(
+            map((response: FbCreateResponse) => {
+                return {
+                    ...data,
+                    id: response.name,
+                    date: new Date(data.date),
+                };
+            }),
+        );
+    }
 
-	public getAllDataForm(): Observable<DataFormInterface[]> {
-		return this.http.get<DataFormInterface>(`${environments}/data-form.json`).pipe(
-			map((response: { [key: string]: any }) => {
-				return Object.keys(response).map((key) => ({
-					...response[key],
-					id: key,
-					date: new Date(response[key].date),
-				}));
-			}),
-		);
-	}
+    public getAllDataForm(): Observable<DataFormInterface[]> {
+        return this.http.get<DataFormInterface>(`${environments}/data-form.json`).pipe(
+            map((response: { [key: string]: any }) => {
+                return Object.keys(response).map((key) => ({
+                    ...response[key],
+                    id: key,
+                    date: new Date(response[key].date),
+                }));
+            }),
+        );
+    }
 }

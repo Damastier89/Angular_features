@@ -1,161 +1,149 @@
-<nav
-  class="navbar"
-  [ngClass]="'navbar--' + currentThemes"
->
+<nav class="navbar" [ngClass]="'navbar--' + currentThemes">
+    <div mat-icon-button>
+        <mat-icon>
+            <img src="assets/image/duty.svg" alt="test" />
+        </mat-icon>
+        <small class="navbar__username">{{ employeeName }}</small>
+    </div>
 
-  <div mat-icon-button>
-    <mat-icon>
-      <img src="assets/image/duty.svg" alt="test">
-    </mat-icon>
-    <small class="navbar__username">{{ employeeName }}</small>
-  </div>
-
-  <button
-    [matMenuTriggerFor]="setThemes"
-    mat-icon-button
-    [matTooltip]="'Сменить тему'"
-  >
-    <mat-icon>published_with_changes</mat-icon>
-  </button>
-
-  <button
-    mat-icon-button
-    [matTooltip]="'Выйти из приложения'"
-    (click)="logout()"
-  >
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
-
-  <mat-menu #setThemes="matMenu">
-    <button mat-menu-item (click)="changeThemes('default')">
-      <mat-icon>brightness_1</mat-icon>
-      <span>Default themes</span>
+    <button [matMenuTriggerFor]="setThemes" mat-icon-button [matTooltip]="'Сменить тему'">
+        <mat-icon>published_with_changes</mat-icon>
     </button>
-    <button mat-menu-item (click)="changeThemes('danger')">
-      <mat-icon>brightness_2</mat-icon>
-      <span>Danger themes</span>
+
+    <button mat-icon-button [matTooltip]="'Выйти из приложения'" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
     </button>
-    <button mat-menu-item (click)="changeThemes('success')">
-      <mat-icon>brightness_3</mat-icon>
-      <span>Success themes</span>
-    </button>
-  </mat-menu>
+
+    <mat-menu #setThemes="matMenu">
+        <button mat-menu-item (click)="changeThemes('default')">
+            <mat-icon>brightness_1</mat-icon>
+            <span>Default themes</span>
+        </button>
+        <button mat-menu-item (click)="changeThemes('danger')">
+            <mat-icon>brightness_2</mat-icon>
+            <span>Danger themes</span>
+        </button>
+        <button mat-menu-item (click)="changeThemes('success')">
+            <mat-icon>brightness_3</mat-icon>
+            <span>Success themes</span>
+        </button>
+    </mat-menu>
 </nav>
 
 <div class="wrapper wrapper-top">
-  <div class="container">
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/model3D.png" alt="3d">
-          <h3 style="padding-top: 10px;">3D models</h3>
+    <div class="container">
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/model3D.png" alt="3d" />
+                    <h3 style="padding-top: 10px">3D models</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Работа с 3D</p>
+                    <a [routerLink]="['/model3D']">Узнать больше</a>
+                </div>
+            </div>
         </div>
-      </div>
-    <div class="face face2">
-      <div class="content">
-        <p>Работа с 3D</p>
-        <a [routerLink]="['/model3D']">Узнать больше</a>
-      </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/graphic.png" alt="graphic" />
+                    <h3>Graphics</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Работа с графиками</p>
+                    <a [routerLink]="['/graphics']">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/canvas.png" alt="canvas" />
+                    <h3>Canvas</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Учимся работать с Canvas</p>
+                    <a [routerLink]="['/canvas']">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/learn.png" alt="learn" />
+                    <h3>Assessment</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Теоретически материалы для подготовки к тестированию</p>
+                    <a [routerLink]="['/all_articles']">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/map.png" alt="map" />
+                    <h3>Map</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Базовый функционал при работе с картой</p>
+                    <a [routerLink]="['/map']">Перейти к карте</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/angular.png" alt="map" />
+                    <h3>Angular</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Angular на практике</p>
+                    <a [routerLink]="['/angular-features']">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1" [ngClass]="'face1--' + currentThemes">
+                <div class="content">
+                    <img src="../../../../assets/image/admin.png" alt="admin" />
+                    <h3>Admin</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <p>Административная панель</p>
+                    <a [routerLink]="['/admin']">Перейти</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/graphic.png" alt="graphic">
-          <h3>Graphics</h3>
-        </div>
-      </div>
-    <div class="face face2">
-      <div class="content">
-        <p>Работа с графиками</p>
-        <a [routerLink]="['/graphics']">Узнать больше</a>
-      </div>
-    </div>
-  </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/canvas.png" alt="canvas">
-          <h3>Canvas</h3>
-        </div>
-      </div>
-      <div class="face face2">
-        <div class="content">
-          <p>Учимся работать с Canvas</p>
-          <a [routerLink]="['/canvas']">Узнать больше</a>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/learn.png" alt="learn">
-          <h3>Assessment</h3>
-        </div>
-      </div>
-      <div class="face face2">
-        <div class="content">
-          <p>Теоретически материалы для подготовки к тестированию</p>
-          <a [routerLink]="['/all_articles']">Узнать больше</a>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/map.png" alt="map">
-          <h3>Map</h3>
-        </div>
-      </div>
-      <div class="face face2">
-        <div class="content">
-          <p>Базовый функционал при работе с картой</p>
-          <a [routerLink]="['/map']">Перейти к карте</a>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/angular.png" alt="map">
-          <h3>Angular</h3>
-        </div>
-      </div>
-      <div class="face face2">
-        <div class="content">
-          <p>Angular на практике</p>
-          <a [routerLink]="['/angular-features']">Перейти</a>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="face face1" [ngClass]="'face1--' + currentThemes">
-        <div class="content">
-          <img src="../../../../assets/image/admin.png" alt="admin">
-          <h3>Admin</h3>
-        </div>
-      </div>
-      <div class="face face2">
-        <div class="content">
-          <p>Административная панель</p>
-          <a [routerLink]="['/admin']">Перейти</a>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="wrapper">
-  <div class="container">
-    <app-timer></app-timer>
-  </div>
+    <div class="container">
+        <app-timer></app-timer>
+    </div>
 </div>
 
 <div class="container">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
 
 <footer class="navbar navbar-footer" [ngClass]="'navbar--' + currentThemes">
-  <h3>Angular features {{ emoj }}</h3>
-  <h3>{{ actualDate | async | date: "d MMMM y , EE H.mm:ss" }}</h3>
+    <h3>Angular features {{ emoj }}</h3>
+    <h3>{{ actualDate | async | date : 'd MMMM y , EE H.mm:ss' }}</h3>
 </footer>

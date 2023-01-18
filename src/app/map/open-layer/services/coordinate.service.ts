@@ -7,43 +7,43 @@ import { environment } from '../../../../environments/environment';
 const environments = environment.fbDbUrl;
 @Injectable()
 export class CoordinatesService {
-	// В BehaviorSubject нет необходимости, так как есть mapRefService
-	// в котором хранится ссылка на карту
-	// public coordinates$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+    // В BehaviorSubject нет необходимости, так как есть mapRefService
+    // в котором хранится ссылка на карту
+    // public coordinates$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
-	public isPolygons: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public isPolygons: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-	// -NBWrnpT2Ktx_tlL--Q-
+    // -NBWrnpT2Ktx_tlL--Q-
 
-	constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-	public sendGeometryPolygon(coordinates: any): Observable<any> {
-		return this.http.post<any>(`${environments}/coordinates.json`, coordinates);
-	}
+    public sendGeometryPolygon(coordinates: any): Observable<any> {
+        return this.http.post<any>(`${environments}/coordinates.json`, coordinates);
+    }
 
-	public getGeometryPolygon(): Observable<any> {
-		return this.http.get<any>(`${environments}/coordinates.json`).pipe(
-			map((response: { [key: string]: any }) => {
-				return Object.keys(response).map((key) => ({
-					...response[key],
-					id: key,
-				}));
-			}),
-		);
-	}
+    public getGeometryPolygon(): Observable<any> {
+        return this.http.get<any>(`${environments}/coordinates.json`).pipe(
+            map((response: { [key: string]: any }) => {
+                return Object.keys(response).map((key) => ({
+                    ...response[key],
+                    id: key,
+                }));
+            }),
+        );
+    }
 
-	public getPolygonById(id: string): Observable<any> {
-		return this.http.get<any>(`${environments}/coordinates/${id}.json`).pipe(
-			map((polygon: any) => {
-				return {
-					...polygon,
-					id,
-				};
-			}),
-		);
-	}
+    public getPolygonById(id: string): Observable<any> {
+        return this.http.get<any>(`${environments}/coordinates/${id}.json`).pipe(
+            map((polygon: any) => {
+                return {
+                    ...polygon,
+                    id,
+                };
+            }),
+        );
+    }
 
-	public removePolygon(id: string): Observable<void> {
-		return this.http.delete<void>(`${environments}/coordinates/${id}.json`);
-	}
+    public removePolygon(id: string): Observable<void> {
+        return this.http.delete<void>(`${environments}/coordinates/${id}.json`);
+    }
 }

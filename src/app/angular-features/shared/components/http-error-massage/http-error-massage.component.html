@@ -1,8 +1,10 @@
 <div class="error-massage">
-  <div [ngClass]="{
-    show: httpErrorMassage, 
-    hide: !httpErrorMassage 
-  }">
-    {{ httpErrorMassage?.['error'] }}
-  </div>
+    <div
+        [ngClass]="{
+            show: httpErrorMassage,
+            hide: !httpErrorMassage
+        }"
+    >
+        {{ httpErrorMassage?.['error'] }}
+    </div>
 </div>

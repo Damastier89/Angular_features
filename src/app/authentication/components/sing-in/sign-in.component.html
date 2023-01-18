@@ -1,45 +1,51 @@
 <div>
-<div class="container">
-  <form class="form" [formGroup]="form" >
-    <h2>Авторизуйтесь для входа в приложение Angular features</h2>
-    <h5
-    class="active"
-    routerLink="/sing-up"
-    >
-      Если у вас нет аккаунта, кликните сюда
-    </h5>
-    <mat-form-field class="form__control" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input #userName type="email" matInput formControlName="email" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
-      <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
-        Пожалуйста, введите действительный адрес электронной почты
-      </mat-error>
-      <mat-error *ngIf="form.controls['email'].hasError('required')">
-        Адрес электронной почты, <strong>обязателен</strong>
-      </mat-error>
-    </mat-form-field>
+    <div class="container">
+        <form class="form" [formGroup]="form">
+            <h2>Авторизуйтесь для входа в приложение Angular features</h2>
+            <h5 class="active" routerLink="/sing-up">Если у вас нет аккаунта, кликните сюда</h5>
+            <mat-form-field class="form__control" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                    #userName
+                    type="email"
+                    matInput
+                    formControlName="email"
+                    [errorStateMatcher]="matcher"
+                    placeholder="Ex. pat@example.com"
+                />
+                <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
+                    Пожалуйста, введите действительный адрес электронной почты
+                </mat-error>
+                <mat-error *ngIf="form.controls['email'].hasError('required')">
+                    Адрес электронной почты, <strong>обязателен</strong>
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="form__control" appearance="outline">
-      <mat-label>Password</mat-label>
-      <input #userPassword type="password" matInput formControlName="password" [errorStateMatcher]="matcher" placeholder="**********">
-      <mat-error *ngIf="form.controls['password'].hasError('password') && !form.controls['password'].hasError('required')">
-        Пожалуйста, введите действительный пароль
-      </mat-error>
-      <mat-error *ngIf="form.controls['password'].hasError('required')">
-        Пароль, <strong>обязателен</strong>
-      </mat-error>
-      <mat-error *ngIf="form.controls['password'].hasError('minlength')">
-        Пароль должен быть не менее {{ form.get('password')?.errors?.['minlength']?.requiredLength }} символов.
-        Сейчас пароль {{ form.get('password')?.errors?.['minlength']?.actualLength }} символ.
-      </mat-error>
-    </mat-form-field>
+            <mat-form-field class="form__control" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                    #userPassword
+                    type="password"
+                    matInput
+                    formControlName="password"
+                    [errorStateMatcher]="matcher"
+                    placeholder="**********"
+                />
+                <mat-error *ngIf="form.controls['password'].hasError('password') && !form.controls['password'].hasError('required')">
+                    Пожалуйста, введите действительный пароль
+                </mat-error>
+                <mat-error *ngIf="form.controls['password'].hasError('required')"> Пароль, <strong>обязателен</strong> </mat-error>
+                <mat-error *ngIf="form.controls['password'].hasError('minlength')">
+                    Пароль должен быть не менее {{ form.get('password')?.errors?.['minlength']?.requiredLength }} символов. Сейчас пароль
+                    {{ form.get('password')?.errors?.['minlength']?.actualLength }} символ.
+                </mat-error>
+            </mat-form-field>
 
-      <button (click)="log()" class="btn click" [disabled]="form.invalid || submitted">Войти</button>
-  </form>
-</div>
+            <button (click)="log()" class="btn click" [disabled]="form.invalid || submitted">Войти</button>
+        </form>
+    </div>
 
-<div class="canvas">
-  <app-matrix></app-matrix>
-</div>
-
+    <div class="canvas">
+        <app-matrix></app-matrix>
+    </div>
 </div>

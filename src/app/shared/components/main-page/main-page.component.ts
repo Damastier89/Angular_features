@@ -5,67 +5,67 @@ import { AuthenticationService } from '../../../authentication/services/authenti
 import { EmployeeDataService } from '../../services/employeeData.service';
 
 @Component({
-	selector: 'app-main-page',
-	templateUrl: './main-page.component.html',
-	styleUrls: ['./main-page.component.scss'],
+    selector: 'app-main-page',
+    templateUrl: './main-page.component.html',
+    styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-	public emoj: string = '☣';
+    public emoj: string = '☣';
 
-	public employeeName: string = 'Ehooooo';
+    public employeeName: string = 'Ehooooo';
 
-	public currentThemes: string | null = '';
+    public currentThemes: string | null = '';
 
-	public theme = localStorage.getItem('nameThemes');
+    public theme = localStorage.getItem('nameThemes');
 
-	constructor(
-		private changeThemesService: ChangeThemesService,
-		private authService: AuthenticationService,
-		private employeeDataService: EmployeeDataService,
-	) {}
+    constructor(
+        private changeThemesService: ChangeThemesService,
+        private authService: AuthenticationService,
+        private employeeDataService: EmployeeDataService,
+    ) {}
 
-	ngOnInit(): void {
-		this.setNameCurrentUser();
-		this.setDefaultThemes();
-		this.getCurrentThemes();
-		this.getThemesFromStorage();
-	}
+    ngOnInit(): void {
+        this.setNameCurrentUser();
+        this.setDefaultThemes();
+        this.getCurrentThemes();
+        this.getThemesFromStorage();
+    }
 
-	public actualDate: Observable<string> = interval(1000).pipe(
-		startWith(new Date()),
-		map(() => new Date().toString()),
-	);
+    public actualDate: Observable<string> = interval(1000).pipe(
+        startWith(new Date()),
+        map(() => new Date().toString()),
+    );
 
-	public logout() {
-		this.authService.signOut();
-	}
+    public logout() {
+        this.authService.signOut();
+    }
 
-	public getCurrentThemes(): void {
-		this.changeThemesService.changeThemes.subscribe((res) => {
-			this.currentThemes = res;
-		});
-	}
+    public getCurrentThemes(): void {
+        this.changeThemesService.changeThemes.subscribe((res) => {
+            this.currentThemes = res;
+        });
+    }
 
-	public changeThemes(nameThemes: string): void {
-		this.changeThemesService.changeThemes.next(nameThemes);
-		localStorage.setItem('nameThemes', nameThemes);
-	}
+    public changeThemes(nameThemes: string): void {
+        this.changeThemesService.changeThemes.next(nameThemes);
+        localStorage.setItem('nameThemes', nameThemes);
+    }
 
-	private setDefaultThemes(): void {
-		if (this.currentThemes === null && localStorage.length === 0) {
-			this.currentThemes = 'default';
-		}
-	}
+    private setDefaultThemes(): void {
+        if (this.currentThemes === null && localStorage.length === 0) {
+            this.currentThemes = 'default';
+        }
+    }
 
-	private getThemesFromStorage(): void {
-		if (this.theme === null) {
-			this.currentThemes = 'default';
-		} else {
-			this.currentThemes = this.theme;
-		}
-	}
+    private getThemesFromStorage(): void {
+        if (this.theme === null) {
+            this.currentThemes = 'default';
+        } else {
+            this.currentThemes = this.theme;
+        }
+    }
 
-	private setNameCurrentUser(): void {
-		this.employeeName = this.employeeDataService.getNameCurrentUser();
-	}
+    private setNameCurrentUser(): void {
+        this.employeeName = this.employeeDataService.getNameCurrentUser();
+    }
 }

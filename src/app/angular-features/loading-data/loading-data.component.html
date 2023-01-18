@@ -1,48 +1,42 @@
 <div class="form">
-  <div class="form-group">
-    <input 
-      type="file" 
-      name="file" 
-      id="file" 
-      class="input-file" 
-      (change)="selectFile($event)"
-      accept="image/*,.pdf,.odt,.ods,.ods,.doc,.docx,.xls,.xlsx,.txt"
-    >
-    <label for="file" class="btn btn-tertiary js-labelFile">
-      <span class="js-fileName">Загрузить файл</span>
-      <mat-icon>insert_drive_file</mat-icon>
-    </label>
-  </div>
+    <div class="form-group">
+        <input
+            type="file"
+            name="file"
+            id="file"
+            class="input-file"
+            (change)="selectFile($event)"
+            accept="image/*,.pdf,.odt,.ods,.ods,.doc,.docx,.xls,.xlsx,.txt"
+        />
+        <label for="file" class="btn btn-tertiary js-labelFile">
+            <span class="js-fileName">Загрузить файл</span>
+            <mat-icon>insert_drive_file</mat-icon>
+        </label>
+    </div>
 </div>
 
-<div style="text-align: center;">
-    <button
-      class="border-button"
-      [disabled]="!selectedFiles"
-      (click)="uploadFile()"
-    >
-      Добавить файл в БД
-    </button>
+<div style="text-align: center">
+    <button class="border-button" [disabled]="!selectedFiles" (click)="uploadFile()">Добавить файл в БД</button>
 </div>
 
 <div *ngIf="currentFileUpload">
-  <div 
-    style="text-align: center;"
-    role="progressbar"
-    attr.aria-valuenow="{{ percentage }}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    [ngStyle]="{ width: percentage + '%' }"
-  >
-    {{ percentage }}%
-  </div>
+    <div
+        style="text-align: center"
+        role="progressbar"
+        attr.aria-valuenow="{{ percentage }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: percentage + '%' }"
+    >
+        {{ percentage }}%
+    </div>
 </div>
 
 <div class="card">
-  <h3>Загруженные файлы</h3>
-  <div class="card__container" *ngFor="let file of fileUploads">
-    <div class="card__content">
-      <app-loading-data-details [fileUpload]='file'></app-loading-data-details>
+    <h3>Загруженные файлы</h3>
+    <div class="card__container" *ngFor="let file of fileUploads">
+        <div class="card__content">
+            <app-loading-data-details [fileUpload]="file"></app-loading-data-details>
+        </div>
     </div>
-  </div>
 </div>
