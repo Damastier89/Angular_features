@@ -9,6 +9,7 @@
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"lint": "ng lint",
+		"lint:fix": "tslint ./src --fix",
 		"prettier": "prettier --check \"src/**/*.(ts|component.html)\"",
 		"prettier:fix": "npm rum prettier -- --write",
 		"prepare": "husky install"
