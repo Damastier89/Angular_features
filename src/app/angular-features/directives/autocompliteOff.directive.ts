@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[autoCompleteOffTestr]',
+  selector: '[autoCompleteOffTestr22]',
 })
 export class AutocompleteOffDirective {
   constructor(private _el: ElementRef) {
