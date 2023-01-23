@@ -1,15 +1,18 @@
 .snackBar {
   &-success {
+		background-color: var(--success-color);
     .mat-simple-snackbar-action {
       color: limegreen;
     }
   }
   &-warning {
+		background-color: var(--warning-color);
     .mat-simple-snackbar-action {
       color: #ffc058;
     }
   }
   &-error {
+		background-color: var(--danger-color);
     .mat-simple-snackbar-action {
       color:#b10012;
     }

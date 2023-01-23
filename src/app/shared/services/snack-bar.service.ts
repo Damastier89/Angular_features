@@ -1,4 +1,4 @@
-import { openConfig } from './../interfaces/openConfig';
+import { openConfig } from '../interfaces/openConfig';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 

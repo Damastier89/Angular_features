@@ -4,7 +4,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 	selector: 'app-matrix',
 	template: ` <canvas #canvas></canvas> `,
 	styleUrls: ['./matrix.component.scss'],
-	styles: ['canvas { border-style: solid }'],
 })
 export class MatrixComponent implements OnInit {
 	@ViewChild('canvas', { static: true }) public canvas!: ElementRef<HTMLCanvasElement>;
@@ -34,8 +33,8 @@ export class MatrixComponent implements OnInit {
 
 	private setMatrix(): void {
 		// устанавливаем ширину и высоту холста
-		this.width = this.context.canvas.width = document.documentElement.clientWidth - 6;
-		this.height = this.context.canvas.height = document.documentElement.clientHeight + 66.7;
+		this.width = this.context.canvas.width = document.documentElement.clientWidth - 9;
+		this.height = this.context.canvas.height = document.documentElement.clientHeight - 9;
 
 		// нарисуем черный прямоугольник такой же ширины и высоты, как у холста
 		this.context.fillStyle = '#000';
