@@ -15,10 +15,11 @@
 .canvas {
 	display: flex;
 	height: calc(100% - 64px);
+	background-color: var(--dark-color);
 
 	&__left-bar {
 		background: var(--sidebar-color);
-		width: 15%;
+		width: 25%;
 		border-right: var(--border-right);
 	}
 
@@ -31,7 +32,8 @@
 	}
 
 	&__content {
-		height: 100%;
+		height: calc(100% - 64px);
 		width: 100%;
+		//margin: 10px;
 	}
 }
