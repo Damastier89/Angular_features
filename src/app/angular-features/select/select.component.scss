@@ -1,0 +1,14 @@
+@mixin position {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.select {
+	@include position;
+
+	&__item {
+		@include position;
+		margin-bottom: 80px;
+	}
+}

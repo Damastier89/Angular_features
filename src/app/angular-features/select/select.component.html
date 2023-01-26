@@ -1,0 +1,47 @@
+<div class="select">
+	<div class="select__item">
+		<h4>Базовый mat-select с методом selectionChange для выбора mat-option</h4>
+		<mat-form-field appearance="outline">
+			<mat-label>Любимая цифра</mat-label>
+			<mat-select [(ngModel)]="data" (selectionChange)="select($event.value)">
+				<mat-option value="1">1</mat-option>
+				<mat-option value="2">2</mat-option>
+				<mat-option value="3">3</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<div>
+			Результат выбора : {{ data }}
+		</div>
+	</div>
+
+	<div class="select__item">
+		<h4>Базовый mat-select с методом selectionChange для выбора mat-option при переборе через *ngFor</h4>
+		<mat-form-field appearance="outline">
+			<mat-label>Любимая еда</mat-label>
+			<mat-select [(ngModel)]="food" (selectionChange)="selectFoods($event.value)">
+				<mat-option *ngFor="let food of foods" [value]="food.value">
+					{{ food.viewValue }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<div>
+			Результат выбора : {{ food }}
+		</div>
+	</div>
+
+	<div class="select__item">
+		<h4>Базовый mat-select с методом ngModelChange для выбора mat-option при добавлении formControl</h4>
+		<mat-form-field appearance="outline">
+			<mat-label>Любимый фрукт</mat-label>
+			<mat-select [formControl]="fruits" [(ngModel)]="fruit" (ngModelChange)="selectFoodsModelChange()">
+				<mat-option value="Apple">Яблоко</mat-option>
+				<mat-option value="Orange">Апельсин</mat-option>
+				<mat-option value="Banana">Банан</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<div>
+			Результат выбора : {{ fruit }}
+		</div>
+	</div>
+</div>
+

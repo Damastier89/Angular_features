@@ -39,16 +39,12 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
 	});
 
 	public matcher = new MyErrorStateMatcher();
-
 	public submitted: boolean = false;
-
 	public isAbout: boolean = false;
-
 	public browserName: string = '';
-
 	public browserVersion: string = '';
-
 	public validationErrors$!: Observable<HttpErrorsInterface | null>;
+	public isShow = 'none';
 
 	private isSubmitted$!: Observable<boolean>;
 
@@ -130,6 +126,12 @@ export class AngularFormsComponent extends AbstractDestroySubject implements OnI
 			// skill: new UntypedFormControl(''),
 		});
 		(this.form.get('skills') as UntypedFormArray).push(skill);
+		this.showSkills();
+	}
+
+	private showSkills(): void {
+		this.form.controls['skills'].value.length === 0 ? this.isShow = 'none' : this.isShow = 'flex';
+
 	}
 
 	/**

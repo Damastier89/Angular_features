@@ -114,7 +114,7 @@
 
 		<section class="form__control form__control_about">
 			<mat-checkbox (change)="isShowAbout()" [value]="isAbout ? 'no' : 'yes'">
-				{{ isAbout ? 'Скрыть' : 'Добавить' }} информацю о себе
+				{{ isAbout ? 'Скрыть' : 'Добавить' }} информацию о себе
 			</mat-checkbox>
 		</section>
 
@@ -138,10 +138,14 @@
 			<mat-icon>add</mat-icon>
 		</button>
 
-		<div class="form__groupcontrol form__groupcontrol_skills" formArrayName="skills" *ngIf="form.controls['skills'].value !== ''">
+		<div
+			 [ngStyle]="{'display': isShow}"
+			 class="form__groupcontrol form__groupcontrol_skills"
+			 formArrayName="skills"
+		>
 			<div *ngFor="let skill of aboutControl.controls; let i = index" [formGroupName]="i">
 				<mat-form-field class="form__control form__control_skill" appearance="outline">
-					<mat-label>Добавьте ключевой навык</mat-label>
+					<mat-label>Напишите ключевой навык</mat-label>
 					<input formControlName="skill" matInput appAutoCompleteOff />
 				</mat-form-field>
 			</div>
