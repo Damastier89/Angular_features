@@ -1,13 +1,15 @@
-import { ArticleInterface } from '../shared/interfaces/article.interface';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnDestroy } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ArticleService } from 'src/app/admin/shared/services/article.service';
-import { SnackBarTypes } from 'src/app/shared/_models/snack-bar-types.enum';
 import { Subject, takeUntil } from 'rxjs';
+
+import { ArticleInterface } from '../shared/interfaces/article.interface';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
+import { ArticleService } from '../shared/services/article.service';
+import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
+import { TECHNOLOGY } from '../shared/_models/technology';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,16 +30,18 @@ export class CreateArticlesComponent implements OnDestroy {
 		author: new UntypedFormControl(null, Validators.required),
 		tags: new UntypedFormControl(null, Validators.required),
 	});
-
 	public matcher = new MyErrorStateMatcher();
-
 	public submitted: boolean = false;
+	public technology = TECHNOLOGY;
 
 	private confirmRef!: MatDialogRef<ConfirmComponent>;
-
 	private destroyNotifier: Subject<boolean> = new Subject<boolean>();
 
-	constructor(private dialog: MatDialog, private snackBarService: SnackBarService, private articleService: ArticleService) {}
+	constructor(
+		private dialog: MatDialog,
+		private snackBarService: SnackBarService,
+		private articleService: ArticleService
+	) {}
 
 	ngOnDestroy(): void {
 		this.destroyNotifier.next(true);

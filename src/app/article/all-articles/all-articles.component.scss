@@ -1,9 +1,19 @@
 .container {
-  max-width: 1304px;
-  padding: 50px 32px;
+  max-width: 1760px;
+  padding: 18px 32px;
   margin: 0 auto;
+	overflow: auto;
+	height: 90vh;
+
+	&__sort {
+		display: flex;
+		justify-content: space-between;
+	}
 
   .categories {
+		max-height: 500px;
+		overflow: auto;
+
     &-title {
       font-size: 20px;
       line-height: 24px;
@@ -19,17 +29,17 @@
     }
 
     &__item {
-      width: 413px;
+      width: 420px;
       position: relative;
       display: flex;
       align-items: center;
-      padding: 10px;
+      padding: 6px;
       border-radius: 8px;
       transition: background-color 0.1s;
 
-      &:hover {
-        background-color: #D0EBFF;
-      }
+      //&:hover {
+      //  background-color: #D0EBFF;
+      //}
 
       &:nth-child(3n) {
         margin-right: 0;

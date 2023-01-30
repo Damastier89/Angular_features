@@ -1,7 +1,5 @@
 <nav class="navbar" [ngClass]="'navbar--' + currentThemes">
-	<h2>
-		<a [routerLink]="['/main-page']">Angular features</a>
-	</h2>
+	<h2>Angular features</h2>
 
 	<ul class="navbar__menu" *ngIf="auth.isAuthenticated()">
 		<!-- routerLinkActiveOptions - подсвечивает только в том случае если путь полностью совпадает -->

@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
 import { ArticleDataService } from '../../admin/shared/services/articleData.service';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+
 
 @Component({
 	selector: 'app-all-articles',
@@ -16,25 +17,20 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class AllArticlesComponent implements OnInit, OnDestroy {
 	public allArticles: ArticleInterface[] = [];
-
 	public article: string = 'Cтатьи о возможностях Angular и не только';
-
 	public searchArticleName: any = '';
 
 	// Pagination
 	@ViewChild('paginator') public paginator!: MatPaginator;
 
 	public articles$!: Observable<any>;
-
 	public dataSource!: MatTableDataSource<ArticleInterface>;
-
-	public pageSizes: number[] = [3, 6, 9]; // выбор количества элементов на каждой странице
+	public pageSizes: number[] = [4, 8, 12]; // выбор количества элементов на каждой странице
 	// public currentPage = 0;
 	// public pageSize: number = 3; // количество элементов на каждой странице
 	// public totalPage: number = 0;
 
 	private queryParamsSubscription!: Subscription; // Один из вариантов отписки
-
 	private destroyNotifier: Subject<boolean> = new Subject<boolean>(); // Один из вариантов отписки
 
 	constructor(
