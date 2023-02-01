@@ -7,8 +7,8 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
-import { ArticleInterface } from '../shared/interfaces/article.interface';
-import { ArticleService } from '../shared/services/article.service';
+import { ArticleInterface } from '../../article/interfaces/article.interface';
+import { ArticleService } from '../../article/services/article.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {

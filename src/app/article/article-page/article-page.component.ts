@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
+import { ArticleInterface } from '../interfaces';
 
 @Component({
 	selector: 'app-article-page',

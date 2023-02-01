@@ -11,10 +11,10 @@
 
 		<mat-form-field [style.width.%]="25" appearance="outline">
 			<mat-label>Сортировать по...</mat-label>
-			<mat-select>
-				<mat-option>По дате создания</mat-option>
-				<mat-option>По тегам</mat-option>
-				<mat-option>По авторам</mat-option>
+			<mat-select (selectionChange)="getOptionForSorting($event)">
+				<mat-option *ngFor="let item of sortingTypeOptions" [value]="item.value">
+					{{ item.view }}
+				</mat-option>
 			</mat-select>
 		</mat-form-field>
 	</div>

@@ -1,5 +1,5 @@
-import { FbCreateResponse } from '../interfaces/fbCreateResponse';
-import { environment } from '../../../../environments/environment';
+import { FbCreateResponse } from '../../admin/shared/interfaces/fbCreateResponse';
+import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
 import { ArticleInterface } from '../interfaces/article.interface';
 import { HttpClient } from '@angular/common/http';

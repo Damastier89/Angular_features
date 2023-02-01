@@ -4,10 +4,10 @@ import { UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Valid
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { ArticleInterface } from '../shared/interfaces/article.interface';
+import { ArticleInterface } from '../../article/interfaces/article.interface';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmComponent } from '../../shared/_models/confirm/confirm.component';
-import { ArticleService } from '../shared/services/article.service';
+import { ArticleService } from '../../article/services/article.service';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 import { TECHNOLOGY } from '../shared/_models/technology';
 

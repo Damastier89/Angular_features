@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
+import { ArticleInterface } from '../../article/interfaces/article.interface';
 
 @Pipe({
 	name: 'searchArticles',

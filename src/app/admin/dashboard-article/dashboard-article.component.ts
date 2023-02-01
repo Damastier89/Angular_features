@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { ArticleInterface } from '../shared/interfaces/article.interface';
-import { ArticleService } from '../shared/services/article.service';
-import { ArticleDataService } from '../shared/services/articleData.service';
+import { ArticleInterface } from '../../article/interfaces/article.interface';
+import { ArticleService } from '../../article/services/article.service';
+import { ArticleDataService } from '../../article/services/articleData.service';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
 

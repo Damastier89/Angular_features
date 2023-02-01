@@ -1,4 +1,4 @@
-import { ArticleInterface } from '../interfaces/article.interface';
+import { ArticleInterface } from '../../../article/interfaces/article.interface';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

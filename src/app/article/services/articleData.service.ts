@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ArticleInterface } from '../interfaces/article.interface';
+import { ArticleInterface } from '../interfaces';
 import { ArticleService } from './article.service';
 
 @Injectable({

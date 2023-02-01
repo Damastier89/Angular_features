@@ -1,25 +1,37 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component, OnChanges,
+	OnDestroy,
+	OnInit, SimpleChanges,
+	ViewChild
+} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {Observable, Subject, Subscription, takeUntil} from 'rxjs';
 
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { ArticleInterface } from '../../admin/shared/interfaces/article.interface';
-import { ArticleDataService } from '../../admin/shared/services/articleData.service';
-import { SnackBarTypes } from '../../shared/_models/snack-bar-types.enum';
-
+import {SnackBarService} from '../../shared/services/snack-bar.service';
+import {ArticleInterface} from '../interfaces';
+import {ArticleDataService} from '../services';
+import {SnackBarTypes} from '../../shared/_models/snack-bar-types.enum';
+import {SortingTypeInterface} from "../interfaces/sorting-type.interface";
+import {SORTING} from "../types/sorting.type";
+import {MatSelectChange} from "@angular/material/select";
+import {sortingByPassedProperties} from "../../shared/utils/sorting-by-passed-properties";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
 	selector: 'app-all-articles',
 	templateUrl: './all-articles.component.html',
 	styleUrls: ['./all-articles.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllArticlesComponent implements OnInit, OnDestroy {
 	public allArticles: ArticleInterface[] = [];
 	public article: string = 'Cтатьи о возможностях Angular и не только';
 	public searchArticleName: any = '';
 
+	@ViewChild(MatSort) sort!: MatSort;
 	// Pagination
 	@ViewChild('paginator') public paginator!: MatPaginator;
 
@@ -30,13 +42,21 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
 	// public pageSize: number = 3; // количество элементов на каждой странице
 	// public totalPage: number = 0;
 
+	public sortingTypeOptions: SortingTypeInterface[] = [
+		{ value: SORTING.BY_DATE_PUBLICATION, view: 'дате публикации' },
+		{ value: SORTING.BY_TAGS, view: 'тегам' },
+		{ value: SORTING.BY_AUTHORS, view: 'автору' },
+	]
+
 	private queryParamsSubscription!: Subscription; // Один из вариантов отписки
 	private destroyNotifier: Subject<boolean> = new Subject<boolean>(); // Один из вариантов отписки
 
 	constructor(
 		private articleDataService: ArticleDataService,
 		private snackBarService: SnackBarService,
-		private changeDetectorRef: ChangeDetectorRef, // private router: Router, // private route: ActivatedRoute, // Используем для подписки на изменении в url страницы
+		private changeDetectorRef: ChangeDetectorRef,
+		// private router: Router,
+		// private route: ActivatedRoute, // Используем для подписки на изменении в url страницы
 	) {}
 
 	ngOnInit(): void {
@@ -64,11 +84,27 @@ export class AllArticlesComponent implements OnInit, OnDestroy {
 					this.changeDetectorRef.detectChanges();
 					this.dataSource.paginator = this.paginator;
 					this.articles$ = this.dataSource.connect();
+					this.changeDetectorRef.markForCheck();
 				},
 				error: () => {
 					this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы');
 				},
 			});
+	}
+
+	public getOptionForSorting(param: MatSelectChange): void {
+		switch (param.value) {
+			case SORTING.BY_DATE_PUBLICATION:
+				sortingByPassedProperties(this.allArticles, 'date');
+				break;
+			case SORTING.BY_AUTHORS:
+				sortingByPassedProperties(this.allArticles, 'author');
+				this.dataSource.sort = this.sort;
+				break;
+			case SORTING.BY_TAGS:
+				sortingByPassedProperties(this.allArticles, 'tag');
+				break;
+		}
 	}
 
 	// public pageChangeEvent(page: PageEvent) {
