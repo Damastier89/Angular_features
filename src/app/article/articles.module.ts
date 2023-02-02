@@ -8,11 +8,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { ArticleContentPageComponent } from './article-content-page/article-content-page.component';
-import { MaterialModule } from '../shared/material.module';
 import { SearchArticlesPipe } from '../shared/pipe/searchArticles.pipe';
 import { TitleModule } from '../shared/components/title/title.module';
 import { SharedModule } from '../shared/shared.module';
 import { ArticleTagsComponent } from './article-tags/article-tags.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 const routes: Routes = [
 	{ path: '', component: AllArticlesComponent },
@@ -21,16 +26,27 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	declarations: [AllArticlesComponent, ArticlePageComponent, ArticleContentPageComponent, SearchArticlesPipe, ArticleTagsComponent],
+	declarations: [
+		AllArticlesComponent,
+		ArticlePageComponent,
+		ArticleContentPageComponent,
+		SearchArticlesPipe,
+		ArticleTagsComponent
+  ],
 	imports: [
 		CommonModule,
 		FormsModule,
 		RouterModule.forChild(routes),
-		MaterialModule,
 		TitleModule,
 		SharedModule,
 		MatPaginatorModule,
 		MatTooltipModule,
+		MatProgressSpinnerModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatSelectModule,
+		MatInputModule,
+		MatButtonModule,
 	],
 })
 export class ArticlesModule {}

@@ -17,7 +17,6 @@ import { MainPageComponent } from './shared/components/main-page/main-page.compo
 import { ErrorPageComponent } from './shared/components/error/error-page';
 import { TimerComponent } from './shared/components/timer/timer.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
-import { MaterialModule } from './shared/material.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MapModule } from './map/map.module';
@@ -29,6 +28,10 @@ import { Model3DModule } from './model3D/model3D.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { environment } from '../environments/environment.prod';
 import { CanvasModule } from './canvas/canvas.module';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 registerLocaleData(ru);
 
 @NgModule({
@@ -39,7 +42,6 @@ registerLocaleData(ru);
 		CommonModule,
 		AppRoutingModule,
 		SharedModule,
-		MaterialModule,
 		MapModule,
 		TitleModule,
 		ArticlesModule,
@@ -58,6 +60,10 @@ registerLocaleData(ru);
 			logOnly: environment.production,
 			autoPause: true, // Приостанавливает действия записи и изменения состояния, когда окно расширения не открыто
 		}),
+		MatMenuModule,
+		MatButtonModule,
+		MatTooltipModule,
+		MatSnackBarModule,
 	],
 	exports: [],
 	providers: [

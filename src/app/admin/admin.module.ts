@@ -9,7 +9,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { CreateArticlesComponent } from './create-articles/create-articles.component';
 import { SharedModule } from '../shared/shared.module';
-import { MaterialModule } from '../shared/material.module';
 import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.component';
 import { AuthenticatedPageComponent } from './authenticated-page/authenticated-page.component';
 import { AuthGuard } from './shared/services/auth.guard';
@@ -18,6 +17,11 @@ import { SearchPipe } from './shared/pipes/search.pipe';
 import { EditArticlesComponent } from './edit-articles/edit-articles.component';
 import { adminReducer } from './shared/store/reducers/reducers';
 import { AdminEffect } from './shared/store/effects/admin.effect';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
 
 const routes: Routes = [
 	{
@@ -45,12 +49,16 @@ const routes: Routes = [
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		MaterialModule,
 		SharedModule,
 		QuillModule.forRoot(),
 		RouterModule.forChild(routes),
 		StoreModule.forFeature('admin', adminReducer),
 		EffectsModule.forFeature([AdminEffect]),
+		MatFormFieldModule,
+		MatInputModule,
+		MatProgressSpinnerModule,
+		MatIconModule,
+		MatSelectModule,
 	],
 	exports: [RouterModule],
 	providers: [AuthGuard],

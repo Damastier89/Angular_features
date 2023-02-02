@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FBStorageService, FileUpload } from '../shared/storage/fb-storage.service';
+import { FBStorageService, FileUpload } from '../../shared/storage/fb-storage.service';
 
 @Component({
 	selector: 'app-loading-data-details',

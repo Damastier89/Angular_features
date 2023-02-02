@@ -37,22 +37,14 @@ import { EventsKey } from 'ol/events';
 })
 export class MapComponent implements OnInit, OnDestroy {
 	@ViewChild('contextMenuGeometryTrigger', { read: MatMenuTrigger }) contextMenu!: MatMenuTrigger;
-
-	@ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger })
-	contextMenuMarcer!: MatMenuTrigger;
-
+	@ViewChild('contextMenuMarcerTrigger', { read: MatMenuTrigger }) contextMenuMarcer!: MatMenuTrigger;
 	@ViewChild('coordinates') coordinates?: any;
 
-	public name: string = 'Map Viewer - Openlayers & Angular';
-
+	public name: string = 'Map Viewer - Open layers & Angular';
 	public panelOpenState: boolean = false;
-
 	public isMap: boolean = false;
-
 	public map!: Map;
-
 	public contextMenuPosition = { x: 0, y: 0 };
-
 	public lonLat: string = '00° 00′ 00″ С.Ш.';
 	// public coordinatesX: string = '00° 00′ 00″ С.Ш.';
 	// public coordinatesY: string = '00° 00′ 00″ В.Д.';
@@ -61,9 +53,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
 	// Layers and Source
 	private tileLayer = new TileLayer({ source: new OSM() });
-
 	private vectorSource = new VectorSource({ wrapX: false });
-
 	private vectorLayer = new VectorLayer({ source: this.vectorSource });
 
 	private jsonVectorSource = new VectorSource({
@@ -78,7 +68,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
 	// Select
 	private selectInteraction!: Select;
-
 	private selectStyle = new Style({
 		stroke: new Stroke({
 			color: '#64ff00',
@@ -93,23 +82,17 @@ export class MapComponent implements OnInit, OnDestroy {
 	@ViewChild('popup', { read: ElementRef, static: true }) public container!: ElementRef;
 
 	public hdms!: string;
-
 	private overlay!: Overlay;
-
 	private singleClickEvent!: EventsKey;
 
 	// LayerGroup
 	private baseLayers!: LayerGroup;
-
 	private rasterLayers!: LayerGroup;
 
 	// Controls
 	private zoomToExtentControls = new ZoomToExtent();
-
 	private scaleLineControls = new ScaleLine();
-
 	private fullScreenControl = new FullScreen();
-
 	private overviewMapControl = new OverviewMap({
 		layers: [
 			new TileLayer({
