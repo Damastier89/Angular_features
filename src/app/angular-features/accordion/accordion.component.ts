@@ -13,6 +13,11 @@ import {ArticleDataService} from "../../article/services";
 import {SnackBarService} from "../../shared/services/snack-bar.service";
 import {AbstractDestroySubject} from "../../shared/directives/abstractDestroySubject.directive";
 
+interface GroupedArticlesInterface {
+	title: string;
+	articles: ArticleInterface[];
+}
+
 @Component({
   selector: 'app-accordion',
   templateUrl: './accordion.component.html',
@@ -23,6 +28,8 @@ export class AccordionComponent extends AbstractDestroySubject implements OnInit
 	@ViewChild(MatAccordion) accordion!: MatAccordion;
 	public panelOpenState: boolean = false;
 	public allArticles: ArticleInterface[] = [];
+	public groupedArticles: GroupedArticlesInterface[] = [];
+	public quantityArticles: {} = {};
 	public articles$!: Observable<any>;
 
   constructor(
@@ -46,12 +53,40 @@ export class AccordionComponent extends AbstractDestroySubject implements OnInit
 			.subscribe({
 				next: (articles: ArticleInterface[]) => {
 					this.allArticles = articles;
+					this.groupsByMedOrganization();
 					this.changeDetectorRef.markForCheck();
 				},
 				error: () => {
 					this.openSnackBar(SnackBarTypes.Error, 'Не удалось получить разделы');
 				},
 			});
+	}
+
+	public groupsByMedOrganization(): any {
+		if (this.groupedArticles.length) {
+			return;
+		} else {
+			this.quantityArticles = this.allArticles.reduce(function (prev: {[key: string ]: number}, cur: ArticleInterface) {
+				prev[cur.tag] = (prev[cur.tag] || 0) + 1;
+				return prev;
+			}, {});
+
+			const titleNames: string[] = this.allArticles.map((res) => {
+				return res.tag;
+			});
+
+			const uniqueTitleName: Set<string> = new Set(titleNames);
+
+			for (let key of uniqueTitleName) {
+				const obj: GroupedArticlesInterface = {
+					title: '',
+					articles: []
+				};
+				obj.title = key;
+				obj.articles = [...this.allArticles.filter((res: ArticleInterface) => res.tag === key)];
+				this.groupedArticles.push(obj);
+			}
+		}
 	}
 
 	private openSnackBar(actionType: string, message: string): void {

@@ -1,12 +1,44 @@
-.example-action-buttons {
-	padding-bottom: 20px;
+
+:host ::ng-deep {
+	.mat-content {
+		padding: 15px 0 15px 0;
+	}
+
+ .mat-expansion-panel-header {
+		padding: 30px 20px;
+	}
+
+	.mat-badge-content {
+		background: var(--light-color);
+		color: var(--dark-color);
+	}
 }
 
-.example-headers-align .mat-expansion-panel-header-description {
-	justify-content: space-between;
-	align-items: center;
+.container {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
 }
 
-.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
-	margin-left: 8px;
+.accordion {
+	width: 55%;
+	margin: 0 auto;
+
+	&__title {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__buttons {
+		padding-bottom: 20px;
+	}
+
+	&__headers .mat-expansion-panel-header-description{
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__description {}
 }
+
